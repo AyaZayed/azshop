@@ -9,3 +9,8 @@ export const productSchema = z.object({
   images: z.array(z.string()).min(1, "Image is required"),
   category: z.enum(["men", "women", "unisex"]),
 });
+
+export const bannerSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  image: z.string().min(1, "Image is required"),
+});

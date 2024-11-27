@@ -28,6 +28,13 @@ model Product {
   category Category
 }
 
+model Banner {
+  id String @id @default(uuid())
+  title String
+  image String
+  created_at DateTime @default(now())
+}
+
 enum ProductStatus {
   draft
   published

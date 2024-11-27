@@ -27,6 +27,12 @@ import { useState } from "react";
 import { categories } from "@/app/lib/categories";
 import SubmitButton from "@/app/components/SubmitButtons";
 import { type $Enums } from "@prisma/client";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface dataTypes {
   data: {
@@ -59,13 +65,20 @@ export default function EditForm({ data }: dataTypes) {
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
       <input type="hidden" name="productId" value={data.id} />
-      <div className="flex items-center gap-4">
-        <Button size={"icon"} variant={"outline"} asChild>
-          <Link href="/dashboard/products">
-            <ChevronLeft className="w-4 h-4" />
-          </Link>
-        </Button>
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant={"outline"} size={"icon"} asChild>
+              <Link href="/dashboard/products">
+                <ChevronLeft className="w-4 h-4" />
+              </Link>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Back to Products</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <Card className="mt-8">
         <CardHeader>
           <CardTitle className="text-xl font-semibold tracking-tight">
