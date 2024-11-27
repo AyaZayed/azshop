@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -23,8 +22,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useFormState } from "react-dom";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-export default function BannerRoute() {
+export default function NewBanner() {
   const [alert, setAlert] = useState(false);
   const [image, setImage] = useState<string | undefined>(undefined);
   const [lastResult, action] = useFormState(createBanner, undefined);
@@ -42,24 +47,29 @@ export default function BannerRoute() {
 
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action}>
-      <div className="flex items-center gap-x-4">
-        <Button variant="outline" size="icon" asChild>
-          <Link href="/dashboard/products">
-            <ChevronLeft className="w-4 h-4" />
-          </Link>
-        </Button>
-        <h1 className="text-xl font-semibold tracking-tight">New Banner</h1>
-      </div>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant={"outline"} size={"icon"} asChild>
+              <Link href="/dashboard/banners">
+                <ChevronLeft className="w-4 h-4" />
+              </Link>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Back to Banners</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       <Card className="mt-5">
         <CardHeader>
           <CardTitle>Banner Details</CardTitle>
-          <CardDescription>Create your banner right here</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-y-6">
             <div className="flex flex-col gap-3">
-              <Label>Name</Label>
+              <Label>Title</Label>
               <Input
                 name={fields.title.name}
                 key={fields.title.key}

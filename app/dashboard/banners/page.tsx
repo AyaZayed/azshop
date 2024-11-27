@@ -1,24 +1,19 @@
-import { deleteProduct } from "@/app/actions";
-import SubmitButton from "@/app/components/SubmitButtons";
-import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
+  CardContent,
 } from "@/components/ui/card";
 import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-  DialogClose,
-} from "@/components/ui/dialog";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,73 +22,83 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { MoreHorizontal } from "lucide-react";
 import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-} from "@/components/ui/table";
-import { MoreHorizontal, PlusCircle } from "lucide-react";
-import Image from "next/image";
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import SubmitButton from "@/app/components/SubmitButtons";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import { deleteBanner } from "@/app/actions";
+import prisma from "@/app/lib/db";
+import Image from "next/image";
 
-export default async function ProductsPage() {
-  const products = await prisma.product.findMany({
+export default async function BannersPage() {
+  const banners = await prisma.banner.findMany({
     orderBy: {
       created_at: "desc",
     },
   });
   return (
     <>
-      <div className="flex flex-row items-center justify-end">
-        <Button asChild>
-          <Link href="/dashboard/products/new">
-            <PlusCircle className="h-8 w-8" />
-            <span>Add Product</span>
-          </Link>
-        </Button>
+      <div className="flex items-center justify-end mb-6">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button asChild className="flex gap-x-2">
+                <Link href="/dashboard/banners/new">
+                  <PlusCircle className="h-8 w-8" />
+                </Link>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Add a banner</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
-      <Card className="mt-8">
+      <Card>
         <CardHeader>
-          <CardTitle>Products</CardTitle>
-          <CardDescription>Manage your products</CardDescription>
+          <CardTitle>Banners</CardTitle>
+          <CardDescription>Manage your banners</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Image</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Date</TableHead>
+                <TableHead>Title</TableHead>
                 <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.length !== 0 &&
-                products.map((product) => (
-                  <TableRow key={product.id}>
+              {banners.length > 0 &&
+                banners.map((banner) => (
+                  <TableRow key={banner.id}>
                     <TableCell>
                       <Image
-                        alt={`${product.name} image`}
-                        src={product.images[0]}
+                        alt={`${banner.title} image`}
+                        src={banner.image}
                         height={64}
                         width={64}
                         className="rounded-md object-cover h-16 w-16"
                       />
                     </TableCell>
-                    <TableCell>{product.name}</TableCell>
-                    <TableCell>{product.status}</TableCell>
-                    <TableCell>${product.price}</TableCell>
-                    <TableCell>
-                      {new Intl.DateTimeFormat("en-UK").format(
-                        product.created_at
-                      )}
-                    </TableCell>
+                    <TableCell>{banner.title}</TableCell>
                     <TableCell className="text-end">
                       <Dialog modal={true}>
                         <DropdownMenu>
@@ -108,7 +113,7 @@ export default async function ProductsPage() {
                             <DropdownMenuItem
                               className="focus:bg-green-100"
                               asChild>
-                              <Link href={`/dashboard/products/${product.id}`}>
+                              <Link href={`/dashboard/banners/${banner.id}`}>
                                 Edit
                               </Link>
                             </DropdownMenuItem>
@@ -128,11 +133,11 @@ export default async function ProductsPage() {
                                   of its data.
                                 </DialogDescription>
                                 <DialogFooter>
-                                  <form action={deleteProduct}>
+                                  <form action={deleteBanner}>
                                     <input
                                       type="hidden"
-                                      name="productId"
-                                      value={product.id}
+                                      name="bannerId"
+                                      value={banner.id}
                                     />
                                     <SubmitButton
                                       label="Delete"

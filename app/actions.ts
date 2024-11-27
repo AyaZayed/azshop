@@ -110,5 +110,43 @@ export async function createBanner(prevState: unknown, formData: FormData) {
     },
   });
 
-  redirect("/dashboard/banner");
+  redirect("/dashboard/banners");
+}
+
+export async function editBanner(prevState: unknown, formData: FormData) {
+  auth();
+
+  const submission = parseWithZod(formData, {
+    schema: bannerSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const bannerId = formData.get("bannerId") as string;
+
+  await prisma.banner.update({
+    where: {
+      id: bannerId,
+    },
+    data: {
+      title: submission.value.title,
+      image: submission.value.image,
+    },
+  });
+
+  redirect("/dashboard/banners");
+}
+
+export async function deleteBanner(formData: FormData) {
+  auth();
+
+  await prisma.banner.delete({
+    where: {
+      id: formData.get("bannerId") as string,
+    },
+  });
+
+  revalidatePath("/dashboard/banners");
 }
