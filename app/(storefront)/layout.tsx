@@ -1,4 +1,6 @@
 import React from "react";
+import Navbar from "@/app/components/storefront/Navbar";
+import Footer from "@/app/components/storefront/Footer";
 
 export default async function StorefrontLayout({
   children,
@@ -6,8 +8,10 @@ export default async function StorefrontLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="">
+    <main className="bg-sf_background">
+      <Navbar />
       <div className="">{children}</div>
+      <Footer />
     </main>
   );
 }

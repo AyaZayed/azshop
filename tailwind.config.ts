@@ -11,7 +11,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["MaisonNeue", "sans-serif"],
+      },
       colors: {
+        sf_background: "#f6f2ed",
+        sf_primary: "hsl(20, 100%, 50%)",
+        sf_sedcondary: "#A54547",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
