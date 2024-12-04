@@ -10,7 +10,7 @@ export default async function StorefrontLayout({
   return (
     <main className="bg-sf_background">
       <Navbar />
-      <div className="">{children}</div>
+      <div>{children}</div>
       <Footer />
     </main>
   );

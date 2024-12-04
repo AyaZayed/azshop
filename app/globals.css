@@ -65,3 +65,44 @@
   font-weight: 400;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Bogart';
+  src: url('../public/fonts/Bogart/Bogart-Regular-trial.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bogart-Bold';
+  src: url('../public/fonts/Bogart/Bogart-Bold-trial.ttf') format('ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Grenette';
+  src: url('../public/fonts/Grenette/GrenettePro-Black.ttf') format('ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Grenette', sans-serif;
+  font-size: 19px;
+}
+
+::-moz-selection {
+  background-color: hsl(20, 100%, 50%);
+  color: #fff;
+}
+
+::selection {
+  background-color: hsl(20, 100%, 50%);
+  color: #fff;
+}
+
+::-moz-selection {
+  background-color: hsl(20, 100%, 50%);
+  color: #fff;
+}

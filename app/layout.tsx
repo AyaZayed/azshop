@@ -4,6 +4,27 @@ import { shopName, shopDescription } from "@/utils/constants";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
+import localFont from "next/font/local";
+
+const fontMaison = localFont({
+  src: [
+    {
+      path: "../public/fonts/Maison-Neue-Font/MaisonNeueBlack.otf",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
+});
+
+const fontBogart = localFont({
+  src: [
+    {
+      path: "../public/fonts/Bogart/Bogart-Regular-trial.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: shopName,
@@ -17,7 +38,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body
+        className={`font-normal ${fontBogart.className} ${fontMaison.className}`}>
         <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

@@ -12,7 +12,9 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["MaisonNeue", "sans-serif"],
+        sans: ["Bogart", "sans-serif"],
+        serif: ["MaisonNeue", "sans-serif"],
+        dashFont: ["Nunito", "sans-serif"],
       },
       colors: {
         sf_background: "#f6f2ed",

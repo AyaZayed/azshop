@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
+import { shopFacebook, shopInstagram } from "@/utils/constants";
 import { ArrowRight, Instagram, Facebook } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="px-4 md:px-6 lg:px-10 py-4 text-sf_sedcondary font-bold uppercase">
+    <footer className="w-full mt-12 px-4 md:px-6 lg:px-10 py-4 text-sf_sedcondary font-bold uppercase">
       <div className="footer-content flex flex-col gap-2 lg:flex-row lg:gap-8 items-center justify-between ">
         <div className="first relative flex-1 w-full md:min-w-[520px]">
-          <div className="flex top-0 left-0 justify-start items-start w-full lg:absolute -z-10">
+          <div className="flex top-0 left-0 justify-start items-start w-full lg:absolute">
             <div className="relative w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +19,7 @@ export default function Footer() {
                 className="fill-sf_sedcondary w-full">
                 <path d="M0,23.69H25.567V15.521H12.412L17.625,0H7.778Zm28.546,0H51.3V16.746H37.648V14.7h12V8.985h-12V6.943H51.3V0H28.546Zm6.536,33.493H45.177l3.475-10.62h3.971l5.792,10.62h10.26L62.3,46.155a9.4,9.4,0,0,0,6.951-9.394c0-5.719-4.138-9.8-10.177-9.8H45.011Zm16.3-18.789,1.075-3.267h5.792c1.159,0,1.9.572,1.9,1.634s-.745,1.634-1.9,1.634ZM62.469,0,75.708,45.257C78.024,53.263,80.176,58,88.615,58c6.868,0,13.736-4.656,9.681-18.462L86.8,0H76.453L89.195,43.867c.827,2.7.827,4.33-.91,4.33-1.076,0-1.655-.654-2.235-2.7L72.812,0ZM98.627,30.225H118.4c5.543,0,9.6-3.921,9.6-9.393a8.362,8.362,0,0,0-4.3-7.516A6.356,6.356,0,0,0,125.1,8.985C125.1,3.675,121.3,0,115.92,0H98.627Zm9.1-8.169V18.3h9.184a1.756,1.756,0,0,1,1.986,1.879,1.756,1.756,0,0,1-1.986,1.879Zm0-10.947V8.169h6.537a1.381,1.381,0,0,1,1.488,1.47,1.381,1.381,0,0,1-1.488,1.471Z"></path>
               </svg>
+              {/* <img src="/footer-logo.svg" alt="le rub logo" /> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"
@@ -54,10 +56,10 @@ export default function Footer() {
               </Link>
             </li>
             <li className="socials flex items-center gap-1">
-              <Link href="www.instagram.com" className="hover:text-sf_primary">
+              <Link href={shopInstagram} className="hover:text-sf_primary">
                 <Instagram />
               </Link>
-              <Link href="www.facebook.com" className="hover:text-sf_primary">
+              <Link href={shopFacebook} className="hover:text-sf_primary">
                 <Facebook />
               </Link>
             </li>
@@ -70,7 +72,7 @@ export default function Footer() {
           </video>
         </div>
       </div>
-      <div className="copyright capitalize font-normal py-2">
+      <div className="copyright capitalize font-normal py-2 font-serif">
         <p>Le Rub &copy; 2024 - All rights reserved</p>
       </div>
     </footer>

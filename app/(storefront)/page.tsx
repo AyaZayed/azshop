@@ -1,3 +1,13 @@
+import BetterSunCare from "../components/storefront/BetterSunCare";
+import Hero from "../components/storefront/Hero";
+import Sunshine from "../components/storefront/Sunshine";
+
 export default function Home() {
-  return <div>home</div>;
+  return (
+    <div className="min-h-screen">
+      <Hero />
+      <Sunshine />
+      <BetterSunCare />
+    </div>
+  );
 }
