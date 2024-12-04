@@ -16,6 +16,9 @@ const config: Config = {
         serif: ["MaisonNeue", "sans-serif"],
         dashFont: ["Nunito", "sans-serif"],
       },
+      textColor: {
+        DEFAULT: "#A54547",
+      },
       colors: {
         sf_background: "#f6f2ed",
         sf_primary: "hsl(20, 100%, 50%)",

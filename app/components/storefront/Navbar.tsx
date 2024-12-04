@@ -23,6 +23,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { shopName } from "@/utils/constants";
 
 export default async function Navbar() {
   const { getUser } = getKindeServerSession();
@@ -33,7 +34,7 @@ export default async function Navbar() {
         <Link href="/">
           <img
             src="/logo.svg"
-            alt="le rub logo"
+            alt={`${shopName} logo`}
             width={128.134}
             height={58.436}
           />

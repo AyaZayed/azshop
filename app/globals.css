@@ -4,6 +4,9 @@
 
 @layer base {
   :root {
+    --sf_background: #f6f2ed;
+    --sf_primary: hsl(20, 100%, 50%);
+    --sf_sedcondary: #a54547;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -67,29 +70,30 @@
 }
 
 @font-face {
-  font-family: 'Bogart';
-  src: url('../public/fonts/Bogart/Bogart-Regular-trial.ttf') format('ttf');
+  font-family: "Bogart";
+  src: url("../public/fonts/Bogart/Bogart-Regular-trial.ttf") format("ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Bogart-Bold';
-  src: url('../public/fonts/Bogart/Bogart-Bold-trial.ttf') format('ttf');
+  font-family: "Bogart-Bold";
+  src: url("../public/fonts/Bogart/Bogart-Bold-trial.ttf") format("ttf");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Grenette';
-  src: url('../public/fonts/Grenette/GrenettePro-Black.ttf') format('ttf');
+  font-family: "Grenette";
+  src: url("../public/fonts/Grenette/GrenettePro-Black.ttf") format("ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 body {
-  font-family: 'Grenette', sans-serif;
   font-size: 19px;
+  color: var(--sf_sedcondary);
+  line-height: 1.5rem;
 }
 
 ::-moz-selection {
