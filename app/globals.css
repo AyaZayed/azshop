@@ -105,8 +105,3 @@ body {
   background-color: hsl(20, 100%, 50%);
   color: #fff;
 }
-
-::-moz-selection {
-  background-color: hsl(20, 100%, 50%);
-  color: #fff;
-}

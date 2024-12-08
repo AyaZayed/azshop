@@ -28,6 +28,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+} from "@/components/ui/select";
+import { locations } from "../lib/locations";
 
 interface dataTypes {
   data: {
@@ -87,6 +95,26 @@ export default function EditBannerForm({ data }: dataTypes) {
                 placeholder="Banner title"
               />
               <p className="text-red-500">{fields.title.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="status">Location</Label>
+              <Select
+                key={fields.location.key}
+                name={fields.location.name}
+                defaultValue={fields.location.initialValue}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a location" />
+                </SelectTrigger>
+                <SelectContent>
+                  {locations.map((c) => (
+                    <SelectItem key={c.id} value={c.name}>
+                      {c.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-red-500">{fields.location.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">

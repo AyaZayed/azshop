@@ -28,6 +28,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { locations } from "@/app/lib/locations";
 
 export default function NewBanner() {
   const [alert, setAlert] = useState(false);
@@ -78,6 +86,26 @@ export default function NewBanner() {
                 placeholder="Create title for Banner"
               />
               <p className="text-red-500">{fields.title.errors}</p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Label htmlFor="status">Location</Label>
+              <Select
+                key={fields.location.key}
+                name={fields.location.name}
+                defaultValue={fields.location.initialValue}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a location" />
+                </SelectTrigger>
+                <SelectContent>
+                  {locations.map((c) => (
+                    <SelectItem key={c.id} value={c.name}>
+                      {c.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <p className="text-sm text-red-500">{fields.location.errors}</p>
             </div>
 
             <div className="flex flex-col gap-3">

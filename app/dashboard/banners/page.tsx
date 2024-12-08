@@ -82,6 +82,7 @@ export default async function BannersPage() {
               <TableRow>
                 <TableHead>Image</TableHead>
                 <TableHead>Title</TableHead>
+                <TableHead>Location</TableHead>
                 <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
@@ -99,6 +100,7 @@ export default async function BannersPage() {
                       />
                     </TableCell>
                     <TableCell>{banner.title}</TableCell>
+                    <TableCell>{banner.location}</TableCell>
                     <TableCell className="text-end">
                       <Dialog modal={true}>
                         <DropdownMenu>

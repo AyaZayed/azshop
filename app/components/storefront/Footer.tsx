@@ -32,7 +32,7 @@ export default function Footer() {
               </svg>
             </div>
           </div>
-          <ul className="z-20 my-8 lg:mt-40 flex flex-col gap-2">
+          <ul className="z-30 my-8 lg:mt-40 flex flex-col gap-2">
             <li>
               <Link
                 href="/faq"

@@ -69,7 +69,9 @@ export default async function Navbar() {
           <>
             <Link href="/cart" className="relative">
               <ShoppingBag className="w-6 h-6" />
-              <span className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full w-4 h-4 p-1 flex items-center justify-center">
+              <span
+                className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
+              w-4 h-4 p-2 flex items-center justify-center text-xs">
                 5
               </span>
             </Link>

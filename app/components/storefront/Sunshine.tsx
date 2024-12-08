@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Sunshine() {
   return (
-    <section className="text-sf_sedcondary p-10 md:p-10 flex items-center flex-col justify-center">
+    <section className="text-sf_sedcondary p-16 flex items-center flex-col justify-center">
       <div className="content w-full md:w-1/2 text-center flex items-center flex-col gap-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"

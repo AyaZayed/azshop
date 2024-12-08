@@ -15,6 +15,7 @@ const config: Config = {
         sans: ["Bogart", "sans-serif"],
         serif: ["MaisonNeue", "sans-serif"],
         dashFont: ["Nunito", "sans-serif"],
+        grenette: ["Grenette", "sans-serif"],
       },
       textColor: {
         DEFAULT: "#A54547",

@@ -1,8 +1,14 @@
+import prisma from "@/app/lib/db";
 import { shopName } from "@/utils/constants";
 import Image from "next/image";
 import React from "react";
 
-export default function page() {
+export default async function page() {
+  const banners = await prisma.banner.findMany({
+    where: {
+      location: "about",
+    },
+  });
   return (
     <>
       <section className="flex justify-center items-center pt-36 pb-20 p-4 text-center">
@@ -38,8 +44,8 @@ export default function page() {
       <section className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative w-full h-screen">
           <Image
-            src="/ABOUT-beach.webp"
-            alt="blue beach"
+            src={`${banners[0].image}`}
+            alt={`${banners[0].title}`}
             fill
             className="object-cover"
           />

@@ -3,11 +3,28 @@ import { shopName } from "@/utils/constants";
 import Image from "next/image";
 import React from "react";
 
-export default function Hero({ banners }: []) {
+interface Banners {
+  banners: [
+    {
+      id: string;
+      title: string;
+      image: string;
+      created_at: Date;
+      location: Location;
+    }
+  ];
+}
+
+export default function Hero({ banners }: Banners) {
   return (
     <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">
       <div className="hidden md:block md:order-1 w-full h-screen relative">
-        <Image src="/hero-gif.webp" alt="hero" fill className="object-cover" />
+        <Image
+          src="/hero-gif.webp"
+          alt={`${"hero"}`}
+          fill
+          className="object-cover"
+        />
       </div>
       <div className="md:order-2 relative w-full h-screen text-sf_background">
         <Image
