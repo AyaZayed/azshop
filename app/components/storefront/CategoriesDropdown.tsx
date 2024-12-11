@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { categories } from "@/app/lib/categories";
 
-export default async function CategoriesDropdown() {
+export default function CategoriesDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

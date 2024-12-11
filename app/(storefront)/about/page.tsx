@@ -3,7 +3,7 @@ import { shopName } from "@/utils/constants";
 import Image from "next/image";
 import React from "react";
 
-export default async function page() {
+export default async function AboutPage() {
   const banners = await prisma.banner.findMany({
     where: {
       location: "about",

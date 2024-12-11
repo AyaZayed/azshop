@@ -12,7 +12,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Bogart", "sans-serif"],
+        sans: ["Grenette", "sans-serif"],
         serif: ["MaisonNeue", "sans-serif"],
         dashFont: ["Nunito", "sans-serif"],
         grenette: ["Grenette", "sans-serif"],

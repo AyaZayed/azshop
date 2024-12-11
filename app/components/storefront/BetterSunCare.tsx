@@ -1,7 +1,13 @@
 import Image from "next/image";
 import React from "react";
 
-export default function BetterSunCare() {
+type Banners = {
+  id: string;
+  title: string;
+  image: string;
+}[];
+
+export default function BetterSunCare({ banners }: { banners: Banners }) {
   return (
     <section className="w-full h-screen relative">
       <Image

@@ -10,6 +10,11 @@ export default async function Landing() {
     where: {
       location: "landing",
     },
+    select: {
+      id: true,
+      title: true,
+      image: true,
+    },
   });
 
   return (
