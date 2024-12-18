@@ -1,3 +1,9 @@
+import {
+  freeShipping,
+  giftEarnBack,
+  giftValue,
+  orderDispatch,
+} from "@/utils/constants";
 import Image from "next/image";
 import React from "react";
 
@@ -13,22 +19,23 @@ export default function Encouragements() {
         <Image src="/star.png" alt="sea star" width={50} height={50} />
         <h3 className="font-bold mt-8 capitalize">Free Shipping</h3>
         <p>
-          on all orders above €<span className="font-dashFont">50</span>
+          on all orders above{" "}
+          <span className="font-secondary">€{freeShipping}</span>
         </p>
       </div>
       <div className="flex flex-col items-center">
         <Image src="/boat.png" alt="boat" width={50} height={50} />
         <h3 className="font-bold mt-8 capitalize">Fast Delivery</h3>
         <p>
-          orders dispatched within <span className="font-dashFont">1</span>{" "}
-          business day
+          orders dispatched within{" "}
+          <span className="font-secondary">{orderDispatch}</span> business day
         </p>
       </div>
       <div className="flex flex-col items-center">
         <Image src="/seahorses.webp" alt="seahorses" width={50} height={50} />
         <h3 className="font-bold mt-8 capitalize">
-          Give €<span className="font-dashFont">10</span>, Earn €
-          <span className="font-dashFont">10</span>
+          Give <span className="font-secondary">€{giftValue}</span>, Earn{" "}
+          <span className="font-secondary">€{giftEarnBack}</span>
         </h3>
         <p>with every friend your refer</p>
       </div>

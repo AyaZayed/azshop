@@ -19,10 +19,6 @@ import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
-import { UploadDropzone } from "@/app/lib/uploadthing";
-import { Alert, AlertTitle } from "@/components/ui/alert";
-import { Check, XCircle, XIcon } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { categories } from "@/app/lib/categories";
 import SubmitButton from "@/app/components/SubmitButtons";
@@ -32,9 +28,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import ImageUploadWidget from "@/app/components/ImageUploadWidget";
+// import ImageUploadWidget from "@/app/components/ImageUploadWidget";
 
 export default function NewProduct() {
-  const [alert, setAlert] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
 
@@ -48,6 +45,7 @@ export default function NewProduct() {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+
   return (
     <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
       <TooltipProvider>
@@ -159,69 +157,11 @@ export default function NewProduct() {
               <p className="text-sm text-red-500">{fields.category.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="upload">Images</Label>
-              <input
-                type="hidden"
-                value={images}
-                key={fields.images.key}
-                name={fields.images.name}
-                defaultValue={
-                  fields.images.initialValue as [string, ...string[]]
-                }
+              <ImageUploadWidget
+                images={images}
+                setImages={setImages}
+                fieldsImages={fields.images}
               />
-              {images.length > 0 ? (
-                <div className="flex gap-5">
-                  {images.map((image, index) => (
-                    <div className="relative w-[100px] h-[100px]" key={index}>
-                      <Image
-                        src={image}
-                        alt="Product image"
-                        width={100}
-                        height={100}
-                        className="object-cover border lg:rounded"
-                      />
-                      <button
-                        type="button"
-                        className="absolute top-[-5px] right-[-5px] bg-red-500 rounded-full p-1"
-                        onClick={() => {
-                          setImages(images.filter((_, i) => i !== index));
-                        }}>
-                        <XIcon className="h-3 w-3 text-white" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <UploadDropzone
-                    className="ut-button:bg-primary text-primary ut-label:hover:text-primary ut-label:hover:font-bold"
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      setImages(res.map((file) => file?.url));
-                      setAlert(true);
-                    }}
-                    onUploadError={() => {
-                      setAlert(false);
-                    }}
-                  />
-                  <p className="text-sm text-red-500">{fields.images.errors}</p>
-                </>
-              )}
-              {alert && (
-                <Alert className="w-full">
-                  {alert ? (
-                    <>
-                      <Check className="h-5 w-5 stroke-green-500" />
-                      <AlertTitle>Upload Complete</AlertTitle>
-                    </>
-                  ) : (
-                    <>
-                      <XCircle className="h-5 w-5 stroke-red-500" />
-                      <AlertTitle>Upload Failed</AlertTitle>
-                    </>
-                  )}
-                </Alert>
-              )}
             </div>
 
             <SubmitButton variant="default" label="Create Product" />

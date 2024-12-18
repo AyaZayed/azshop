@@ -7,6 +7,11 @@
     --sf_background: #f6f2ed;
     --sf_primary: hsl(20, 100%, 50%);
     --sf_sedcondary: #a54547;
+    --font-primary: "fontBogart", sans-serif;
+    --font-secondary: "fontMaison", sans-serif;
+    --font-nunito: "fontNunito", sans-serif;
+    --font-averia: "fontAveria", sans-serif;
+    --font-optidutch: "fontOPTIDutch", sans-serif;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -62,38 +67,30 @@
   }
 }
 
-@font-face {
-  font-family: "MaisonNeue";
-  src: url("/fonts/Maison-Neue-Font/MaisonNeueBlack.otf") format("otf");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Bogart";
-  src: url("../public/fonts/Bogart/Bogart-Medium-trial.ttf") format("ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Bogart-Bold";
-  src: url("../public/fonts/Bogart/Bogart-Bold-trial.ttf") format("ttf");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Grenette";
-  src: url("../public/fonts/Grenette/GrenettePro-Black.ttf") format("ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
 body {
   font-size: 15px;
   color: var(--sf_sedcondary);
   line-height: 1.5rem;
+}
+
+.font-primary {
+  font-family: var(--font-primary);
+}
+
+.font-secondary {
+  font-family: var(--font-secondary);
+}
+
+.font-nunito {
+  font-family: var(--font-nunito);
+}
+
+.font-averia {
+  font-family: var(--font-averia);
+}
+
+.font-optidutch {
+  font-family: var(--font-optidutch);
 }
 
 h1 {
@@ -105,6 +102,7 @@ h1 {
   body {
     font-size: 19px;
   }
+
   h1 {
     font-size: 60px;
   }

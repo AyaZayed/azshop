@@ -49,7 +49,7 @@ export default function DashboardHeader() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="icon" className="rounded-full">
-            <CircleUser className="h-6 w-6" />
+            <CircleUser className="h-6 w-6 text-primary" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">

@@ -17,7 +17,7 @@ export default function CategoriesDropdown() {
           Categories <ChevronDown className="w-5" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="font-serif">
+      <DropdownMenuContent className="font-secondary">
         {categories.map((category) => (
           <DropdownMenuItem key={category.id} className="capitalize ">
             <Link

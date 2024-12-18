@@ -11,12 +11,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ["Grenette", "sans-serif"],
-        serif: ["MaisonNeue", "sans-serif"],
-        dashFont: ["Nunito", "sans-serif"],
-        grenette: ["Grenette", "sans-serif"],
-      },
       textColor: {
         DEFAULT: "#A54547",
       },

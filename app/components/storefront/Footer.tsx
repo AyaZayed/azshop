@@ -71,7 +71,7 @@ export default function Footer() {
           </video>
         </div>
       </div>
-      <div className="copyright capitalize font-normal py-2 font-serif">
+      <div className="copyright capitalize font-normal py-2 font-secondary">
         <p>{shopName} &copy; 2024 - All rights reserved</p>
       </div>
     </footer>

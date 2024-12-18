@@ -36,7 +36,7 @@ export default function Hero({ banners }: { banners: Banners }) {
             radiant.
           </p>
           <Button
-            className="mt-6 uppercase font-serif font-bold bg-sf_background text-sf_primary p-4 border-[1px] rounded-none
+            className="mt-6 uppercase font-secondary font-bold bg-sf_background text-sf_primary p-4 border-[1px] rounded-none
            border-sf_primary hover:bg-sf_primary hover:text-sf_background transition-all ease-in-out ">
             Shop Now
           </Button>

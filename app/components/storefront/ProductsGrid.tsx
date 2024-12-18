@@ -14,7 +14,11 @@ export default function ProductsGrid({ data }: { data: Data }) {
   return (
     <>
       {products.length > 0 &&
-        products.map((product) => <div key={product.id}>{product.name}</div>)}
+        products.map((product) => (
+          <div key={product.id} className="font-secondary font-extralight">
+            {product.name}
+          </div>
+        ))}
     </>
   );
 }
