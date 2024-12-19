@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/card";
 import {
   Dialog,
-  DialogTrigger,
+  DialogClose,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-  DialogClose,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -69,6 +69,7 @@ export default async function ProductsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead>Price</TableHead>
+                <TableHead>Category</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead className="text-end">Actions</TableHead>
               </TableRow>
@@ -89,6 +90,7 @@ export default async function ProductsPage() {
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{product.status}</TableCell>
                     <TableCell>${product.price}</TableCell>
+                    <TableCell>{product.category}</TableCell>
                     <TableCell>
                       {new Intl.DateTimeFormat("en-UK").format(
                         product.created_at

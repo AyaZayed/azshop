@@ -4,13 +4,7 @@ import { shopName, shopDescription } from "@/utils/constants";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
-import {
-  fontBogart,
-  fontAveria,
-  fontNunito,
-  fontMaison,
-  fontOPTIDutch,
-} from "./fonts";
+import { fontBogart, fontNunito, fontRubik } from "./fonts";
 
 export const metadata: Metadata = {
   title: shopName,
@@ -25,7 +19,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontBogart.variable} ${fontAveria.variable} ${fontNunito.variable} ${fontMaison.variable} ${fontOPTIDutch.variable}`}>
+      className={`${fontBogart.variable} ${fontNunito.variable} ${fontRubik.variable}`}>
       <body className="font-primary">
         <NextSSRPlugin
           /**

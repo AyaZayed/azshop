@@ -15,11 +15,12 @@ model User {
   lastName String
   profileImage String
   created_at DateTime @default(now())
+  reviews Review[]
 }
 
 model Product {
   id String @id @default(uuid())
-  name String
+  name String @unique
   description String
   price Float
   status ProductStatus
@@ -27,6 +28,24 @@ model Product {
   images String[]
   created_at DateTime @default(now())
   category Category
+  reviews Review[]
+  reviewsCount Int @default(0)
+  overallRating Float? @default(0)
+}
+
+model Review{
+  id String @id @default(uuid())
+  headline String
+  content String
+  rating Int 
+  created_at DateTime @default(now())
+
+  productId String
+  userId String
+  product Product @relation(fields: [productId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([productId,userId])
 }
 
 model Banner {

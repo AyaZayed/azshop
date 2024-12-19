@@ -62,6 +62,7 @@ export default async function BannersPage() {
               <Button asChild className="flex gap-x-2">
                 <Link href="/dashboard/banners/new">
                   <PlusCircle className="h-8 w-8" />
+                  Add Banner
                 </Link>
               </Button>
             </TooltipTrigger>

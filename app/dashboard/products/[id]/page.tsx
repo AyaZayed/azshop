@@ -1,8 +1,7 @@
-import EditForm from "@/app/components/EditForm";
+import EditProductForm from "@/app/components/EditProductForm";
 import prisma from "@/app/lib/db";
 import { notFound } from "next/navigation";
 import React from "react";
-
 export default async function EditProduct({
   params,
 }: {
@@ -17,5 +16,5 @@ export default async function EditProduct({
   if (!data) {
     return notFound();
   }
-  return <EditForm data={data} />;
+  return <EditProductForm data={data} />;
 }

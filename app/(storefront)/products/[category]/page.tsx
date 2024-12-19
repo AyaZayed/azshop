@@ -28,9 +28,5 @@ export default async function ProductCategory({
 }) {
   unstable_noStore();
   const data = await getProducts(params.category);
-  return (
-    <>
-      <ProductsGrid data={data} />
-    </>
-  );
+  return <ProductsGrid data={data} />;
 }

@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 /* eslint-disable @next/next/no-img-element */
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,34 +8,40 @@ import Image from "next/image";
 import { useState } from "react";
 
 type ImageUploadWidgetProps = {
-  images: string[];
-  setImages: (images: string[]) => void;
+  images: string[] | string; // Can be a single string or an array
+  setImages: (images: string[] | string) => void;
   fieldsImages: {
     key: string;
     name: string;
-    initialValue: [string, ...string[]];
-    errors: string[];
+    initialValue: string | (string | undefined)[] | undefined;
+    errors: string[] | undefined;
   };
+  multiple?: boolean; // Optional prop to toggle between single and multiple image upload
 };
+
 export default function ImageUploadWidget({
   images,
   setImages,
   fieldsImages,
+  multiple = true, // Default to multiple images
 }: ImageUploadWidgetProps) {
-  const [localPreviews, setLocalPreviews] = useState<string[]>([]);
-  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+  const [localPreviews, setLocalPreviews] = useState<string[]>(
+    multiple
+      ? Array.isArray(images)
+        ? images
+        : []
+      : [typeof images === "string" ? images : ""]
+  );
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
 
-    // Generate previews
     const previews = Array.from(files).map((file) => URL.createObjectURL(file));
-    setLocalPreviews(previews);
+    const uploadedUrls: string[] = [];
 
     // Upload to Cloudinary
-    const uploadedUrls = [];
-    for (const file of files) {
+    for (const file of Array.from(files)) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "le rub product");
@@ -43,50 +50,69 @@ export default function ImageUploadWidget({
         `https://api.cloudinary.com/v1_1/dijc5luus/image/upload`,
         { method: "POST", body: formData }
       );
-
       const data = await response.json();
       uploadedUrls.push(data.secure_url);
     }
 
-    setUploadedImages(uploadedUrls); // Permanent Cloudinary links
-    setImages([...images, ...uploadedUrls]);
+    // Update state based on mode (single or multiple)
+    if (multiple) {
+      setLocalPreviews([...localPreviews, ...previews]);
+      setImages([...(Array.isArray(images) ? images : []), ...uploadedUrls]);
+    } else {
+      setLocalPreviews([previews[0]]);
+      setImages(uploadedUrls[0]); // Only store the first uploaded URL
+    }
   };
 
   const handleRemoveImage = (index: number) => {
-    const updatedImages = images.filter((_, i) => i !== index);
-    setLocalPreviews(updatedImages);
-    setImages(updatedImages); // Update the parent state
+    if (multiple) {
+      const updatedImages = (Array.isArray(images) ? images : []).filter(
+        (_, i) => i !== index
+      );
+      setLocalPreviews(updatedImages);
+      setImages(updatedImages);
+    } else {
+      setLocalPreviews([]);
+      setImages("");
+    }
   };
 
   return (
     <>
-      <Label htmlFor="upload">Images</Label>
+      <Label htmlFor="upload">{multiple ? "Images" : "Image"}</Label>
       <input
         type="hidden"
-        value={images}
+        value={Array.isArray(images) ? images.join(",") : images}
         key={fieldsImages.key}
         name={fieldsImages.name}
-        defaultValue={fieldsImages.initialValue as [string, ...string[]]}
+        defaultValue={
+          Array.isArray(fieldsImages.initialValue)
+            ? fieldsImages.initialValue.join(",")
+            : (fieldsImages.initialValue as string)
+        }
       />
-      <Input type="file" multiple onChange={handleFileChange} id="upload" />
+      <Input
+        type="file"
+        multiple={multiple}
+        onChange={handleFileChange}
+        id="upload"
+      />
       {localPreviews.length > 0 && (
-        <div className="flex gap-2 relative h-[100px] w-[100px]">
+        <div className={`mt-2 flex ${multiple ? "gap-4" : ""}`}>
           {localPreviews.map((url, index) => (
-            <div key={index}>
+            <div key={index} className={`relative w-[100px] h-[100px]`}>
               <Image
                 src={url}
-                alt="product image"
+                alt="Uploaded image"
                 className="rounded-md object-cover"
                 layout="fill"
               />
-              <button
-                type="button"
-                className="absolute top-[-5px] right-[-5px] bg-red-500 rounded-full p-1"
-                onClick={() => {
-                  handleRemoveImage(index);
-                }}>
+              <Button
+                className="absolute w-fit h-fit top-[-5px] right-[-5px] bg-red-500 rounded-full p-1"
+                size={"icon"}
+                onClick={() => handleRemoveImage(index)}>
                 <XIcon className="h-3 w-3 text-white" />
-              </button>
+              </Button>
             </div>
           ))}
         </div>

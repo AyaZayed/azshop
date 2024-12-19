@@ -8,10 +8,8 @@
     --sf_primary: hsl(20, 100%, 50%);
     --sf_sedcondary: #a54547;
     --font-primary: "fontBogart", sans-serif;
-    --font-secondary: "fontMaison", sans-serif;
+    --font-secondary: "fontRubik", sans-serif;
     --font-nunito: "fontNunito", sans-serif;
-    --font-averia: "fontAveria", sans-serif;
-    --font-optidutch: "fontOPTIDutch", sans-serif;
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
@@ -83,14 +81,6 @@ body {
 
 .font-nunito {
   font-family: var(--font-nunito);
-}
-
-.font-averia {
-  font-family: var(--font-averia);
-}
-
-.font-optidutch {
-  font-family: var(--font-optidutch);
 }
 
 h1 {

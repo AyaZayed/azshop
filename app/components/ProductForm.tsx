@@ -1,5 +1,4 @@
-"use client";
-import { editProduct } from "@/app/actions";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,24 +14,65 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { useFormState } from "react-dom";
-import { useForm } from "@conform-to/react";
-import { parseWithZod } from "@conform-to/zod";
-import { productSchema } from "@/app/lib/zodSchemas";
-import { useState } from "react";
 import { categories } from "@/app/lib/categories";
 import SubmitButton from "@/app/components/SubmitButtons";
-import { type $Enums } from "@prisma/client";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ImageUploadWidget from "./ImageUploadWidget";
+import ImageUploadWidget from "@/app/components/ImageUploadWidget";
+import { type $Enums } from "@prisma/client";
 
-interface dataTypes {
-  data: {
+type productFormProps = {
+  images: string[];
+  setImages: (images: string[]) => void;
+  fields: {
+    name: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    description: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    price: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    status: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    isFeatured: {
+      key: string;
+      name: string;
+      initialValue: boolean | undefined;
+      errors: string[] | undefined;
+    };
+    category: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    images: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+  };
+  data?: {
     id: string;
     name: string;
     description: string;
@@ -42,25 +82,18 @@ interface dataTypes {
     images: string[];
     category: $Enums.Category;
   };
-}
+  header: string;
+};
 
-export default function EditForm({ data }: dataTypes) {
-  const [images, setImages] = useState<string[]>(data.images);
-  const [lastResult, action] = useFormState(editProduct, undefined);
-
-  const [form, fields] = useForm({
-    lastResult,
-    onValidate({ formData }) {
-      return parseWithZod(formData, {
-        schema: productSchema,
-      });
-    },
-    shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
-  });
+export default function ProductForm({
+  images,
+  setImages,
+  fields,
+  data,
+  header,
+}: productFormProps) {
   return (
-    <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
-      <input type="hidden" name="productId" value={data.id} />
+    <>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -78,7 +111,7 @@ export default function EditForm({ data }: dataTypes) {
       <Card className="mt-8">
         <CardHeader>
           <CardTitle className="text-xl font-semibold tracking-tight">
-            Edit Product
+            {header}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -90,7 +123,7 @@ export default function EditForm({ data }: dataTypes) {
                 id="name"
                 key={fields.name.key}
                 name={fields.name.name}
-                defaultValue={data.name}
+                defaultValue={(data && data.name) || fields.name.initialValue}
                 placeholder="Product Name"
                 className="w-full"
               />
@@ -104,7 +137,9 @@ export default function EditForm({ data }: dataTypes) {
                 className="w-full"
                 key={fields.description.key}
                 name={fields.description.name}
-                defaultValue={data.description}
+                defaultValue={
+                  (data && data.description) || fields.description.initialValue
+                }
               />
               <p className="text-sm text-red-500">
                 {fields.description.errors}
@@ -119,7 +154,7 @@ export default function EditForm({ data }: dataTypes) {
                 className="w-full"
                 key={fields.price.key}
                 name={fields.price.name}
-                defaultValue={data.price}
+                defaultValue={(data && data.price) || fields.price.initialValue}
               />
               <p className="text-sm text-red-500">{fields.price.errors}</p>
             </div>
@@ -129,7 +164,9 @@ export default function EditForm({ data }: dataTypes) {
                 id="isFeatured"
                 key={fields.isFeatured.key}
                 name={fields.isFeatured.name}
-                defaultChecked={data.isFeatured}
+                checked={
+                  (data && data.isFeatured) || fields.isFeatured.initialValue
+                }
               />
               <p className="text-sm text-red-500">{fields.isFeatured.errors}</p>
             </div>
@@ -138,7 +175,9 @@ export default function EditForm({ data }: dataTypes) {
               <Select
                 key={fields.status.key}
                 name={fields.status.name}
-                defaultValue={data.status}>
+                defaultValue={
+                  (data && data.status) || fields.status.initialValue
+                }>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a status" />
                 </SelectTrigger>
@@ -155,7 +194,9 @@ export default function EditForm({ data }: dataTypes) {
               <Select
                 key={fields.category.key}
                 name={fields.category.name}
-                defaultValue={data.category}>
+                defaultValue={
+                  (data && data.category) || fields.category.initialValue
+                }>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
@@ -173,14 +214,19 @@ export default function EditForm({ data }: dataTypes) {
               <ImageUploadWidget
                 images={images}
                 setImages={setImages}
-                fieldsImages={fields.images}
+                fieldsImages={{
+                  key: fields.images.key as string,
+                  name: fields.images.name,
+                  initialValue:
+                    (data && data.images) || fields.images.initialValue,
+                  errors: fields.images.errors,
+                }}
               />
             </div>
-
-            <SubmitButton variant="default" label="Edit Product" />
+            <SubmitButton variant="default" label="Submit" />
           </div>
         </CardContent>
       </Card>
-    </form>
+    </>
   );
 }

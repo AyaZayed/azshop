@@ -29,7 +29,7 @@ export default async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   return (
-    <header className="font-secondary fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-10 bg-transparent">
+    <header className="font-secondary font-[500] fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-10 bg-transparent">
       <div className="logo order-2 md:order-1">
         <Link href="/">
           <img
