@@ -40,8 +40,20 @@ export default function ImageUploadWidget({
     const previews = Array.from(files).map((file) => URL.createObjectURL(file));
     const uploadedUrls: string[] = [];
 
+    const allowedFormats = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "image/jpg",
+    ];
+
+    const validFiles = Array.from(files).filter((file) =>
+      allowedFormats.includes(file.type)
+    );
+
     // Upload to Cloudinary
-    for (const file of Array.from(files)) {
+    for (const file of Array.from(validFiles)) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "le rub product");

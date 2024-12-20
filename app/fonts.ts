@@ -4,7 +4,7 @@ import { Rubik } from "next/font/google";
 
 export const fontNunito = Nunito({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500"],
   variable: "--font-nunito",
 });
 
@@ -21,6 +21,6 @@ export const fontBogart = localFont({
 
 export const fontRubik = Rubik({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   variable: "--font-secondary",
 });

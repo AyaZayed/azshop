@@ -28,7 +28,7 @@ export default function NavLinks() {
         <Link
           key={link.href}
           href={link.href}
-          className={`hover:border-[1px] border-sf_primary py-2 px-4 ${
+          className={`hover:border-[1px] hover:bg-sf_background border-sf_primary py-2 px-4 ${
             pathname === link.href && pathname !== "/" && "border-[1px]"
           }`}>
           {link.label}

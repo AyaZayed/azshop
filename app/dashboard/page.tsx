@@ -16,7 +16,7 @@ export default async function DashboardPage() {
     <>
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between font-bold">
+          <CardHeader className="flex flex-row items-center justify-between font-[500]">
             <CardTitle>Total Revenue</CardTitle>
             <DollarSign className="w-4 h-4 text-green-500" />
           </CardHeader>
