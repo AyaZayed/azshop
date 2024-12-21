@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
 import MobileDetect from "mobile-detect";
+import ReviewsStars from "./ReviewsStars";
 
 type Product = {
   id: string;
@@ -86,6 +87,10 @@ export default function ProductCard({ product }: { product: Product }) {
           </>
         )}
       </p>
+      <div className="flex gap-2 items-center text-base">
+        <ReviewsStars rating={4.7} starSize={16} />
+        <span>{10} reviews</span>
+      </div>
     </Link>
   );
 }

@@ -7,6 +7,7 @@
     --sf_background: #f6f2ed;
     --sf_primary: hsl(20, 100%, 50%);
     --sf_sedcondary: #a54547;
+    --sf_sedcondary_opaque: #a545471a;
     --font-primary: "fontBogart", sans-serif;
     --font-secondary: "fontRubik", sans-serif;
     --font-nunito: "fontNunito", sans-serif;

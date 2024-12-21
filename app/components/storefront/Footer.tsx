@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="w-full mt-12 px-4 md:px-6 lg:px-10 py-4 text-sf_sedcondary font-bold uppercase">
+    <footer className="w-full mt-24 px-4 md:px-6 lg:px-10 py-4 text-sf_sedcondary font-bold uppercase">
       <div className="footer-content flex flex-col gap-2 lg:flex-row lg:gap-8 items-center justify-between ">
         <div className="first relative flex-1 w-full md:min-w-[520px]">
           <div className="flex top-0 left-0 justify-start items-start w-full lg:absolute">
