@@ -8,3 +8,6 @@ export const freeShipping = 100;
 export const orderDispatch = 1;
 export const giftValue = 10;
 export const giftEarnBack = 10;
+export const currency = "£";
+export const loginLink =
+  "https://azshop.kinde.com/auth/cx/_:nav&m:login&psid:01939005172ea62adad5cce9f18e5f75";

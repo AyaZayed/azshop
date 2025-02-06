@@ -24,6 +24,8 @@ import {
 } from "@/components/ui/tooltip";
 import ImageUploadWidget from "@/app/components/ImageUploadWidget";
 import { type $Enums } from "@prisma/client";
+import { currency } from "@/utils/constants";
+import { productTypes } from "../lib/productTypes";
 
 type productFormProps = {
   images: string[];
@@ -71,6 +73,36 @@ type productFormProps = {
       initialValue: string | undefined;
       errors: string[] | undefined;
     };
+    ingredients: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    how_to: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    scent: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    size: {
+      key: number;
+      name: string;
+      initialValue: number | undefined;
+      errors: string[] | undefined;
+    };
+    type: {
+      key: string;
+      name: string;
+      initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
   };
   data?: {
     id: string;
@@ -81,6 +113,11 @@ type productFormProps = {
     isFeatured: boolean;
     images: string[];
     category: $Enums.Category;
+    ingredients: string;
+    how_to: string;
+    scent: string;
+    size: number;
+    type: "face" | "body" | "both" | "other";
   };
   header: string;
 };
@@ -116,18 +153,35 @@ export default function ProductForm({
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                key={fields.name.key}
-                name={fields.name.name}
-                defaultValue={(data && data.name) || fields.name.initialValue}
-                placeholder="Product Name"
-                className="w-full"
-              />
-              <p className="text-sm text-red-500">{fields.name.errors}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  type="text"
+                  id="name"
+                  key={fields.name.key}
+                  name={fields.name.name}
+                  defaultValue={(data && data.name) || fields.name.initialValue}
+                  placeholder="Product Name"
+                  className="w-full"
+                />
+                <p className="text-sm text-red-500">{fields.name.errors}</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="price">Price</Label>
+                <Input
+                  type="number"
+                  id="price"
+                  placeholder={`${currency}55`}
+                  className="w-full"
+                  key={fields.price.key}
+                  name={fields.price.name}
+                  defaultValue={
+                    (data && data.price) || fields.price.initialValue
+                  }
+                />
+                <p className="text-sm text-red-500">{fields.price.errors}</p>
+              </div>
             </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="desc">Description</Label>
@@ -145,19 +199,7 @@ export default function ProductForm({
                 {fields.description.errors}
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="price">Price</Label>
-              <Input
-                type="number"
-                id="price"
-                placeholder="$55"
-                className="w-full"
-                key={fields.price.key}
-                name={fields.price.name}
-                defaultValue={(data && data.price) || fields.price.initialValue}
-              />
-              <p className="text-sm text-red-500">{fields.price.errors}</p>
-            </div>
+
             <div className="flex flex-col gap-3">
               <Label htmlFor="isFeatured">Featured Product</Label>
               <Switch
@@ -170,6 +212,118 @@ export default function ProductForm({
               />
               <p className="text-sm text-red-500">{fields.isFeatured.errors}</p>
             </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="size">Size (ml)</Label>
+                <Input
+                  type="number"
+                  id="size"
+                  placeholder="ex: 30ml"
+                  className="w-full"
+                  key={fields.size.key}
+                  name={fields.size.name}
+                  defaultValue={(data && data.size) || fields.size.initialValue}
+                />
+                <p className="text-sm text-red-500">{fields.price.errors}</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="name">Scent</Label>
+                <Input
+                  type="text"
+                  id="scent"
+                  key={fields.scent.key}
+                  name={fields.scent.name}
+                  defaultValue={
+                    (data && data.scent) || fields.scent.initialValue
+                  }
+                  placeholder="Product Scent"
+                  className="w-full"
+                />
+                <p className="text-sm text-red-500">{fields.name.errors}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="ingredients">Ingredients</Label>
+                <Textarea
+                  id="ingredients"
+                  placeholder="Product Ingredients"
+                  className="w-full"
+                  key={fields.ingredients.key}
+                  name={fields.ingredients.name}
+                  defaultValue={
+                    (data && data.ingredients) ||
+                    fields.ingredients.initialValue
+                  }
+                />
+                <p className="text-sm text-red-500">
+                  {fields.description.errors}
+                </p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="how_to">How To Use</Label>
+                <Textarea
+                  id="how_to"
+                  placeholder="Product How To Use"
+                  className="w-full"
+                  key={fields.how_to.key}
+                  name={fields.how_to.name}
+                  defaultValue={
+                    (data && data.how_to) || fields.how_to.initialValue
+                  }
+                />
+                <p className="text-sm text-red-500">{fields.how_to.errors}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="type">Type</Label>
+                <Select
+                  key={fields.type.key}
+                  name={fields.type.name}
+                  defaultValue={
+                    (data && data.type) || fields.type.initialValue
+                  }>
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select a type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {productTypes.map((c) => (
+                      <SelectItem key={c.id} value={c.name}>
+                        {c.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-sm text-red-500">{fields.type.errors}</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  key={fields.category.key}
+                  name={fields.category.name}
+                  defaultValue={
+                    (data && data.category) || fields.category.initialValue
+                  }>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map(
+                      (c) =>
+                        c.name !== "all" && (
+                          <SelectItem key={c.id} value={c.name}>
+                            {c.title}
+                          </SelectItem>
+                        )
+                    )}
+                  </SelectContent>
+                </Select>
+                <p className="text-sm text-red-500">{fields.category.errors}</p>
+              </div>
+            </div>
             <div className="flex flex-col gap-3">
               <Label htmlFor="status">Status</Label>
               <Select
@@ -178,7 +332,7 @@ export default function ProductForm({
                 defaultValue={
                   (data && data.status) || fields.status.initialValue
                 }>
-                <SelectTrigger>
+                <SelectTrigger id="status">
                   <SelectValue placeholder="Select a status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -188,27 +342,6 @@ export default function ProductForm({
                 </SelectContent>
               </Select>
               <p className="text-sm text-red-500">{fields.status.errors}</p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="status">Category</Label>
-              <Select
-                key={fields.category.key}
-                name={fields.category.name}
-                defaultValue={
-                  (data && data.category) || fields.category.initialValue
-                }>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
-                </SelectTrigger>
-                <SelectContent>
-                  {categories.map((c) => (
-                    <SelectItem key={c.id} value={c.name}>
-                      {c.title}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <p className="text-sm text-red-500">{fields.category.errors}</p>
             </div>
             <div className="flex flex-col gap-3">
               <ImageUploadWidget

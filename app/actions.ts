@@ -3,9 +3,12 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
-import { bannerSchema, productSchema } from "./lib/zodSchemas";
+import { bannerSchema, productSchema, reviewSchema } from "./lib/zodSchemas";
 import prisma from "./lib/db";
 import { revalidatePath } from "next/cache";
+import { loginLink } from "@/utils/constants";
+import { redis } from "./lib/redis";
+import { Cart } from "./lib/interfaces";
 
 async function auth() {
   const { getUser } = getKindeServerSession();
@@ -40,6 +43,11 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       images: flatUrls,
       category: submission.value.category,
+      ingredients: submission.value.ingredients,
+      how_to: submission.value.how_to,
+      scent: submission.value.scent,
+      size: submission.value.size,
+      type: submission.value.type,
     },
   });
 
@@ -74,6 +82,11 @@ export async function editProduct(prevState: unknown, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       images: flatUrls,
       category: submission.value.category,
+      ingredients: submission.value.ingredients,
+      how_to: submission.value.how_to,
+      scent: submission.value.scent,
+      size: submission.value.size,
+      type: submission.value.type,
     },
   });
 
@@ -107,10 +120,58 @@ export async function createBanner(prevState: unknown, formData: FormData) {
     data: {
       title: submission.value.title,
       image: submission.value.image,
+      location: submission.value.location,
     },
   });
 
   redirect("/dashboard/banners");
+}
+
+export async function createReview(prevState: unknown, formData: FormData) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || !user.email) {
+    redirect(loginLink);
+  }
+
+  const submission = parseWithZod(formData, {
+    schema: reviewSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const productId = formData.get("productId") as string;
+  const userId = user.id;
+
+  await prisma.review.create({
+    data: {
+      author: submission.value.author,
+      rating: submission.value.rating,
+      productId: submission.value.productId,
+      headline: submission.value.headline,
+      content: submission.value.content,
+      userId: userId,
+    },
+  });
+
+  await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      reviewsCount: {
+        increment: 1,
+      },
+      rating: {
+        increment: submission.value.rating,
+      },
+    },
+  });
+
+  revalidatePath("/dashboard/product");
 }
 
 export async function editBanner(prevState: unknown, formData: FormData) {
@@ -133,6 +194,7 @@ export async function editBanner(prevState: unknown, formData: FormData) {
     data: {
       title: submission.value.title,
       image: submission.value.image,
+      location: submission.value.location,
     },
   });
 
@@ -149,4 +211,71 @@ export async function deleteBanner(formData: FormData) {
   });
 
   revalidatePath("/dashboard/banners");
+}
+
+export async function addItemToCart(productId: string) {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || !user.email) {
+    redirect(loginLink);
+  }
+
+  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  const selectedProduct = await prisma.product.findUnique({
+    select: {
+      name: true,
+      price: true,
+      images: true,
+    },
+    where: {
+      id: productId,
+    },
+  });
+
+  if (!selectedProduct) {
+    throw new Error("Product not found");
+  }
+
+  let myCart = {} as Cart;
+
+  if (!cart || !cart.items) {
+    myCart = {
+      userId: user.id,
+      items: [
+        {
+          id: productId,
+          price: selectedProduct.price,
+          name: selectedProduct.name,
+          imageString: selectedProduct.images[0],
+          quantity: 1,
+        },
+      ],
+    };
+  } else {
+    let itemFound = false;
+    myCart.items = cart.items.map((item) => {
+      if (item.id === productId) {
+        itemFound = true;
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+
+    if (!itemFound) {
+      myCart.items.push({
+        id: productId,
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        imageString: selectedProduct.images[0],
+        quantity: 1,
+      });
+    }
+  }
+
+  await redis.set(`cart-${user.id}`, myCart);
 }

@@ -35,6 +35,7 @@ import {
   TableCell,
   TableBody,
 } from "@/components/ui/table";
+import { currency } from "@/utils/constants";
 import { MoreHorizontal, PlusCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,7 +90,10 @@ export default async function ProductsPage() {
                     </TableCell>
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{product.status}</TableCell>
-                    <TableCell>${product.price}</TableCell>
+                    <TableCell>
+                      {currency}
+                      {product.price}
+                    </TableCell>
                     <TableCell>{product.category}</TableCell>
                     <TableCell>
                       {new Intl.DateTimeFormat("en-UK").format(

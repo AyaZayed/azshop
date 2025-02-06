@@ -9,8 +9,8 @@ export default function Footer() {
     <footer className="w-full mt-24 px-4 md:px-6 lg:px-10 py-4 text-sf_sedcondary font-bold uppercase">
       <div className="footer-content flex flex-col gap-2 lg:flex-row lg:gap-8 items-center justify-between ">
         <div className="first relative flex-1 w-full md:min-w-[520px]">
-          <div className="flex top-0 left-0 justify-start items-start w-full lg:absolute">
-            <div className="relative w-full">
+          <div className="flex z-20 top-0 left-0 justify-start items-start w-full lg:absolute">
+            <div className="relative z-20 w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="100%"

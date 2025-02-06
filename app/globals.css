@@ -4,8 +4,11 @@
 
 @layer base {
   :root {
+    --star_color: #ff662c;
+    --star_color_opaque: #ff642c0f;
     --sf_background: #f6f2ed;
-    --sf_primary: hsl(20, 100%, 50%);
+    --sf_primary: #ff5500;
+    --sf_primary_opaque: #ff550025;
     --sf_sedcondary: #a54547;
     --sf_sedcondary_opaque: #a545471a;
     --font-primary: "fontBogart", sans-serif;
@@ -82,6 +85,10 @@ body {
 
 .font-nunito {
   font-family: var(--font-nunito);
+}
+
+.dash-font {
+  font-family: var(--font-secondary);
 }
 
 h1 {

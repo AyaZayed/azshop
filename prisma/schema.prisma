@@ -30,7 +30,12 @@ model Product {
   category Category
   reviews Review[]
   reviewsCount Int @default(0)
-  overallRating Float? @default(0)
+  rating Float? @default(0)
+  how_to String
+  scent String @default("fragrance free")
+  size Int 
+  type Type
+  ingredients String
 }
 
 model Review{
@@ -38,6 +43,7 @@ model Review{
   headline String
   content String
   rating Int 
+  author String
   created_at DateTime @default(now())
 
   productId String
@@ -69,7 +75,15 @@ enum Category {
   gifts
 }
 
+enum Type {
+  face
+  body
+  both
+  other
+}
+
 enum Location {
   landing
   about
 }
+

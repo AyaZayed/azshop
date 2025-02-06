@@ -2,6 +2,7 @@ import React from "react";
 import DashboardHeader from "../components/DashboardHeader";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
+import { loginLink } from "@/utils/constants";
 
 export default async function DashboardLayout({
   children,
@@ -12,9 +13,7 @@ export default async function DashboardLayout({
   const user = await getUser();
 
   if (!user || user.email !== process.env.ADMIN_EMAIL) {
-    redirect(
-      "https://azshop.kinde.com/auth/cx/_:nav&m:login&psid:01939005172ea62adad5cce9f18e5f75"
-    );
+    redirect(loginLink);
   }
 
   return (

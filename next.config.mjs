@@ -36,7 +36,7 @@ const nextConfig = {
                 source: "/products",
                 destination: "/products/all",
                 permanent: true,
-            },
+            }
         ];
     },
 };

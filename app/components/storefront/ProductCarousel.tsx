@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
@@ -13,16 +14,31 @@ export default function ProductCarousel({
   const [activeIndex, setActiveIndex] = React.useState(0);
   const videoUrl =
     category === "sunscreen" ? "/sun-video.webm" : "/night-video1.webm";
+  function handlePrevious() {
+    setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }
+
+  function handleNext() {
+    setActiveIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  }
 
   unstable_noStore();
   return (
-    <>
-      <div className="thumbnails-container absolute bottom-10 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-10 flex md:flex-col gap-2 z-10">
+    <div className="relative">
+      <div className="carousel-buttons absolute z-10 inset-0 w-full h-full grid grid-cols-2">
+        <button
+          onClick={handlePrevious}
+          className={`w-full cursor-leftArrow flex flex-col justify-center items-center `}></button>
+        <button
+          onClick={handleNext}
+          className="w-full cursor-rightArrow flex flex-col justify-center items-center "></button>
+      </div>
+      <div className="thumbnails-container absolute bottom-10 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-10 flex md:flex-col gap-2 z-20">
         {images &&
           images.map((image, index) => (
             <button
               key={index}
-              className={`relative w-[40px] h-[45px] md:w-[45px] md:h-[60px] ${
+              className={`relative cursor-pointer w-[40px] h-[45px] md:w-[45px] md:h-[60px] ${
                 activeIndex === index
                   ? "border-[1px] border-sf_primary"
                   : "border-[1px] border-sf_background"
@@ -48,7 +64,7 @@ export default function ProductCarousel({
             images.map((image, index) => (
               <div
                 key={index}
-                className="relative w-full h-screen flex-shrink-0">
+                className="relative w-full h-full min-h-screen flex-shrink-0">
                 {index === 0 ? (
                   <>
                     <video
@@ -77,6 +93,6 @@ export default function ProductCarousel({
             ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

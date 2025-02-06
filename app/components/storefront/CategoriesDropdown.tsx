@@ -13,7 +13,7 @@ export default function CategoriesDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="hover:border-[1px] border-sf_primary py-2 px-4 uppercase flex items-center gap-1 focus:outline-none">
+        <button className="hover:bg-sf_background hover:border-[1px] border-sf_primary py-2 px-4 uppercase flex items-center gap-1 focus:outline-none">
           Categories <ChevronDown className="w-5" />
         </button>
       </DropdownMenuTrigger>

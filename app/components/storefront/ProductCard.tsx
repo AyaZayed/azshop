@@ -2,8 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef } from "react";
-import MobileDetect from "mobile-detect";
 import ReviewsStars from "./ReviewsStars";
+import { currency } from "@/utils/constants";
 
 type Product = {
   id: string;
@@ -30,14 +30,6 @@ export default function ProductCard({ product }: { product: Product }) {
     setIsHovered(false);
     videoRef.current?.pause(); // Pause the video
   };
-
-  const md = new MobileDetect(window.navigator.userAgent);
-
-  const isMobile = md.mobile();
-
-  if (isMobile) {
-    setIsHovered(true);
-  }
 
   return (
     <Link
@@ -77,9 +69,15 @@ export default function ProductCard({ product }: { product: Product }) {
         {isHovered ? "Discover Now" : product.name}
       </h3>
       <p className=" transition-all ease-in-out duration-300">
-        ${product.price}
+        {!isHovered && (
+          <span className="font-primary capitalize font-[500]">
+            {product.type}
+          </span>
+        )}
         {isHovered && (
           <>
+            {currency}
+            {product.price}
             <span> - </span>
             <span className="hover:text-sf_primary font-primary">
               Add to Cart
