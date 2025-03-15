@@ -1,7 +1,7 @@
 import ProductsGrid from "@/app/components/storefront/ProductsGrid";
 import prisma from "@/app/lib/db";
 import { unstable_noStore } from "next/cache";
-import React from "react";
+import React, { Suspense } from "react";
 
 type Category = "all" | "sunscreen" | "repair" | "sets" | "gifts";
 
@@ -28,5 +28,9 @@ export default async function ProductCategory({
 }) {
   unstable_noStore();
   const data = await getProducts(params.category);
-  return <ProductsGrid data={data} />;
+  return (
+    <Suspense fallback={<h1 className="text-center">Loading Products ...</h1>}>
+      <ProductsGrid data={data} />
+    </Suspense>
+  );
 }

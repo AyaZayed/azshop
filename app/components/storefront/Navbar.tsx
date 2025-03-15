@@ -24,10 +24,17 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { shopName } from "@/utils/constants";
+import { redis } from "@/app/lib/redis";
+import { Cart } from "@/app/lib/interfaces";
 
 export default async function Navbar() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+
+  const cart: Cart | null = await redis.get(`cart-${user?.id}`);
+
+  const total = cart?.items.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
     <header className="font-secondary font-[500] fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-40 bg-transparent">
       <div className="logo order-2 md:order-1">
@@ -72,7 +79,7 @@ export default async function Navbar() {
               <span
                 className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
               w-4 h-4 p-2 flex items-center justify-center text-xs">
-                5
+                {total || 0}
               </span>
             </Link>
             <DropdownMenu>

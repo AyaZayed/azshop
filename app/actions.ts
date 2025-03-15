@@ -9,8 +9,10 @@ import { revalidatePath } from "next/cache";
 import { loginLink } from "@/utils/constants";
 import { redis } from "./lib/redis";
 import { Cart } from "./lib/interfaces";
+import { stripe } from "./lib/stripe";
+import Stripe from "stripe";
 
-async function auth() {
+async function isAdmin() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
@@ -19,8 +21,18 @@ async function auth() {
   }
 }
 
+async function auth() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user || !user.email) {
+    redirect(loginLink);
+  }
+  return user;
+}
+
 export async function createProduct(prevState: unknown, formData: FormData) {
-  auth();
+  isAdmin();
 
   const submission = parseWithZod(formData, {
     schema: productSchema,
@@ -55,7 +67,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
 }
 
 export async function editProduct(prevState: unknown, formData: FormData) {
-  auth();
+  isAdmin();
 
   const submission = parseWithZod(formData, {
     schema: productSchema,
@@ -94,7 +106,7 @@ export async function editProduct(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteProduct(formData: FormData) {
-  auth();
+  isAdmin();
 
   await prisma.product.delete({
     where: {
@@ -106,7 +118,7 @@ export async function deleteProduct(formData: FormData) {
 }
 
 export async function createBanner(prevState: unknown, formData: FormData) {
-  auth();
+  isAdmin();
 
   const submission = parseWithZod(formData, {
     schema: bannerSchema,
@@ -128,12 +140,7 @@ export async function createBanner(prevState: unknown, formData: FormData) {
 }
 
 export async function createReview(prevState: unknown, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user || !user.email) {
-    redirect(loginLink);
-  }
+  const user = await auth();
 
   const submission = parseWithZod(formData, {
     schema: reviewSchema,
@@ -175,7 +182,7 @@ export async function createReview(prevState: unknown, formData: FormData) {
 }
 
 export async function editBanner(prevState: unknown, formData: FormData) {
-  auth();
+  isAdmin();
 
   const submission = parseWithZod(formData, {
     schema: bannerSchema,
@@ -202,7 +209,7 @@ export async function editBanner(prevState: unknown, formData: FormData) {
 }
 
 export async function deleteBanner(formData: FormData) {
-  auth();
+  isAdmin();
 
   await prisma.banner.delete({
     where: {
@@ -214,12 +221,7 @@ export async function deleteBanner(formData: FormData) {
 }
 
 export async function addItemToCart(productId: string) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user || !user.email) {
-    redirect(loginLink);
-  }
+  const user = await auth();
 
   const cart: Cart | null = await redis.get(`cart-${user.id}`);
 
@@ -278,4 +280,61 @@ export async function addItemToCart(productId: string) {
   }
 
   await redis.set(`cart-${user.id}`, myCart);
+
+  revalidatePath("/", "layout");
+}
+
+export async function removeItemFromCart(formData: FormData) {
+  const user = await auth();
+
+  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  if (!cart || !cart.items) {
+    return;
+  }
+
+  const productId = formData.get("productId") as string;
+
+  const myCart = {
+    userId: user.id,
+    items: cart.items.filter((item) => item.id !== productId),
+  };
+
+  await redis.set(`cart-${user.id}`, myCart);
+
+  revalidatePath("/", "layout");
+}
+
+export async function checkout() {
+  const user = await auth();
+
+  const cart = (await redis.get(`cart-${user.id}`)) as Cart | null;
+  if (!cart || !cart.items) {
+    return;
+  }
+
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] =
+    cart.items.map((item) => ({
+      price_data: {
+        currency: "aed",
+        product_data: {
+          name: item.name,
+          images: [item.imageString],
+        },
+        unit_amount: item.price * 100,
+      },
+      quantity: item.quantity,
+    }));
+
+  const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    line_items: lineItems,
+    success_url: "http://localhost:3000/payment/success",
+    cancel_url: "http://localhost:3000/payment/cancel",
+    metadata: {
+      userId: user.id,
+    },
+  });
+
+  return redirect(session.url as string);
 }

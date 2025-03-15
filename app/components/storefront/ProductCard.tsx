@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import ReviewsStars from "./ReviewsStars";
 import { currency } from "@/utils/constants";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Product = {
   id: string;
@@ -71,7 +72,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <p className=" transition-all ease-in-out duration-300">
         {!isHovered && (
           <span className="font-primary capitalize font-[500]">
-            {product.type}
+            {product.category}
           </span>
         )}
         {isHovered && (
@@ -90,5 +91,18 @@ export default function ProductCard({ product }: { product: Product }) {
         <span>{10} reviews</span>
       </div>
     </Link>
+  );
+}
+
+export function LoadingProductCard() {
+  return (
+    <div className="flex flex-col">
+      <Skeleton className="w-full h-[400px] mb-4 bg-stone-200" />
+      <div className="flex flex-col mt-2 gap-y-4 items-center">
+        <Skeleton className="h-6 w-full bg-stone-200" />
+        <Skeleton className="w-1/2 h-6 bg-stone-200" />
+        <Skeleton className="w-2/3 h-6 bg-stone-200" />
+      </div>
+    </div>
   );
 }

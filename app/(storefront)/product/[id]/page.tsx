@@ -1,7 +1,6 @@
 import ProductCarousel from "@/app/components/storefront/ProductCarousel";
 import ReviewsStars from "@/app/components/storefront/ReviewsStars";
 import prisma from "@/app/lib/db";
-import { Button } from "@/components/ui/button";
 import { currency } from "@/utils/constants";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -16,6 +15,7 @@ import Encouragements from "@/app/components/storefront/Encouragements";
 import ReviewsSection from "@/app/components/storefront/ReviewsSection";
 import Quantity from "@/app/components/storefront/Quantity";
 import { addItemToCart } from "@/app/actions";
+import { AddToCartButton } from "@/app/components/SubmitButtons";
 
 export default async function ProductPage({
   params,
@@ -56,9 +56,7 @@ export default async function ProductPage({
           </Link>
           <Quantity />
           <form action={addItem}>
-            <Button className="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none">
-              Add to Cart
-            </Button>
+            <AddToCartButton />
           </form>
         </div>
       </section>
