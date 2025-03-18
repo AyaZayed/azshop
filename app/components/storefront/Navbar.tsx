@@ -59,7 +59,7 @@ export default async function Navbar() {
             <MenuIcon className="h-5 w-5" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[250px]">
+        <SheetContent side="left" className="w-[250px] bg-sf_background">
           <VisuallyHidden>
             <SheetHeader>
               <SheetTitle>Navigation Menu</SheetTitle>

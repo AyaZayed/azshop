@@ -7,8 +7,8 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import React from "react";
 import {
-  CheckoutButton,
   DeleteItemButton,
+  SecondaryButton,
 } from "@/app/components/SubmitButtons";
 
 export default async function page() {
@@ -57,7 +57,7 @@ export default async function page() {
               {new Intl.NumberFormat("en-US").format(totalPrice)}
             </p>
             <form action={checkout}>
-              <CheckoutButton />
+              <SecondaryButton label="Checkout" />
             </form>
           </div>
         </div>

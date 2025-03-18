@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { SecondaryButton } from "../SubmitButtons";
 
 export default function Sunshine() {
   return (
@@ -24,9 +25,11 @@ export default function Sunshine() {
           of summer-lovin’ skincare specialists. Made in Italy with locally
           sourced Mediterranean ingredients.
         </p>
-        <Button className="rounded-none uppercase text-sf_sedcondary bg-sf_background font-bold font-secondary text-[13px] mt-2 border-[1px] border-sf_sedcondary hover:bg-sf_sedcondary hover:text-sf_background transition-all ease-in-out">
-          Shop the full range here
-        </Button>
+        <SecondaryButton
+          label="Shop the full range here"
+          style="font-bold font-secondary text-[13px]"
+          href="/products"
+        />
       </div>
     </section>
   );

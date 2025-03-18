@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import ReviewsStars from "./ReviewsStars";
 import { currency } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
+import { addItemToCart } from "@/app/actions";
 
 type Product = {
   id: string;
@@ -32,14 +33,15 @@ export default function ProductCard({ product }: { product: Product }) {
     videoRef.current?.pause(); // Pause the video
   };
 
+  const addItem = addItemToCart.bind(null, product.id);
+
   return (
-    <Link
-      href={`/product/${product.id}`}
+    <div
       key={product.id}
       className="flex flex-col gap-2 items-center bg-transparent font-secondary"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <div className="relative w-full h-[400px] mb-4">
+      <div className="relative w-full h-[500px] mb-4">
         {isHovered && (
           <video
             src={videoUrl}
@@ -56,19 +58,23 @@ export default function ProductCard({ product }: { product: Product }) {
             style={{ zIndex: 1 }}
           />
         )}
-        <Image
-          src={product.images[0]}
-          alt={product.name}
-          layout="fill"
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-            isHovered ? "opacity-0 md:opacity-100" : "opacity-100"
-          }`}
-          style={{ zIndex: 10 }}
-        />
+        <Link href={`/product/${product.id}`}>
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            layout="fill"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+              isHovered ? "opacity-0 md:opacity-100" : "opacity-100"
+            }`}
+            style={{ zIndex: 10 }}
+          />
+        </Link>
       </div>
-      <h3 className="font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
-        {isHovered ? "Discover Now" : product.name}
-      </h3>
+      <Link href={`/product/${product.id}`}>
+        <h3 className="font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
+          {isHovered ? "Discover Now" : product.name}
+        </h3>
+      </Link>
       <p className=" transition-all ease-in-out duration-300">
         {!isHovered && (
           <span className="font-primary capitalize font-[500]">
@@ -80,9 +86,11 @@ export default function ProductCard({ product }: { product: Product }) {
             {currency}
             {product.price}
             <span> - </span>
-            <span className="hover:text-sf_primary font-primary">
-              Add to Cart
-            </span>
+            <form action={addItem} className="inline">
+              <button type="submit" className="text-sf_primary">
+                Add to cart
+              </button>
+            </form>
           </>
         )}
       </p>
@@ -90,7 +98,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <ReviewsStars rating={4.7} starSize={16} />
         <span>{10} reviews</span>
       </div>
-    </Link>
+    </div>
   );
 }
 

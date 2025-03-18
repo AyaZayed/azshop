@@ -15,7 +15,7 @@ import Encouragements from "@/app/components/storefront/Encouragements";
 import ReviewsSection from "@/app/components/storefront/ReviewsSection";
 import Quantity from "@/app/components/storefront/Quantity";
 import { addItemToCart } from "@/app/actions";
-import { AddToCartButton } from "@/app/components/SubmitButtons";
+import { SecondaryButton } from "@/app/components/SubmitButtons";
 
 export default async function ProductPage({
   params,
@@ -56,7 +56,7 @@ export default async function ProductPage({
           </Link>
           <Quantity />
           <form action={addItem}>
-            <AddToCartButton />
+            <SecondaryButton label="Add to Cart" />
           </form>
         </div>
       </section>

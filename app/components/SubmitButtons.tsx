@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { loginLink } from "@/utils/constants";
 import { Loader2, XCircleIcon } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import { useFormStatus } from "react-dom";
@@ -18,8 +19,10 @@ interface buttonProps {
     | null
     | undefined;
   userId?: string;
+  href?: string;
+  style?: string;
 }
-export function SubmitButton({ label, variant, userId }: buttonProps) {
+export default function SubmitButton({ label, variant, userId }: buttonProps) {
   const { pending } = useFormStatus();
   function auth() {
     if (!userId) {
@@ -50,28 +53,6 @@ export function SubmitButton({ label, variant, userId }: buttonProps) {
   );
 }
 
-export function AddToCartButton() {
-  const { pending } = useFormStatus();
-  return (
-    <>
-      {pending ? (
-        <Button
-          disabled
-          className="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none">
-          <Loader2 className="mr-2" />
-          Please wait
-        </Button>
-      ) : (
-        <Button
-          type="submit"
-          className="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none">
-          Add to Cart
-        </Button>
-      )}
-    </>
-  );
-}
-
 export function DeleteItemButton() {
   const { pending } = useFormStatus();
   return (
@@ -89,23 +70,49 @@ export function DeleteItemButton() {
   );
 }
 
-export function CheckoutButton() {
+export function PrimaryButton({ label, href, style }: buttonProps) {
   const { pending } = useFormStatus();
   return (
     <>
       {pending ? (
         <Button
           disabled
-          className="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none">
+          className={`px-6 border-[1px] border-sf_primary bg-sf_background text-sf_primary uppercase hover:bg-sf_primary hover:text-sf_background rounded-none ${style}`}>
           <Loader2 className="mr-2" />
           Please wait
         </Button>
       ) : (
+        <Link href={href || ""}>
+          <Button
+            type="submit"
+            className={`px-6 border-[1px] border-sf_primary bg-sf_background text-sf_primary uppercase hover:bg-sf_primary hover:text-sf_background rounded-none ${style}`}>
+            {label}
+          </Button>
+        </Link>
+      )}
+    </>
+  );
+}
+
+export function SecondaryButton({ label, href, style }: buttonProps) {
+  const { pending } = useFormStatus();
+  return (
+    <>
+      {pending ? (
         <Button
-          type="submit"
-          className="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none">
-          Checkout
+          disabled
+          className={`px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none ${style}`}>
+          <Loader2 className="mr-2" />
+          Please wait
         </Button>
+      ) : (
+        <Link href={href || ""}>
+          <Button
+            type="submit"
+            className={`px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none ${style}`}>
+            {label}
+          </Button>
+        </Link>
       )}
     </>
   );
