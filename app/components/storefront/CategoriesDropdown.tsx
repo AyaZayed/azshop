@@ -2,8 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { categories } from "@/app/lib/categories";
 import {
-  NavigationMenu,
-  NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuItem,
   NavigationMenuContent,

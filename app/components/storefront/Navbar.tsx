@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { CircleUser, MenuIcon, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import NavLinks from "./NavLinks";
@@ -14,27 +12,11 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
 import { shopName } from "@/utils/constants";
-import { redis } from "@/app/lib/redis";
-import { Cart } from "@/app/lib/interfaces";
+import { MenuIcon } from "lucide-react";
+import NavUser from "./NavUser";
 
-export default async function Navbar() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  const cart: Cart | null = await redis.get(`cart-${user?.id}`);
-
-  const total = cart?.items.reduce((acc, item) => acc + item.quantity, 0);
-
+export default function Navbar() {
   return (
     <header className="font-secondary font-[500] fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-40 bg-transparent">
       <div className="logo order-2 md:order-1">
@@ -71,41 +53,7 @@ export default async function Navbar() {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="flex items-center gap-4 order-3">
-        {user ? (
-          <>
-            <Link href="/cart" className="relative">
-              <ShoppingBag className="w-6 h-6" />
-              <span
-                className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
-              w-4 h-4 p-2 flex items-center justify-center text-xs">
-                {total || 0}
-              </span>
-            </Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild className="focus:outline-none">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full focus:outline-none">
-                  <CircleUser />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="font-secondary">
-                <DropdownMenuLabel>Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <LogoutLink>Log Out</LogoutLink>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </>
-        ) : (
-          <LoginLink className="border-sf_primary border-[1.5px] p-[.3rem] px-5 hover:bg-sf_background">
-            Log In
-          </LoginLink>
-        )}
-      </div>
+      <NavUser />
     </header>
   );
 }

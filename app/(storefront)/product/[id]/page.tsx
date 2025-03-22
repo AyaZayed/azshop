@@ -15,7 +15,7 @@ import Encouragements from "@/app/components/storefront/Encouragements";
 import ReviewsSection from "@/app/components/storefront/ReviewsSection";
 import Quantity from "@/app/components/storefront/Quantity";
 import { addItemToCart } from "@/app/actions";
-import { SecondaryButton } from "@/app/components/SubmitButtons";
+import { AddToCartButton } from "@/app/components/SubmitButtons";
 
 export default async function ProductPage({
   params,
@@ -30,6 +30,7 @@ export default async function ProductPage({
 
   if (!product) return notFound();
   const addItem = addItemToCart.bind(null, product.id);
+
   return (
     <div className="font-secondary pb-80 md:pb-0">
       <section className="z-1 w-full h-full grid grid-cols-1 md:grid-cols-2">
@@ -56,7 +57,11 @@ export default async function ProductPage({
           </Link>
           <Quantity />
           <form action={addItem}>
-            <SecondaryButton label="Add to Cart" />
+            <AddToCartButton
+              label="Add to Cart"
+              href="/cart"
+              style="px-6 border-[1px] border-sf_sedcondary bg-sf_background text-sf_sedcondary uppercase hover:bg-sf_sedcondary hover:text-sf_background rounded-none"
+            />
           </form>
         </div>
       </section>

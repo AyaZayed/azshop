@@ -273,15 +273,15 @@ export async function addItemToCart(productId: string) {
         id: productId,
         name: selectedProduct.name,
         price: selectedProduct.price,
-        imageString: selectedProduct.images[0],
+        imageString: selectedProduct.images[1],
         quantity: 1,
       });
     }
   }
 
   await redis.set(`cart-${user.id}`, myCart);
-
   revalidatePath("/", "layout");
+  // redirect("/cart");
 }
 
 export async function removeItemFromCart(formData: FormData) {
@@ -298,6 +298,64 @@ export async function removeItemFromCart(formData: FormData) {
   const myCart = {
     userId: user.id,
     items: cart.items.filter((item) => item.id !== productId),
+  };
+
+  await redis.set(`cart-${user.id}`, myCart);
+
+  revalidatePath("/", "layout");
+}
+
+export async function increaseItemQuantity(formData: FormData) {
+  const user = await auth();
+
+  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  if (!cart || !cart.items) {
+    return;
+  }
+
+  const productId = formData.get("productId") as string;
+
+  const myCart = {
+    userId: user.id,
+    items: cart.items.map((item) => {
+      if (item.id === productId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    }),
+  };
+
+  await redis.set(`cart-${user.id}`, myCart);
+
+  revalidatePath("/", "layout");
+}
+
+export async function decreaseItemQuantity(formData: FormData) {
+  const user = await auth();
+
+  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  if (!cart || !cart.items) {
+    return;
+  }
+
+  const productId = formData.get("productId") as string;
+
+  const myCart = {
+    userId: user.id,
+    items: cart.items.map((item) => {
+      if (item.id === productId) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    }),
   };
 
   await redis.set(`cart-${user.id}`, myCart);

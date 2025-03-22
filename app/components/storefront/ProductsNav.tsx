@@ -29,15 +29,15 @@ export default async function ProductsNav() {
         <li
           key={product.id}
           className="min-w-40 flex flex-col items-center justify-center gap-2 font-secondary">
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            width={150}
-            height={150}
-          />
           <Link
             href={`/product/${product.id}`}
-            className="text-[13px] align-middle text-center leading-4">
+            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary">
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              width={150}
+              height={150}
+            />
             {product.name}
           </Link>
         </li>

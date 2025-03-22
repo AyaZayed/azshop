@@ -7,7 +7,7 @@ type Banners = {
   image: string;
 }[];
 
-export default function BetterSunCare({ banners }: { banners: Banners }) {
+export default function BetterSunCare() {
   return (
     <section className="w-full h-screen relative">
       <Image

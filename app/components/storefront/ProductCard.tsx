@@ -6,6 +6,7 @@ import ReviewsStars from "./ReviewsStars";
 import { currency } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
 import { addItemToCart } from "@/app/actions";
+import { AddToCartButton } from "../SubmitButtons";
 
 type Product = {
   id: string;
@@ -75,7 +76,7 @@ export default function ProductCard({ product }: { product: Product }) {
           {isHovered ? "Discover Now" : product.name}
         </h3>
       </Link>
-      <p className=" transition-all ease-in-out duration-300">
+      <p className=" transition-all ease-in-out duration-300 flex items-center gap-2 text-[20px]">
         {!isHovered && (
           <span className="font-primary capitalize font-[500]">
             {product.category}
@@ -87,9 +88,10 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.price}
             <span> - </span>
             <form action={addItem} className="inline">
-              <button type="submit" className="text-sf_primary">
-                Add to cart
-              </button>
+              <AddToCartButton
+                label="Add to cart"
+                style="text-inherit hover:text-sf_primary text-[20px] font-primary p-0 m-0 bg-transparent hover:bg-transparent"
+              />
             </form>
           </>
         )}
