@@ -1,9 +1,11 @@
-"use client";
 import React from "react";
 import DashboardHeader from "../components/DashboardHeader";
-import { usePathname } from "next/navigation";
+import { auth } from "../lib/auth";
+import { redirect } from "next/navigation";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import DashboardHome from "../components/dashboard/DashboardHome";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   stats,
   sales,
   transactions,
@@ -14,22 +16,21 @@ export default function DashboardLayout({
   transactions: React.ReactNode;
   children: React.ReactNode;
 }) {
-  const path = usePathname();
-
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  if (!user || user.email !== process.env.ADMIN_EMAIL) {
+    redirect("/");
+  }
   return (
     <main
       className={`w-full flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-nunito`}>
       <DashboardHeader />
       <div className="py-8">
-        {path === "/dashboard" && (
-          <>
-            {stats}
-            <div className="grid gap-4 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-8">
-              {transactions}
-              {sales}
-            </div>
-          </>
-        )}
+        <DashboardHome
+          stats={stats}
+          sales={sales}
+          transactions={transactions}
+        />
         {children}
       </div>
     </main>

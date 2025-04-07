@@ -70,7 +70,7 @@ export function PrimaryButton({ label, href, style }: buttonProps) {
         <Link href={href || ""}>
           <Button
             type="submit"
-            className={`px-6 border-[1px] border-sf_primary bg-sf_background text-sf_primary uppercase hover:bg-sf_primary hover:text-sf_background rounded-none ${style}`}>
+            className={`font-secondary px-6 border-[1px] border-sf_primary bg-sf_background text-sf_primary uppercase hover:bg-sf_primary hover:text-sf_background rounded-none ${style}`}>
             {label}
           </Button>
         </Link>
@@ -113,11 +113,9 @@ export function AddToCartButton({ style, label }: buttonProps) {
           Please wait
         </Button>
       ) : (
-        <Link href="/cart" className="w-full h-full" passHref>
-          <Button type="submit" className={`${style}`}>
-            {label}
-          </Button>
-        </Link>
+        <Button type="submit" className={`${style}`}>
+          {label}
+        </Button>
       )}
     </>
   );
@@ -181,6 +179,7 @@ export function QuantityButtons({
 
 export function CheckoutButton({ label, href, style, total }: buttonProps) {
   const { pending } = useFormStatus();
+
   return (
     <>
       {pending ? (
@@ -191,19 +190,17 @@ export function CheckoutButton({ label, href, style, total }: buttonProps) {
           Please wait
         </Button>
       ) : (
-        <Link href={href || ""}>
-          <Button
-            type="submit"
-            className={`flex justify-between px-6 bg-sf_primary text-sf_background hover:bg-sf_background hover:text-sf_primary border-sf_primary hover:border-[1px] uppercase rounded-none ${style}`}>
-            <span>{label}</span>
-            {total && (
-              <span>
-                {currency}
-                {total}
-              </span>
-            )}
-          </Button>
-        </Link>
+        <Button
+          type="submit"
+          className={`flex justify-between px-6 bg-sf_primary text-sf_background hover:bg-sf_background hover:text-sf_primary border-sf_primary hover:border-[1px] uppercase rounded-none ${style}`}>
+          <span>{label}</span>
+          {total && (
+            <span>
+              {currency}
+              {total}
+            </span>
+          )}
+        </Button>
       )}
     </>
   );

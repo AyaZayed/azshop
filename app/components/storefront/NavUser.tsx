@@ -49,7 +49,7 @@ export default async function NavUser() {
               <DropdownMenuLabel>Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <LogoutLink>Log Out</LogoutLink>
+                <LogoutLink postLogoutRedirectURL="/">Log Out</LogoutLink>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

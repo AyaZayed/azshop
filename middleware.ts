@@ -1,17 +1,25 @@
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const { isAuthenticated } = getKindeServerSession();
+  const authed = await isAuthenticated();
 
-  if (!user) {
-    return Response.redirect(new URL("/login", req.url));
+  const url = req.nextUrl.clone();
+  const path = req.nextUrl.pathname;
+
+  if (path.startsWith("/dashboard")) {
+    if (!authed) {
+      url.pathname = "/api/auth/login"; // redirect to login
+      return NextResponse.redirect(url);
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/api/reviews"],
+  matcher: ["/dashboard/:path*", "/api/:path*"],
 };

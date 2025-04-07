@@ -63,7 +63,7 @@ export default async function ProductsPage() {
           <CardDescription>Manage your products</CardDescription>
         </CardHeader>
         <CardContent>
-          <Table>
+          <Table className="capitalize">
             <TableHeader>
               <TableRow>
                 <TableHead>Image</TableHead>

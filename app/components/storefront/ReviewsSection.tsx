@@ -30,12 +30,12 @@ export default async function ReviewsSection({
   const user = await getUser();
 
   return (
-    <section className="p-10 md:px-24 text-base font-secondary" id="reviews">
+    <section id="reviews" className="p-10 md:px-24 text-base font-secondary">
       <div className="border-b-[1px] border-sf_sedcondary flex justify-between">
         <h2 className="px-2 text-3xl font-bold font-primary border-b-4 border-sf_sedcondary">
           Reviews{" "}
           <span className="text-xs font-normal font-secondary">
-            {reviews.length}
+            {reviews.length > 0 && `(${reviews.length})`}
           </span>
         </h2>
         <Dialog>

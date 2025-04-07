@@ -1,105 +1,83 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React from "react";
 import ReviewsStars from "./ReviewsStars";
 import { currency } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
 import { addItemToCart } from "@/app/actions";
 import { AddToCartButton } from "../SubmitButtons";
+import HoverImage from "./HoverImage";
 
 type Product = {
   id: string;
   name: string;
-  description: string;
   price: number;
   images: string[];
+  type: string;
   category: string;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
   const [isHovered, setIsHovered] = React.useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const videoUrl =
-    product.category === "sunscreen" ? "/sun-video.webm" : "/night-video1.webm";
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    videoRef.current?.play(); // Play the video
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    videoRef.current?.pause(); // Pause the video
   };
 
   const addItem = addItemToCart.bind(null, product.id);
 
   return (
     <div
-      key={product.id}
-      className="flex flex-col gap-2 items-center bg-transparent font-secondary"
+      className="flex flex-col gap-1 items-center bg-transparent font-secondary"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <div className="relative w-full h-[500px] mb-4">
-        {isHovered && (
-          <video
-            src={videoUrl}
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-              isHovered
-                ? "opacity-100 md:opacity-100"
-                : "opacity-0 md:opacity-100"
-            }`}
-            style={{ zIndex: 1 }}
-          />
-        )}
-        <Link href={`/product/${product.id}`}>
-          <Image
-            src={product.images[0]}
-            alt={product.name}
-            layout="fill"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-              isHovered ? "opacity-0 md:opacity-100" : "opacity-100"
-            }`}
-            style={{ zIndex: 10 }}
-          />
-        </Link>
-      </div>
+      <HoverImage
+        image={product.images[0]}
+        category={product.category}
+        title={product.name}
+        height={450}
+        href={`/product/${product.id}`}
+      />
       <Link href={`/product/${product.id}`}>
-        <h3 className="font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
-          {isHovered ? "Discover Now" : product.name}
+        <h3 className="mt-6 font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
+          <span className={`block ${!isHovered && "md:hidden"}`}>
+            {product.name}
+          </span>
+          <span className={`hidden md:block ${isHovered && "md:hidden"}`}>
+            discover now
+          </span>
         </h3>
       </Link>
       <p className=" transition-all ease-in-out duration-300 flex items-center gap-2 text-[20px]">
-        {!isHovered && (
-          <span className="font-primary capitalize font-[500]">
-            {product.category}
-          </span>
-        )}
-        {isHovered && (
-          <>
-            {currency}
-            {product.price}
-            <span> - </span>
-            <form action={addItem} className="inline">
-              <AddToCartButton
-                label="Add to cart"
-                style="text-inherit hover:text-sf_primary text-[20px] font-primary p-0 m-0 bg-transparent hover:bg-transparent"
-              />
-            </form>
-          </>
-        )}
+        <span
+          className={`font-primary capitalize font-[500] hidden md:block ${
+            isHovered && "md:hidden"
+          }`}>
+          {product.type}
+        </span>
+
+        <span className={`block ${!isHovered && "md:hidden"}`}>
+          {currency}
+          {product.price}
+          <span> - </span>
+          <form action={addItem} className="inline">
+            <AddToCartButton
+              label="Add to cart"
+              style="text-inherit hover:text-sf_primary text-[20px] font-primary p-0 m-0 bg-transparent hover:bg-transparent"
+            />
+          </form>
+        </span>
       </p>
-      <div className="flex gap-2 items-center text-base">
+      <Link
+        href={`/product/${product.id}#reviews`}
+        className="flex gap-2 items-center text-base">
         <ReviewsStars rating={4.7} starSize={16} />
         <span>{10} reviews</span>
-      </div>
+      </Link>
     </div>
   );
 }

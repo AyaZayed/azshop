@@ -17,11 +17,13 @@ type ImageUploadWidgetProps = {
     errors: string[] | undefined;
   };
   multiple?: boolean; // Optional prop to toggle between single and multiple image upload
+  label?: string;
 };
 
 export default function ImageUploadWidget({
   images,
   setImages,
+  label = "Images",
   fieldsImages,
   multiple = true, // Default to multiple images
 }: ImageUploadWidgetProps) {
@@ -90,25 +92,27 @@ export default function ImageUploadWidget({
   };
 
   return (
-    <>
-      <Label htmlFor="upload">{multiple ? "Images" : "Image"}</Label>
-      <input
-        type="hidden"
-        value={Array.isArray(images) ? images.join(",") : images}
-        key={fieldsImages.key}
-        name={fieldsImages.name}
-        defaultValue={
-          Array.isArray(fieldsImages.initialValue)
-            ? fieldsImages.initialValue.join(",")
-            : (fieldsImages.initialValue as string)
-        }
-      />
-      <Input
-        type="file"
-        multiple={multiple}
-        onChange={handleFileChange}
-        id="upload"
-      />
+    <div className="flex flex-col w-full">
+      <div className="flex flex-col gap-2 ">
+        <Label htmlFor="upload">{label}</Label>
+        <input
+          type="hidden"
+          value={Array.isArray(images) ? images.join(",") : images}
+          key={fieldsImages.key}
+          name={fieldsImages.name}
+          defaultValue={
+            Array.isArray(fieldsImages.initialValue)
+              ? fieldsImages.initialValue.join(",")
+              : (fieldsImages.initialValue as string)
+          }
+        />
+        <Input
+          type="file"
+          multiple={multiple}
+          onChange={handleFileChange}
+          id="upload"
+        />
+      </div>
       {localPreviews.length > 0 && (
         <div className={`mt-2 flex ${multiple ? "gap-4" : ""}`}>
           {localPreviews.map((url, index) => (
@@ -130,6 +134,6 @@ export default function ImageUploadWidget({
         </div>
       )}
       <p className="text-sm text-red-500">{fieldsImages.errors}</p>
-    </>
+    </div>
   );
 }

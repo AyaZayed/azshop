@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/app/components/storefront/Navbar";
 import Footer from "@/app/components/storefront/Footer";
 import HomeWrapper from "../components/storefront/HomeWrapper";
+import Link from "next/link";
 
 export default function StorefrontLayout({
   children,
@@ -16,8 +17,11 @@ export default function StorefrontLayout({
     <main className="bg-sf_background">
       <Navbar />
       <div className="min-h-screen">
-        {sheet}
         <HomeWrapper home={home} />
+        <Link href="/cart" prefetch className="invisible">
+          open cart
+        </Link>
+        {sheet}
         {children}
       </div>
       <Footer />

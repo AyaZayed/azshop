@@ -31,13 +31,11 @@ export default async function page() {
           cart?.items.length === 0
             ? "cart"
             : cart?.items.length === 1
-            ? cart?.items.length + " product"
+            ? "1 product"
             : cart?.items.length + " products"
         }`}</h3>
         {cart && cart.items.length > 0 ? (
-          <>
-            <CartContent cart={cart} totalPrice={totalPrice} />
-          </>
+          <CartContent cart={cart} totalPrice={totalPrice} />
         ) : (
           <div className="pt-32 flex flex-col items-center gap-6">
             <div className="w-20 h-20">

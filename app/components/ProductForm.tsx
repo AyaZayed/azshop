@@ -343,8 +343,9 @@ export default function ProductForm({
               </Select>
               <p className="text-sm text-red-500">{fields.status.errors}</p>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col md:flex-row gap-3">
               <ImageUploadWidget
+                label="Product Images"
                 images={images}
                 setImages={setImages}
                 fieldsImages={{

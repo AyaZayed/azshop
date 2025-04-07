@@ -5,9 +5,9 @@ import ProductCard, { LoadingProductCard } from "./ProductCard";
 type Data = {
   id: string;
   name: string;
-  description: string;
   price: number;
   images: string[];
+  type: string;
   category: string;
 }[];
 

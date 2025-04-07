@@ -44,7 +44,9 @@ export default function ReviewsList({ reviews }: { reviews: Review[] }) {
           )}
         </div>
       ) : (
-        <p>This product has no reviews yet. Be the first one!</p>
+        <p className="mt-4">
+          This product has no reviews yet. Be the first one!
+        </p>
       )}
     </>
   );

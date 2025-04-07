@@ -21,7 +21,7 @@ export default function CategoriesDropdown() {
         </Link>
       </NavigationMenuTrigger>
       <NavigationMenuContent className="px-10 py-6 text-sf_sedcondary bg-sf_background font-primary font-[600]">
-        <div className="flex md:gap-20">
+        <div className="flex md:gap-20 items-center">
           <div className="flex flex-col justify-center gap-8">
             <ul>
               {categories.map(

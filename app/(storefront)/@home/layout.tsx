@@ -5,16 +5,19 @@ export default function HomeLayout({
   featured,
   hero,
   protection,
+  superFeatured,
 }: {
   featured: React.ReactNode;
   hero: React.ReactNode;
   protection: React.ReactNode;
+  superFeatured: React.ReactNode;
 }) {
   return (
     <>
       {hero}
-      <BetterSunCare />
       {featured}
+      {superFeatured}
+      <BetterSunCare />
       {protection}
     </>
   );

@@ -1,6 +1,12 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, PartyPopper, ShoppingBag, User2 } from "lucide-react";
+import {
+  DollarSign,
+  PackageOpen,
+  ShoppingBag,
+  Tags,
+  User2,
+} from "lucide-react";
 import prisma from "@/app/lib/db";
 
 export default async function Stats() {
@@ -21,7 +27,7 @@ export default async function Stats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between font-[500]">
           <CardTitle>Total Revenue</CardTitle>
-          <DollarSign className="w-4 h-4 text-green-500" />
+          <DollarSign className="w-5 h-5 text-green-500" />
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">
@@ -33,7 +39,7 @@ export default async function Stats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between font-bold">
           <CardTitle>Total Sales</CardTitle>
-          <ShoppingBag className="w-4 h-4 text-blue-500" />
+          <ShoppingBag className="w-5 h-5 text-blue-500" />
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">+{ordersCount || 0}</p>
@@ -43,7 +49,7 @@ export default async function Stats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between font-bold">
           <CardTitle>Total Products</CardTitle>
-          <PartyPopper className="w-4 h-4 text-indigo-500" />
+          <PackageOpen className="w-5 h-5 text-indigo-500" />
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">{productsCount || 0}</p>
@@ -55,7 +61,7 @@ export default async function Stats() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between font-bold">
           <CardTitle>Total Customers</CardTitle>
-          <User2 className="w-4 h-4 text-orange-500" />
+          <User2 className="w-5 h-5 text-orange-500" />
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">{customersCount || 0}</p>

@@ -17,7 +17,7 @@ export default function ProductsLayout({
   unstable_noStore();
   revalidatePath(`/products/${category}`);
   return (
-    <div className="flex flex-col gap-12 pt-40 md:pt-44 p-10 items-center text-center">
+    <div className="flex flex-col gap-4 md:gap-6 p-6 md:p-10 pt-40 items-center text-center">
       <ProductsHeader category={category} />
       <ul className="flex gap-4 md:gap-8 justify-center items-center">
         {categories.map((c) => (
@@ -28,7 +28,9 @@ export default function ProductsLayout({
                 category === c.name && "border-[1px]"
               } ${c.name === "all" && "p-2"}`}>
               {c.icon && (
-                <img src={c.icon} alt={c.title} width={20} height={20} />
+                <div className="w-7 h-7 md:w-6 md:h-6 flex flex-col items-center justify-center">
+                  <img src={c.icon} alt={c.title} width={20} height={20} />
+                </div>
               )}
               <span
                 className={`${c.name !== "all" && "hidden sm:block sm:ml-2"}`}>

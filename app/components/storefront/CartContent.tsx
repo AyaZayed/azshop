@@ -8,6 +8,7 @@ import {
   DeleteItemButton,
   QuantityButtons,
 } from "../SubmitButtons";
+import HoverImage from "./HoverImage";
 
 export default async function CartContent({
   cart,
@@ -21,7 +22,16 @@ export default async function CartContent({
       <div className="flex flex-col gap-4">
         {cart.items.map((item) => (
           <div className="flex gap-8" key={item.id}>
-            <Image src={item.imageString} alt="cart" width={100} height={100} />
+            {/* <Image src={item.imageString} alt="cart" width={100} height={100} /> */}
+            <div className="w-1/2">
+              <HoverImage
+                image={item.imageString}
+                title={item.name}
+                height={160}
+                category="sunscreen"
+                hover={true}
+              />
+            </div>
             <div className="grid content-between">
               <div className="">
                 <h3 className="uppercase leading-6 mb-2">{item.name}</h3>

@@ -6,11 +6,12 @@ import { parseWithZod } from "@conform-to/zod";
 import { bannerSchema, productSchema, reviewSchema } from "./lib/zodSchemas";
 import prisma from "./lib/db";
 import { revalidatePath } from "next/cache";
-import { loginLink } from "@/utils/constants";
 import { redis } from "./lib/redis";
 import { Cart } from "./lib/interfaces";
 import { stripe } from "./lib/stripe";
 import Stripe from "stripe";
+import { auth } from "./lib/auth";
+import { getCartId } from "./lib/cartUtils";
 
 async function isAdmin() {
   const { getUser } = getKindeServerSession();
@@ -19,16 +20,6 @@ async function isAdmin() {
   if (!user || user.email !== process.env.ADMIN_EMAIL) {
     return redirect("/");
   }
-}
-
-async function auth() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user || !user.email) {
-    redirect(loginLink);
-  }
-  return user;
 }
 
 export async function createProduct(prevState: unknown, formData: FormData) {
@@ -140,8 +131,7 @@ export async function createBanner(prevState: unknown, formData: FormData) {
 }
 
 export async function createReview(prevState: unknown, formData: FormData) {
-  const user = await auth();
-
+  const userId = (await auth()).userId!;
   const submission = parseWithZod(formData, {
     schema: reviewSchema,
   });
@@ -151,7 +141,6 @@ export async function createReview(prevState: unknown, formData: FormData) {
   }
 
   const productId = formData.get("productId") as string;
-  const userId = user.id;
 
   await prisma.review.create({
     data: {
@@ -178,7 +167,7 @@ export async function createReview(prevState: unknown, formData: FormData) {
     },
   });
 
-  revalidatePath("/dashboard/product");
+  revalidatePath("/product");
 }
 
 export async function editBanner(prevState: unknown, formData: FormData) {
@@ -221,9 +210,8 @@ export async function deleteBanner(formData: FormData) {
 }
 
 export async function addItemToCart(productId: string) {
-  const user = await auth();
-
-  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const userId = await getCartId();
+  const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   const selectedProduct = await prisma.product.findUnique({
     select: {
@@ -244,7 +232,7 @@ export async function addItemToCart(productId: string) {
 
   if (!cart || !cart.items) {
     myCart = {
-      userId: user.id,
+      userId: userId,
       items: [
         {
           id: productId,
@@ -273,21 +261,20 @@ export async function addItemToCart(productId: string) {
         id: productId,
         name: selectedProduct.name,
         price: selectedProduct.price,
-        imageString: selectedProduct.images[1],
+        imageString: selectedProduct.images[0],
         quantity: 1,
       });
     }
   }
 
-  await redis.set(`cart-${user.id}`, myCart);
+  await redis.set(`cart-${userId}`, myCart);
   revalidatePath("/", "layout");
-  // redirect("/cart");
+  redirect("/cart");
 }
 
 export async function removeItemFromCart(formData: FormData) {
-  const user = await auth();
-
-  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const userId = await getCartId();
+  const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
     return;
@@ -296,19 +283,18 @@ export async function removeItemFromCart(formData: FormData) {
   const productId = formData.get("productId") as string;
 
   const myCart = {
-    userId: user.id,
+    userId: userId,
     items: cart.items.filter((item) => item.id !== productId),
   };
 
-  await redis.set(`cart-${user.id}`, myCart);
+  await redis.set(`cart-${userId}`, myCart);
 
   revalidatePath("/", "layout");
 }
 
 export async function increaseItemQuantity(formData: FormData) {
-  const user = await auth();
-
-  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const userId = await getCartId();
+  const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
     return;
@@ -317,7 +303,7 @@ export async function increaseItemQuantity(formData: FormData) {
   const productId = formData.get("productId") as string;
 
   const myCart = {
-    userId: user.id,
+    userId: userId,
     items: cart.items.map((item) => {
       if (item.id === productId) {
         return {
@@ -329,15 +315,14 @@ export async function increaseItemQuantity(formData: FormData) {
     }),
   };
 
-  await redis.set(`cart-${user.id}`, myCart);
+  await redis.set(`cart-${userId}`, myCart);
 
   revalidatePath("/", "layout");
 }
 
 export async function decreaseItemQuantity(formData: FormData) {
-  const user = await auth();
-
-  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const userId = await getCartId();
+  const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
     return;
@@ -346,7 +331,7 @@ export async function decreaseItemQuantity(formData: FormData) {
   const productId = formData.get("productId") as string;
 
   const myCart = {
-    userId: user.id,
+    userId: userId,
     items: cart.items.map((item) => {
       if (item.id === productId) {
         return {
@@ -358,15 +343,14 @@ export async function decreaseItemQuantity(formData: FormData) {
     }),
   };
 
-  await redis.set(`cart-${user.id}`, myCart);
+  await redis.set(`cart-${userId}`, myCart);
 
   revalidatePath("/", "layout");
 }
 
 export async function checkout() {
-  const user = await auth();
-
-  const cart = (await redis.get(`cart-${user.id}`)) as Cart | null;
+  const userId = await getCartId();
+  const cart = (await redis.get(`cart-${userId}`)) as Cart | null;
   if (!cart || !cart.items) {
     return;
   }
@@ -390,7 +374,7 @@ export async function checkout() {
     success_url: "http://localhost:3000/payment/success",
     cancel_url: "http://localhost:3000/payment/cancel",
     metadata: {
-      userId: user.id,
+      userId: userId,
     },
   });
 
