@@ -3,6 +3,7 @@
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import React from "react";
+import HoverImage from "./HoverImage";
 
 export default function ProductCarousel({
   images,
@@ -12,8 +13,6 @@ export default function ProductCarousel({
   category: string;
 }) {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const videoUrl =
-    category === "sunscreen" ? "/sun-video.webm" : "/night-video1.webm";
   function handlePrevious() {
     setActiveIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   }
@@ -44,6 +43,15 @@ export default function ProductCarousel({
                   : "border-[1px] border-sf_background"
               }`}
               onClick={() => setActiveIndex(index)}>
+              {index === 0 && (
+                <HoverImage
+                  image={image}
+                  category={category}
+                  title={`Thumbnail ${index + 1}`}
+                  height={45}
+                  hover={true}
+                />
+              )}
               <Image
                 src={image}
                 alt={`thumbnail-${index}`}
@@ -67,18 +75,12 @@ export default function ProductCarousel({
                 className="relative w-full h-full min-h-screen flex-shrink-0">
                 {index === 0 ? (
                   <>
-                    <video
-                      src={videoUrl}
-                      autoPlay
-                      loop
-                      muted
-                      className="object-cover w-full h-full -z-10"
-                    />
-                    <Image
-                      src={image}
-                      alt={`Slide ${index + 1}`}
-                      fill
-                      className="object-cover"
+                    <HoverImage
+                      image={image}
+                      category={category}
+                      title={`Slide ${index + 1}`}
+                      height={700}
+                      hover={true}
                     />
                   </>
                 ) : (

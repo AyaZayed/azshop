@@ -24,7 +24,6 @@ async function getData() {
 export default async function SuperFeatured() {
   unstable_noStore();
   const product = await getData();
-  console.log(product);
   return (
     <>
       {product && (

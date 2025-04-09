@@ -23,6 +23,16 @@ export default function HoverImage({
   const [isHovered, setIsHovered] = React.useState(hover || false);
   const background =
     category === "sunscreen" ? "/video1webp.webp" : "/video2webp.webp";
+
+  function handleMouseEnter() {
+    if (hover) return;
+    setIsHovered(true);
+  }
+
+  function handleMouseLeave() {
+    if (hover) return;
+    setIsHovered(false);
+  }
   return (
     <div className={`relative w-full`} style={{ height: `${height}px` }}>
       <Link href={href || ""}>
@@ -38,8 +48,8 @@ export default function HoverImage({
           src={image}
           alt={title}
           fill
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           className="object-cover transition-all duration-500 ease-in z-10 absolute top-0 right-0"
         />
       </Link>

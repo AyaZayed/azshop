@@ -9,6 +9,7 @@ type Data = {
   images: string[];
   type: string;
   category: string;
+  reviewsCount: number;
 }[];
 
 export default function ProductsGrid({ data }: { data: Data }) {

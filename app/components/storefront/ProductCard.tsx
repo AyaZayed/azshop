@@ -15,6 +15,7 @@ type Product = {
   images: string[];
   type: string;
   category: string;
+  reviewsCount: number;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -72,12 +73,14 @@ export default function ProductCard({ product }: { product: Product }) {
           </form>
         </span>
       </p>
-      <Link
-        href={`/product/${product.id}#reviews`}
-        className="flex gap-2 items-center text-base">
-        <ReviewsStars rating={4.7} starSize={16} />
-        <span>{10} reviews</span>
-      </Link>
+      {product.reviewsCount > 0 && (
+        <Link
+          href={`/product/${product.id}#reviews`}
+          className="flex gap-2 items-center text-base">
+          <ReviewsStars rating={4.7} starSize={16} />
+          <span>{10} reviews</span>
+        </Link>
+      )}
     </div>
   );
 }

@@ -45,14 +45,12 @@ export default async function AboutPage() {
       </section>
       <section className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative w-full h-screen">
-          {banners.length > 0 && (
-            <Image
-              src={`${banners[0].image}`}
-              alt={`${banners[0].title}`}
-              fill
-              className="object-cover"
-            />
-          )}
+          <Image
+            src="/ABOUT-beach.webp"
+            alt={`${shopName} sunscreen`}
+            fill
+            className="object-cover"
+          />
         </div>
         <div className="relative w-full h-screen hidden md:block">
           <Image

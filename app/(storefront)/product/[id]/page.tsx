@@ -51,12 +51,14 @@ export default async function ProductPage({
             {currency}
             {product.price}
           </h3>
-          <Link
-            href="#reviews"
-            className="reviews flex gap-2 text-base items-center">
-            <ReviewsStars rating={4.3} />
-            <span>{product.reviewsCount} Reviews</span>
-          </Link>
+          {product.reviewsCount > 0 && (
+            <Link
+              href="#reviews"
+              className="reviews flex gap-2 text-base items-center">
+              <ReviewsStars rating={4.3} />
+              <span>{product.reviewsCount} Reviews</span>
+            </Link>
+          )}
           <Quantity />
           <form action={addItem}>
             <AddToCartButton

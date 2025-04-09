@@ -18,13 +18,14 @@ export default function StorefrontLayout({
       <Navbar />
       <div className="min-h-screen">
         <HomeWrapper home={home} />
-        <Link href="/cart" prefetch className="invisible">
-          open cart
-        </Link>
+
         {sheet}
         {children}
       </div>
       <Footer />
+      <Link href="/cart" prefetch className="invisible">
+        open cart
+      </Link>
     </main>
   );
 }
