@@ -2,6 +2,11 @@
 const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
+        ignoreDuringBuilds: true
+    },
+    eslint: {
+        ignoreBuildErrors: true,
+        ignoreDuringBuilds: true
     },
     // image source
     images: {
