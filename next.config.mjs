@@ -8,6 +8,9 @@ const nextConfig = {
         ignoreBuildErrors: true,
         ignoreDuringBuilds: true
     },
+    experimental: {
+        serverMinification: false,
+    },
     // image source
     images: {
         remotePatterns: [
