@@ -2,8 +2,10 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import prisma from "@/app/lib/db";
+import { unstable_noStore } from "next/cache";
 
 export default async function Sales() {
+  unstable_noStore();
   const recentSales = await prisma.order.findMany({
     take: 5,
     orderBy: { createdAt: "desc" },

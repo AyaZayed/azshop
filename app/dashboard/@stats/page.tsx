@@ -8,8 +8,10 @@ import {
   User2,
 } from "lucide-react";
 import prisma from "@/app/lib/db";
+import { unstable_noStore } from "next/cache";
 
 export default async function Stats() {
+  unstable_noStore();
   const [ordersCount, productsCount, customersCount, revenue] =
     await Promise.all([
       prisma.order.count(),

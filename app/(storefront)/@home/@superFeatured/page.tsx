@@ -1,5 +1,6 @@
 import HoveredProduct from "@/app/components/storefront/HoveredProduct";
 import prisma from "@/app/lib/db";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import React from "react";
 
@@ -21,6 +22,7 @@ async function getData() {
 }
 
 export default async function SuperFeatured() {
+  unstable_noStore();
   const product = await getData();
   console.log(product);
   return (

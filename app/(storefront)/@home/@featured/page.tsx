@@ -1,5 +1,6 @@
 import ProductsGrid from "@/app/components/storefront/ProductsGrid";
 import prisma from "@/app/lib/db";
+import { unstable_noStore } from "next/cache";
 import React from "react";
 
 async function getData() {
@@ -23,6 +24,7 @@ async function getData() {
 }
 
 export default async function featuredProducts() {
+  unstable_noStore();
   const data = await getData();
   return (
     <div className="p-6 pt-0 md:p-16 ">

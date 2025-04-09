@@ -16,12 +16,14 @@ import ReviewsSection from "@/app/components/storefront/ReviewsSection";
 import Quantity from "@/app/components/storefront/Quantity";
 import { addItemToCart } from "@/app/actions";
 import { AddToCartButton } from "@/app/components/SubmitButtons";
+import { unstable_noStore } from "next/cache";
 
 export default async function ProductPage({
   params,
 }: {
   params: { id: string };
 }) {
+  unstable_noStore();
   const product = await prisma.product.findUnique({
     where: {
       id: params.id,

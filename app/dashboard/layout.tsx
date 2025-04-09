@@ -4,6 +4,7 @@ import { auth } from "../lib/auth";
 import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import DashboardHome from "../components/dashboard/DashboardHome";
+import { unstable_noStore } from "next/cache";
 
 export default async function DashboardLayout({
   stats,
@@ -16,6 +17,7 @@ export default async function DashboardLayout({
   transactions: React.ReactNode;
   children: React.ReactNode;
 }) {
+  unstable_noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user || user.email !== process.env.ADMIN_EMAIL) {

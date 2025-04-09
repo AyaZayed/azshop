@@ -37,11 +37,13 @@ import {
 } from "@/components/ui/table";
 import { currency } from "@/utils/constants";
 import { MoreHorizontal, PlusCircle } from "lucide-react";
+import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default async function ProductsPage() {
+  unstable_noStore();
   const products = await prisma.product.findMany({
     orderBy: {
       created_at: "desc",

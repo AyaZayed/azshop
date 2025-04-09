@@ -6,8 +6,10 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
 import CartContent from "@/app/components/storefront/CartContent";
+import { unstable_noStore } from "next/cache";
 
 export default async function page() {
+  unstable_noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const cart: Cart | null = await redis.get(`cart-${user.id}`);

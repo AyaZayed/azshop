@@ -46,8 +46,10 @@ import {
 import { deleteBanner } from "@/app/actions";
 import prisma from "@/app/lib/db";
 import Image from "next/image";
+import { unstable_noStore } from "next/cache";
 
 export default async function BannersPage() {
+  unstable_noStore();
   const banners = await prisma.banner.findMany({
     orderBy: {
       created_at: "desc",

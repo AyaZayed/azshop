@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import prisma from "@/app/lib/db";
 import Chart from "@/app/components/Chart";
+import { unstable_noStore } from "next/cache";
 
 async function getData() {
   const orders = await prisma.order.findMany({
@@ -34,6 +35,7 @@ async function getData() {
 }
 
 export default async function Transactions() {
+  unstable_noStore();
   const data = await getData();
   return (
     <Card className="lg:col-span-2">

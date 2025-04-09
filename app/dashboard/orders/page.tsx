@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { unstable_noStore } from "next/cache";
 import React from "react";
 
 async function getData() {
@@ -40,6 +41,7 @@ async function getData() {
 }
 
 export default async function OrdersPage() {
+  unstable_noStore();
   const orders = await getData();
   return (
     <Card>
