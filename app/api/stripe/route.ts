@@ -1,9 +1,11 @@
 import prisma from "@/app/lib/db";
 import { redis } from "@/app/lib/redis";
 import { stripe } from "@/app/lib/stripe";
+import { unstable_noStore } from "next/cache";
 import Stripe from "stripe";
 
 export async function POST(req: Request) {
+  unstable_noStore();
   const body = await req.text();
   const signature = req.headers.get("Stripe-Signature") as string;
   let event;
