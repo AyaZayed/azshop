@@ -8,6 +8,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 export const metadata: Metadata = {
   title: shopName,
   description: shopDescription,
+  icons: "/favicon.ico",
 };
 
 export default async function RootLayout({

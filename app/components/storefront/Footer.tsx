@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { shopFacebook, shopInstagram, shopName } from "@/utils/constants";
 import { ArrowRight, Instagram, Facebook } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -65,10 +66,7 @@ export default function Footer() {
           </ul>
         </div>
         <div className="second">
-          <video height="280" preload="none" loop autoPlay muted playsInline>
-            <source src="/footer-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <Image src={"/video2webp.webp"} alt="logo" width={350} height={200} />
         </div>
       </div>
       <div className="copyright capitalize font-normal py-2 font-secondary">

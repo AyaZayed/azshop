@@ -1,4 +1,3 @@
-import prisma from "@/app/lib/db";
 import { shopName } from "@/utils/constants";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
@@ -6,11 +5,6 @@ import React from "react";
 
 export default async function AboutPage() {
   unstable_noStore();
-  const banners = await prisma.banner.findMany({
-    where: {
-      location: "about",
-    },
-  });
   return (
     <>
       <section className="flex justify-center items-center pt-36 pb-20 p-4 text-center">
