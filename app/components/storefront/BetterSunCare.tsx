@@ -16,7 +16,7 @@ export default function BetterSunCare() {
         fill
         className="object-cover"
       />
-      <h1 className="w-full text-[90px] text-center text-sf_background z-10 absolute bottom-20 left-[50%] translate-x-[-50%]">
+      <h1 className="w-full text-[70px] md:text-[90px] text-center text-sf_background z-10 absolute bottom-20 left-[50%] translate-x-[-50%] leading-[80px]">
         Better (sun)care
       </h1>
     </section>

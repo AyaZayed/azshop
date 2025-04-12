@@ -18,21 +18,21 @@ export default function HoveredProduct({ product }: { product: Product }) {
       className="p-4 md:p-8 w-full h-full"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
-      <div className="relative w-full h-full flex flex-col md:flex-row items-center justify-center">
+      <div className="relative w-full h-full flex flex-col lg:flex-row items-center justify-center">
         <div className="relative h-full w-full">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            className={`object-contain md:transform ${
-              isHovered ? "md:-translate-x-1/4" : "md:translate-x-0"
+            className={`object-contain lg:transform ${
+              isHovered ? "lg:-translate-x-1/4" : "lg:translate-x-0"
             } transition-transform duration-500 ease-in-out`}
           />
         </div>
         {/* Always rendered overlay */}
         <div
-          className={`md:absolute md:top-0 md:right-0 w-full md:w-1/2 h-full bg-sf_background transition-all duration-500 ease-in-out flex flex-col items-center justify-center text-center text-sf_primary gap-4 md:gap-6 p-6 md:p-10 opacity-100 ${
-            isHovered ? "md:opacity-100" : "md:opacity-0"
+          className={`lg:absolute lg:top-0 lg:right-0 w-full lg:w-1/2 h-full bg-sf_background transition-all duration-500 ease-in-out flex flex-col items-center justify-center text-center text-sf_primary gap-4 p-10 md:gap-16 lg:gap-10 opacity-100 ${
+            isHovered ? "lg:opacity-100" : "lg:opacity-0"
           }`}>
           <h1 className="uppercase font-secondary leading-[1.1] font-[500]">
             {product.name}

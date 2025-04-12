@@ -17,7 +17,7 @@ export default function ProductsLayout({
   unstable_noStore();
   revalidatePath(`/products/${category}`);
   return (
-    <div className="flex flex-col gap-4 md:gap-6 p-6 md:p-10 pt-40 items-center text-center">
+    <div className="flex flex-col gap-4 md:gap-6 p-6 md:p-10 pt-32 md:pt-40 items-center text-center">
       <ProductsHeader category={category} />
       <ul className="flex gap-4 md:gap-8 justify-center items-center">
         {categories.map((c) => (

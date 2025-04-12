@@ -1,9 +1,9 @@
 import ProductCarousel from "@/app/components/storefront/ProductCarousel";
 import ReviewsStars from "@/app/components/storefront/ReviewsStars";
 import prisma from "@/app/lib/db";
-import { currency } from "@/utils/constants";
+import { currency, loginLink } from "@/utils/constants";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import React from "react";
 import {
   Accordion,
@@ -15,8 +15,14 @@ import Encouragements from "@/app/components/storefront/Encouragements";
 import ReviewsSection from "@/app/components/storefront/ReviewsSection";
 import Quantity from "@/app/components/storefront/Quantity";
 import { addItemToCart } from "@/app/actions";
-import { AddToCartButton } from "@/app/components/SubmitButtons";
+import {
+  AddToCartButton,
+  QuantityButtons,
+} from "@/app/components/SubmitButtons";
 import { unstable_noStore } from "next/cache";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Cart } from "@/app/lib/interfaces";
+import { redis } from "@/app/lib/redis";
 
 export default async function ProductPage({
   params,
@@ -31,6 +37,18 @@ export default async function ProductPage({
   });
 
   if (!product) return notFound();
+
+  // const { getUser } = getKindeServerSession();
+  // const user = await getUser();
+
+  // const cart: Cart | null = await redis.get(`cart-${user.id}`);
+
+  // if (!user || !user.email) {
+  //   redirect(loginLink);
+  // }
+
+  // const quantity = cart?.items.find((item) => item.id === product.id)?.quantity;
+
   const addItem = addItemToCart.bind(null, product.id);
 
   return (
@@ -59,7 +77,7 @@ export default async function ProductPage({
               <span>{product.reviewsCount} Reviews</span>
             </Link>
           )}
-          <Quantity />
+          <QuantityButtons itemId={product.id} quantity={0} />
           <form action={addItem}>
             <AddToCartButton
               label="Add to Cart"

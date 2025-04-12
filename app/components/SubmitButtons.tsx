@@ -152,18 +152,24 @@ export function QuantityButtons({
   const { pending } = useFormStatus();
 
   return (
-    <>
+    <div className="flex items-center gap-3 mr-2">
       <form action={decreaseItemQuantity}>
         <input type="hidden" name="productId" value={itemId} />
         <Button
-          disabled={quantity === 1}
+          disabled={quantity <= 1}
           size={"icon"}
           className="bg-transparent text-[20px] font-bold text-sf_sedcondary border-2 border-sf_sedcondary rounded-full w-7 h-7 hover:bg-sf_sedcondary hover:text-sf_background">
           -
         </Button>
       </form>
       <span>
-        {pending ? <LoaderPinwheel className="animate-spin" /> : quantity}
+        {pending ? (
+          <LoaderPinwheel className="animate-spin" />
+        ) : quantity <= 1 ? (
+          1
+        ) : (
+          quantity
+        )}
       </span>
       <form action={increaseItemQuantity}>
         <input type="hidden" name="productId" value={itemId} />
@@ -173,7 +179,7 @@ export function QuantityButtons({
           +
         </Button>
       </form>
-    </>
+    </div>
   );
 }
 

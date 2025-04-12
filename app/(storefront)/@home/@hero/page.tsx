@@ -39,7 +39,7 @@ export default function Hero() {
         </div>
       </section>
       <section className="text-sf_sedcondary p-16 flex items-center flex-col justify-center">
-        <div className="content w-full md:w-1/2 text-center flex items-center flex-col gap-10">
+        <div className="content w-full md:w-1/2 text-center flex items-center flex-col gap-6 md:gap-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
@@ -51,7 +51,7 @@ export default function Hero() {
             <path d="M364.87,250.98c-1.49,.3-2.99,.6-4.25,.86-2.22-5.96-4.43-11.89-6.87-18.41,.94-3.41,6.91-5.39,5.37-11.54-4.87,1.84-7.94,5.31-11.41,8.07-4.08,3.24-8.45,5.22-13.72,5.06-1.92-.06-3.88-.17-5.75,.17-1.25,.23-2.35,1.21-5,2.67,5.08,.96,8.38,1.58,11.78,2.23,1.56,7.27,3.07,14.27,4.67,21.74,9.73,2.06,18.26,.54,25.16-7.11,1.09-1.21,1.65-2.49,0-3.74Z"></path>
             <path d="M335.89,344.29c-4.11,2.8-8.18,5.66-12.15,8.65-8.04,6.05-16.64,7.22-25.94,3.37-1.76-.73-3.5-1.55-5.31-2.16-2.01-.68-3.74-.55-3.97,2.73,2.66,1.73,5.39,3.85,8.41,5.41,5.58,2.88,11.45,4.16,17.7,2.08,11.99-3.99,21.3-11.38,28.63-21.34-.55-.65-1.11-1.3-1.66-1.95-1.91,1.06-3.92,1.98-5.72,3.21Z"></path>
           </svg>
-          <h1 className="text-[50px] md:text-[60px] font-bold">
+          <h1 className="text-[50px] md:text-[60px] font-bold leading-[50px]">
             Hello, Sunshine
           </h1>
           <p>

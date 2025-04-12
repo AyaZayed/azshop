@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import ReviewsList from "./ReviewsList";
+import { loginLink } from "@/utils/constants";
+import { redirect } from "next/navigation";
 
 export default async function ReviewsSection({
   productId,
@@ -26,8 +28,13 @@ export default async function ReviewsSection({
     },
   });
 
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  async function handleRedirect() {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    if (!user || !user.email) {
+      redirect(loginLink);
+    }
+  }
 
   return (
     <section id="reviews" className="p-10 md:px-24 text-base font-secondary">
@@ -39,10 +46,12 @@ export default async function ReviewsSection({
           </span>
         </h2>
         <Dialog>
-          <DialogTrigger
-            className="text-sf_background bg-sf_sedcondary border-[1px] border-sf_sedcondary hover:bg-sf_background 
+          <DialogTrigger asChild>
+            <button
+              className="text-sf_background bg-sf_sedcondary border-[1px] border-sf_sedcondary hover:bg-sf_background 
         hover:text-sf_sedcondary p-1 px-3 text-xs mb-2 font-[500]">
-            Write a review
+              Write a review
+            </button>
           </DialogTrigger>
           <DialogContent className="font-secondary text-sm">
             <DialogHeader>
@@ -51,7 +60,7 @@ export default async function ReviewsSection({
                 Give your honest opinion about this product
               </DialogDescription>
             </DialogHeader>
-            <ReviewForm productId={productId} userId={user?.id} />
+            {/* <ReviewForm productId={productId} userId={user?.id} /> */}
           </DialogContent>
         </Dialog>
       </div>

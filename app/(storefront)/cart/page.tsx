@@ -26,9 +26,11 @@ export default async function page() {
     redirect(loginLink);
   }
   return (
-    <div className="p-10 pt-40 flex flex-col items-center h-screen font-secondary">
+    <div className="p-6 md:px-10 pt-32 flex flex-col items-center h-screen font-secondary">
       {cart && cart.items.length > 0 ? (
-        <CartContent cart={cart} totalPrice={totalPrice} />
+        <div className="md:w-1/3 h-full">
+          <CartContent cart={cart} totalPrice={totalPrice} />
+        </div>
       ) : (
         <div className="flex flex-col items-center gap-6">
           <div className="w-20 h-20">

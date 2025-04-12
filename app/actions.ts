@@ -12,6 +12,11 @@ import { stripe } from "./lib/stripe";
 import Stripe from "stripe";
 import { auth } from "./lib/auth";
 import { getCartId } from "./lib/cartUtils";
+import { randomUUID } from "crypto";
+import { cookies } from "next/headers";
+
+const guestId = cookies().get("guest_id")?.value;
+console.log(guestId);
 
 async function isAdmin() {
   const { getUser } = getKindeServerSession();
@@ -19,6 +24,40 @@ async function isAdmin() {
 
   if (!user || user.email !== process.env.ADMIN_EMAIL) {
     return redirect("/");
+  }
+}
+
+export async function registerUser() {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (user) {
+    const existing = await prisma.user.findUnique({ where: { id: user.id } });
+
+    if (!existing) {
+      await prisma.user.create({
+        data: {
+          id: user.id,
+          email: user.email ?? "",
+          firstName: user.given_name ?? "",
+          lastName: user.family_name ?? "",
+          profileImage:
+            user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
+        },
+      });
+    }
+  } else {
+    let guestId = cookies().get("guest_id")?.value;
+
+    if (!guestId) {
+      guestId = randomUUID();
+      cookies().set("guest_id", guestId, {
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7 * 30, // 1 month
+        httpOnly: true,
+        sameSite: "lax",
+      });
+    }
   }
 }
 

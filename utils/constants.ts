@@ -9,4 +9,4 @@ export const orderDispatch = 1;
 export const giftValue = 10;
 export const giftEarnBack = 10;
 export const currency = "£";
-export const loginLink = "http://localhost:3000";
+export const loginLink = "/api/auth/login";

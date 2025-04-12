@@ -26,20 +26,20 @@ export default async function ProductsNav() {
   const products = await getData();
 
   return (
-    <ul className="hidden md:flex justify-between gap-2">
+    <ul className="hidden md:flex gap-2">
       {products.map((product) => (
         <li
           key={product.id}
-          className="min-w-40 flex flex-col items-center justify-center gap-2 font-secondary">
+          className="flex flex-col items-center justify-start gap-2 font-secondary">
           <Link
             href={`/product/${product.id}`}
-            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center">
+            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center w-[140px]">
             <HoverImage
               image={product.images[0]}
               title={product.name}
               category={product.category}
-              height={200}
               href={`/product/${product.id}`}
+              height={200}
             />
             <h4>{product.name}</h4>
           </Link>

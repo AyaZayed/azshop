@@ -7,7 +7,7 @@ type Props = {
   image: string;
   category: string;
   title: string;
-  height: number;
+  height?: number;
   hover?: boolean;
   href?: string;
 };
@@ -35,24 +35,23 @@ export default function HoverImage({
   }
   return (
     <div className={`relative w-full`} style={{ height: `${height}px` }}>
-      <Link href={href || ""}>
-        <Image
-          src={background}
-          alt={title}
-          fill
-          className={`object-cover z-0 absolute top-0 right-0 transition-all duration-300 ease-in opacity-100 ${
-            isHovered ? "opacity-100" : "md:opacity-0"
-          }`}
-        />
-        <Image
-          src={image}
-          alt={title}
-          fill
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          className="object-cover transition-all duration-500 ease-in z-10 absolute top-0 right-0"
-        />
-      </Link>
+      <Image
+        unoptimized
+        src={background}
+        alt={title}
+        fill
+        className={`object-cover z-0 absolute top-0 right-0 transition-all duration-300 ease-in opacity-100 ${
+          isHovered ? "opacity-100" : "lg:opacity-0"
+        }`}
+      />
+      <Image
+        src={image}
+        alt={title}
+        fill
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="object-cover transition-all duration-500 ease-in z-10 absolute top-0 right-0"
+      />
     </div>
   );
 }

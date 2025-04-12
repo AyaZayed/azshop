@@ -36,13 +36,15 @@ export default function ProductCard({ product }: { product: Product }) {
       className="flex flex-col gap-1 items-center bg-transparent font-secondary"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <HoverImage
-        image={product.images[0]}
-        category={product.category}
-        title={product.name}
-        height={450}
-        href={`/product/${product.id}`}
-      />
+      <Link href={`/product/${product.id}`} className="w-full">
+        <HoverImage
+          image={product.images[0]}
+          category={product.category}
+          title={product.name}
+          height={480}
+          href={`/product/${product.id}`}
+        />
+      </Link>
       <Link href={`/product/${product.id}`}>
         <h3 className="mt-6 font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
           <span className={`block ${!isHovered && "md:hidden"}`}>
