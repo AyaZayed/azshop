@@ -10,6 +10,7 @@ type Data = {
   type: string;
   category: string;
   reviewsCount: number;
+  rating: number | null;
 }[];
 
 export default function ProductsGrid({ data }: { data: Data }) {

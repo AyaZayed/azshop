@@ -23,6 +23,7 @@ import { unstable_noStore } from "next/cache";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
+import { getSessionId } from "@/app/lib/getSessionId";
 
 export default async function ProductPage({
   params,
@@ -38,16 +39,11 @@ export default async function ProductPage({
 
   if (!product) return notFound();
 
-  // const { getUser } = getKindeServerSession();
-  // const user = await getUser();
+  const { sessionId } = await getSessionId();
 
-  // const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
 
-  // if (!user || !user.email) {
-  //   redirect(loginLink);
-  // }
-
-  // const quantity = cart?.items.find((item) => item.id === product.id)?.quantity;
+  const quantity = cart?.items.find((item) => item.id === product.id)?.quantity;
 
   const addItem = addItemToCart.bind(null, product.id);
 
@@ -73,11 +69,18 @@ export default async function ProductPage({
             <Link
               href="#reviews"
               className="reviews flex gap-2 text-base items-center">
-              <ReviewsStars rating={4.3} />
-              <span>{product.reviewsCount} Reviews</span>
+              <ReviewsStars
+                rating={product.rating}
+                reviewsCount={product.reviewsCount}
+              />
+              <span>
+                {product.reviewsCount === 1
+                  ? "1 review"
+                  : product.reviewsCount + " reviews"}
+              </span>
             </Link>
           )}
-          <QuantityButtons itemId={product.id} quantity={0} />
+          <QuantityButtons itemId={product.id} quantity={quantity || 0} />
           <form action={addItem}>
             <AddToCartButton
               label="Add to Cart"

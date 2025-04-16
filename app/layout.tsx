@@ -15,7 +15,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  getOrCreateUser();
+  await getOrCreateUser();
 
   return (
     <html

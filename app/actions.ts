@@ -13,10 +13,7 @@ import Stripe from "stripe";
 import { auth } from "./lib/auth";
 import { getCartId } from "./lib/cartUtils";
 import { randomUUID } from "crypto";
-import { cookies } from "next/headers";
-
-const guestId = cookies().get("guest_id")?.value;
-console.log(guestId);
+import { getSessionId } from "./lib/getSessionId";
 
 async function isAdmin() {
   const { getUser } = getKindeServerSession();
@@ -170,7 +167,8 @@ export async function createBanner(prevState: unknown, formData: FormData) {
 }
 
 export async function createReview(prevState: unknown, formData: FormData) {
-  const userId = (await auth()).userId!;
+  const { sessionId } = await getSessionId();
+  const userId = sessionId;
   const submission = parseWithZod(formData, {
     schema: reviewSchema,
   });
@@ -249,7 +247,8 @@ export async function deleteBanner(formData: FormData) {
 }
 
 export async function addItemToCart(productId: string) {
-  const userId = await getCartId();
+  const { sessionId } = await getSessionId();
+  const userId = sessionId;
   const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   const selectedProduct = await prisma.product.findUnique({
@@ -312,7 +311,8 @@ export async function addItemToCart(productId: string) {
 }
 
 export async function removeItemFromCart(formData: FormData) {
-  const userId = await getCartId();
+  const { sessionId } = await getSessionId();
+  const userId = sessionId;
   const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
@@ -332,7 +332,8 @@ export async function removeItemFromCart(formData: FormData) {
 }
 
 export async function increaseItemQuantity(formData: FormData) {
-  const userId = await getCartId();
+  const { sessionId } = await getSessionId();
+  const userId = sessionId;
   const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
@@ -360,7 +361,8 @@ export async function increaseItemQuantity(formData: FormData) {
 }
 
 export async function decreaseItemQuantity(formData: FormData) {
-  const userId = await getCartId();
+  const { sessionId } = await getSessionId();
+  const userId = sessionId;
   const cart: Cart | null = await redis.get(`cart-${userId}`);
 
   if (!cart || !cart.items) {
@@ -388,7 +390,7 @@ export async function decreaseItemQuantity(formData: FormData) {
 }
 
 export async function checkout() {
-  const userId = await getCartId();
+  const { userId } = await auth();
   const cart = (await redis.get(`cart-${userId}`)) as Cart | null;
   if (!cart || !cart.items) {
     return;

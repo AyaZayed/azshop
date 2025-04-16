@@ -16,6 +16,7 @@ type Product = {
   type: string;
   category: string;
   reviewsCount: number;
+  rating: number | null;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -79,8 +80,16 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link
           href={`/product/${product.id}#reviews`}
           className="flex gap-2 items-center text-base">
-          <ReviewsStars rating={4.7} starSize={16} />
-          <span>{10} reviews</span>
+          <ReviewsStars
+            rating={product.rating}
+            reviewsCount={product.reviewsCount}
+            starSize={16}
+          />
+          <span>
+            {product.reviewsCount === 1
+              ? "1 review"
+              : product.reviewsCount + " reviews"}
+          </span>
         </Link>
       )}
     </div>

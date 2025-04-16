@@ -18,6 +18,7 @@ async function getData() {
       category: true,
       type: true,
       reviewsCount: true,
+      rating: true,
     },
   });
 

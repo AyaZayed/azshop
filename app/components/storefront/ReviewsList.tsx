@@ -30,7 +30,9 @@ export default function ReviewsList({ reviews }: { reviews: Review[] }) {
                   @{review.author} -{" "}
                   <span className="font-[500]">{review.headline}</span>
                 </h3>
-                <p className="font-primary">{review.content}</p>
+                <p className="font-primary first-letter:capitalize">
+                  {review.content}
+                </p>
               </div>
             </div>
           ))}

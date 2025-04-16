@@ -13,6 +13,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import ReviewsList from "./ReviewsList";
 import { loginLink } from "@/utils/constants";
 import { redirect } from "next/navigation";
+import { getSessionId } from "@/app/lib/getSessionId";
 
 export default async function ReviewsSection({
   productId,
@@ -28,13 +29,7 @@ export default async function ReviewsSection({
     },
   });
 
-  async function handleRedirect() {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-    if (!user || !user.email) {
-      redirect(loginLink);
-    }
-  }
+  const { sessionId } = await getSessionId();
 
   return (
     <section id="reviews" className="p-10 md:px-24 text-base font-secondary">
@@ -60,7 +55,7 @@ export default async function ReviewsSection({
                 Give your honest opinion about this product
               </DialogDescription>
             </DialogHeader>
-            {/* <ReviewForm productId={productId} userId={user?.id} /> */}
+            <ReviewForm productId={productId} userId={sessionId} />
           </DialogContent>
         </Dialog>
       </div>

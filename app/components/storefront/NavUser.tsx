@@ -17,25 +17,28 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { getSessionId } from "@/app/lib/getSessionId";
 
 export default async function NavUser() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const cart: Cart | null = await redis.get(`cart-${user?.id}`);
+  const { sessionId } = await getSessionId();
+
+  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
 
   const total = cart?.items.reduce((acc, item) => acc + item.quantity, 0);
   return (
     <div className="flex items-center gap-4 order-3">
+      <Link href="/cart" className="relative">
+        <ShoppingBag className="w-6 h-6" />
+        <span
+          className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
+              w-4 h-4 p-2 flex items-center justify-center text-xs">
+          {total || 0}
+        </span>
+      </Link>
       {user ? (
         <>
-          <Link href="/cart" className="relative">
-            <ShoppingBag className="w-6 h-6" />
-            <span
-              className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
-              w-4 h-4 p-2 flex items-center justify-center text-xs">
-              {total || 0}
-            </span>
-          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="focus:outline-none">
               <Button

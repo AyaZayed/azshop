@@ -4,10 +4,12 @@ export default function ReviewsStars({
   rating,
   starSize,
   starColor,
+  reviewsCount,
 }: {
   rating: number | null;
   starSize?: number;
   starColor?: "primary" | string;
+  reviewsCount?: number;
 }) {
   const color = starColor === "primary" ? "#FF662C" : "#a54547";
   const opaqueColor = starColor === "primary" ? "#ff642c0f" : "#a545471a";
@@ -58,10 +60,6 @@ export default function ReviewsStars({
           </svg>
         ))}
       </div>
-
-      {/* <span className="absolute bottom-[-4px] -right-20 whitespace-nowrap">
-        {reviewsCount} reviews
-      </span> */}
     </div>
   );
 }

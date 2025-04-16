@@ -1,19 +1,17 @@
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
-import { loginLink } from "@/utils/constants";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
 import CartContent from "@/app/components/storefront/CartContent";
 import CartSheet from "@/app/components/storefront/CartSheet";
 import { unstable_noStore } from "next/cache";
+import { getSessionId } from "@/app/lib/getSessionId";
 
 export default async function page() {
   unstable_noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const cart: Cart | null = await redis.get(`cart-${user.id}`);
+  const { sessionId } = await getSessionId();
+
+  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
   let totalPrice = 0;
 
   if (cart && cart.items.length > 0) {
@@ -23,9 +21,6 @@ export default async function page() {
     );
   }
 
-  if (!user || !user.email) {
-    redirect(loginLink);
-  }
   return (
     <CartSheet>
       <div className=" flex flex-col items-center h-full">
