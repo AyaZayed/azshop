@@ -5,6 +5,7 @@ import { unstable_noStore } from "next/cache";
 import Stripe from "stripe";
 
 export async function POST(req: Request) {
+  console.log("✅ Stripe webhook route was hit");
   unstable_noStore();
   const body = await req.text();
   const signature = req.headers.get("Stripe-Signature") as string;

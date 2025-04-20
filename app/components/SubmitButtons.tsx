@@ -1,9 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { currency, loginLink } from "@/utils/constants";
-import { Loader2, LoaderPinwheel, XCircleIcon } from "lucide-react";
+import { currency } from "@/utils/constants";
+import { Loader2, LoaderPinwheel } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
 import { useFormStatus } from "react-dom";
 import { decreaseItemQuantity, increaseItemQuantity } from "../actions";
@@ -19,35 +18,21 @@ interface buttonProps {
     | "link"
     | null
     | undefined;
-  userId?: string;
   href?: string;
   style?: string;
   total?: number;
 }
-export default function SubmitButton({ label, variant, userId }: buttonProps) {
+export default function SubmitButton({ label, variant }: buttonProps) {
   const { pending } = useFormStatus();
-  function auth() {
-    if (!userId) {
-      return redirect(loginLink);
-    }
-  }
   return (
     <>
       {pending ? (
-        <Button
-          onClick={() => auth()}
-          disabled
-          className="w-fit"
-          variant={variant}>
+        <Button disabled className="w-fit" variant={variant}>
           <Loader2 className="mr-2" />
           Please wait
         </Button>
       ) : (
-        <Button
-          onClick={() => auth()}
-          className="w-fit"
-          variant={variant || "default"}
-          type="submit">
+        <Button className="w-fit" variant={variant || "default"} type="submit">
           {label}
         </Button>
       )}
@@ -113,7 +98,7 @@ export function AddToCartButton({ style, label }: buttonProps) {
           Please wait
         </Button>
       ) : (
-        <Button type="submit" className={`${style}`}>
+        <Button type="submit" className={`${style} cursor-pointer`}>
           {label}
         </Button>
       )}

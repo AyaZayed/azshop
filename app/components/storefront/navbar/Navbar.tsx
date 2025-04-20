@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
-import NavLinks from "./NavLinks";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { shopName } from "@/utils/constants";
 import { MenuIcon } from "lucide-react";
+import NavLinks from "./NavLinks";
 import NavUser from "./NavUser";
 
 export default function Navbar() {

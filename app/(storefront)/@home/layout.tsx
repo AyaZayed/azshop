@@ -1,4 +1,3 @@
-import BetterSunCare from "@/app/components/storefront/BetterSunCare";
 import React from "react";
 
 export default function HomeLayout({
@@ -6,18 +5,20 @@ export default function HomeLayout({
   hero,
   protection,
   superFeatured,
+  featuredReviews,
 }: {
   featured: React.ReactNode;
   hero: React.ReactNode;
   protection: React.ReactNode;
   superFeatured: React.ReactNode;
+  featuredReviews: React.ReactNode;
 }) {
   return (
     <>
       {hero}
       {featured}
       {superFeatured}
-      <BetterSunCare />
+      {featuredReviews}
       {protection}
     </>
   );

@@ -1,8 +1,7 @@
+import HoverImage from "@/app/components/storefront/HoverImage";
 import prisma from "@/app/lib/db";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import HoverImage from "./HoverImage";
 
 async function getData() {
   const featuredProducts = await prisma.product.findMany({

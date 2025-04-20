@@ -24,40 +24,6 @@ async function isAdmin() {
   }
 }
 
-export async function registerUser() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (user) {
-    const existing = await prisma.user.findUnique({ where: { id: user.id } });
-
-    if (!existing) {
-      await prisma.user.create({
-        data: {
-          id: user.id,
-          email: user.email ?? "",
-          firstName: user.given_name ?? "",
-          lastName: user.family_name ?? "",
-          profileImage:
-            user.picture ?? `https://avatar.vercel.sh/${user.given_name}`,
-        },
-      });
-    }
-  } else {
-    let guestId = cookies().get("guest_id")?.value;
-
-    if (!guestId) {
-      guestId = randomUUID();
-      cookies().set("guest_id", guestId, {
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7 * 30, // 1 month
-        httpOnly: true,
-        sameSite: "lax",
-      });
-    }
-  }
-}
-
 export async function createProduct(prevState: unknown, formData: FormData) {
   isAdmin();
 
@@ -167,44 +133,49 @@ export async function createBanner(prevState: unknown, formData: FormData) {
 }
 
 export async function createReview(prevState: unknown, formData: FormData) {
-  const { sessionId } = await getSessionId();
-  const userId = sessionId;
-  const submission = parseWithZod(formData, {
-    schema: reviewSchema,
-  });
+  const raw = {
+    author: formData.get("author"),
+    headline: formData.get("headline"),
+    content: formData.get("content"),
+    rating: Number(formData.get("rating")),
+    productId: formData.get("productId"),
+    userId: formData.get("userId"),
+  };
 
-  if (submission.status !== "success") {
-    return submission.reply();
+  const result = reviewSchema.safeParse(raw);
+
+  if (!result.success) {
+    return {
+      errors: result.error.flatten().fieldErrors,
+    };
   }
 
-  const productId = formData.get("productId") as string;
-
-  await prisma.review.create({
+  const review = await prisma.review.create({
     data: {
-      author: submission.value.author,
-      rating: submission.value.rating,
-      productId: submission.value.productId,
-      headline: submission.value.headline,
-      content: submission.value.content,
-      userId: userId,
+      ...result.data,
     },
   });
 
   await prisma.product.update({
     where: {
-      id: productId,
+      id: result.data.productId,
     },
     data: {
+      rating: {
+        increment: result.data.rating,
+      },
       reviewsCount: {
         increment: 1,
-      },
-      rating: {
-        increment: submission.value.rating,
       },
     },
   });
 
-  revalidatePath("/product");
+  revalidatePath(`/product/${result.data.productId}`);
+
+  return {
+    success: true,
+    review,
+  };
 }
 
 export async function editBanner(prevState: unknown, formData: FormData) {

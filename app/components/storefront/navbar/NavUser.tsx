@@ -18,8 +18,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { getSessionId } from "@/app/lib/getSessionId";
+import prisma from "@/app/lib/db";
+import { unstable_noStore } from "next/cache";
 
 export default async function NavUser() {
+  unstable_noStore();
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   const { sessionId } = await getSessionId();
@@ -27,6 +30,11 @@ export default async function NavUser() {
   const cart: Cart | null = await redis.get(`cart-${sessionId}`);
 
   const total = cart?.items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const hasOrders = await prisma.order.findFirst({
+    where: { userId: user?.id },
+  });
+
   return (
     <div className="flex items-center gap-4 order-3">
       <Link href="/cart" className="relative">
@@ -51,6 +59,14 @@ export default async function NavUser() {
             <DropdownMenuContent align="end" className="font-secondary">
               <DropdownMenuLabel>Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/orders">Orders</Link>
+              </DropdownMenuItem>
+              {/* {hasOrders && (
+                <DropdownMenuItem asChild>
+                  <Link href="/orders">Orders</Link>
+                </DropdownMenuItem>
+              )} */}
               <DropdownMenuItem asChild>
                 <LogoutLink postLogoutRedirectURL="/">Log Out</LogoutLink>
               </DropdownMenuItem>

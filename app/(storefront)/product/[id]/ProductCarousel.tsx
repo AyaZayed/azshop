@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
+import HoverImage from "@/app/components/storefront/HoverImage";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import React from "react";
-import HoverImage from "./HoverImage";
 
 export default function ProductCarousel({
   images,
@@ -24,13 +23,13 @@ export default function ProductCarousel({
   unstable_noStore();
   return (
     <div className="relative">
-      <div className="carousel-buttons absolute z-10 inset-0 w-full h-full grid grid-cols-2">
+      <div className="carousel-buttons absolute inset-0 w-full h-full grid grid-cols-2">
         <button
           onClick={handlePrevious}
-          className={`w-full cursor-leftArrow flex flex-col justify-center items-center `}></button>
+          className={`w-full flex flex-col justify-center items-center cursor-pointer`}></button>
         <button
           onClick={handleNext}
-          className="w-full cursor-rightArrow flex flex-col justify-center items-center "></button>
+          className="w-full flex flex-col justify-center items-center cursor-pointer"></button>
       </div>
       <div className="thumbnails-container absolute bottom-10 left-1/2 -translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:left-10 flex md:flex-col gap-2 z-20">
         {images &&

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { categories } from "@/app/lib/categories";
 import { revalidatePath, unstable_noStore } from "next/cache";
-import ProductsHeader from "@/app/components/storefront/ProductsHeader";
+import ProductsHeader from "@/app/(storefront)/products/[category]/ProductsHeader";
 
 type Category = "all" | "sunscreen" | "repair" | "sets" | "gifts";
 

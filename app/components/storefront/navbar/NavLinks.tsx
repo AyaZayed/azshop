@@ -1,9 +1,9 @@
-import CategoriesDropdown from "./CategoriesDropdown";
 import React from "react";
 import {
   NavigationMenu,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import CategoriesDropdown from "./CategoriesDropdown";
 import NavMenuItem from "./NavMenuItem";
 
 const links = [

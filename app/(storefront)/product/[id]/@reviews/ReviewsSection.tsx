@@ -1,6 +1,5 @@
-import prisma from "@/app/lib/db";
+"use client";
 import React from "react";
-import ReviewForm from "./ReviewForm";
 import {
   Dialog,
   DialogContent,
@@ -9,30 +8,33 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import ReviewsList from "./ReviewsList";
-import { loginLink } from "@/utils/constants";
-import { redirect } from "next/navigation";
-import { getSessionId } from "@/app/lib/getSessionId";
+import dynamic from "next/dynamic";
+import { Review } from "@prisma/client";
+const ReviewsList = dynamic(() => import("./ReviewsList"), {
+  ssr: false,
+  loading: () => <p>Loading reviews...</p>,
+});
 
-export default async function ReviewsSection({
-  productId,
-}: {
+const ReviewForm = dynamic(() => import("./ReviewForm"), {
+  ssr: false,
+  loading: () => <p>Loading form...</p>,
+});
+
+interface Props {
+  reviews: Review[];
   productId: string;
-}) {
-  const reviews = await prisma.review.findMany({
-    where: {
-      productId: productId,
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-  });
+  sessionId: string;
+}
 
-  const { sessionId } = await getSessionId();
-
+export default function ReviewsSection({
+  reviews,
+  productId,
+  sessionId,
+}: Props) {
+  const [shownReviews, setShownReviews] = React.useState(reviews.slice(0, 5));
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <section id="reviews" className="p-10 md:px-24 text-base font-secondary">
+    <>
       <div className="border-b-[1px] border-sf_sedcondary flex justify-between">
         <h2 className="px-2 text-3xl font-bold font-primary border-b-4 border-sf_sedcondary">
           Reviews{" "}
@@ -40,7 +42,7 @@ export default async function ReviewsSection({
             {reviews.length > 0 && `(${reviews.length})`}
           </span>
         </h2>
-        <Dialog>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <button
               className="text-sf_background bg-sf_sedcondary border-[1px] border-sf_sedcondary hover:bg-sf_background 
@@ -55,11 +57,20 @@ export default async function ReviewsSection({
                 Give your honest opinion about this product
               </DialogDescription>
             </DialogHeader>
-            <ReviewForm productId={productId} userId={sessionId} />
+            <ReviewForm
+              productId={productId}
+              userId={sessionId}
+              setShownReviews={setShownReviews}
+              setIsOpen={setIsOpen}
+            />
           </DialogContent>
         </Dialog>
       </div>
-      <ReviewsList reviews={reviews} />
-    </section>
+      <ReviewsList
+        shownReviews={shownReviews}
+        setShownReviews={setShownReviews}
+        reviews={reviews}
+      />
+    </>
   );
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "@/app/components/storefront/Navbar";
 import Footer from "@/app/components/storefront/Footer";
 import HomeWrapper from "../components/storefront/HomeWrapper";
 import Link from "next/link";
+import Navbar from "../components/storefront/navbar/Navbar";
 
 export default function StorefrontLayout({
   children,
@@ -18,7 +18,6 @@ export default function StorefrontLayout({
       <Navbar />
       <div className="min-h-screen">
         <HomeWrapper home={home} />
-
         {sheet}
         {children}
       </div>

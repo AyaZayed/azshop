@@ -106,6 +106,10 @@ h1 {
   }
 }
 
+.custom-cursor {
+  cursor: url('/public/right-arrow-16.png'), auto;
+}
+
 ::-moz-selection {
   background-color: hsl(20, 100%, 50%);
   color: #fff;

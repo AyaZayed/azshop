@@ -1,11 +1,16 @@
-"use client";
 import React from "react";
-import ReviewsStars from "./ReviewsStars";
 import { Review } from "@prisma/client";
+import ReviewsStars from "@/app/components/storefront/ReviewsStars";
 
-export default function ReviewsList({ reviews }: { reviews: Review[] }) {
-  const [shownReviews, setShownReviews] = React.useState(reviews.slice(0, 5));
-
+export default function ReviewsList({
+  shownReviews,
+  setShownReviews,
+  reviews,
+}: {
+  shownReviews: Review[];
+  setShownReviews: React.Dispatch<React.SetStateAction<Review[]>>;
+  reviews: Review[];
+}) {
   const handleShowMore = () => {
     setShownReviews((prev) => [
       ...prev,

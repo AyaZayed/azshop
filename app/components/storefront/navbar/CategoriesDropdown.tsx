@@ -7,7 +7,7 @@ import {
   NavigationMenuContent,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
-import { SecondaryButton } from "../SubmitButtons";
+import { SecondaryButton } from "../../SubmitButtons";
 import ProductsNav from "./ProductsNav";
 
 export default function CategoriesDropdown() {
