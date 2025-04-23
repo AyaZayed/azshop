@@ -94,7 +94,7 @@ export default function ImageUploadWidget({
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col gap-2 ">
-        <Label htmlFor="upload">{label}</Label>
+        <Label htmlFor="upload">{label}*</Label>
         <input
           type="hidden"
           value={Array.isArray(images) ? images.join(",") : images}

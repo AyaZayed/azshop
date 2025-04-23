@@ -1,25 +1,15 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 type Props = {
   image: string;
   category: string;
   title: string;
-  height?: number;
   hover?: boolean;
-  href?: string;
 };
 
-export default function HoverImage({
-  image,
-  category,
-  title,
-  height,
-  hover,
-  href,
-}: Props) {
+export default function HoverImage({ image, category, title, hover }: Props) {
   const [isHovered, setIsHovered] = React.useState(hover || false);
   const background =
     category === "sunscreen" ? "/video1webp.webp" : "/video2webp.webp";
@@ -34,7 +24,7 @@ export default function HoverImage({
     setIsHovered(false);
   }
   return (
-    <div className={`relative w-full`} style={{ height: `${height}px` }}>
+    <div className="relative w-full h-full">
       <Image
         unoptimized
         src={background}

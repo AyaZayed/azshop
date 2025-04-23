@@ -19,7 +19,7 @@ export default async function Stats() {
       prisma.user.count(),
       prisma.order.aggregate({
         _sum: {
-          amount: true,
+          total: true,
         },
       }),
     ]);
@@ -33,7 +33,7 @@ export default async function Stats() {
         </CardHeader>
         <CardContent>
           <p className="text-2xl font-bold">
-            ${(revenue._sum.amount || 0) / 100}
+            ${(revenue._sum.total || 0) / 100}
           </p>
           <p className="text-sm text-muted-foreground">Based on 100 charges</p>
         </CardContent>

@@ -7,36 +7,74 @@ import Stripe from "stripe";
 export async function POST(req: Request) {
   console.log("✅ Stripe webhook route was hit");
   unstable_noStore();
+
   const body = await req.text();
   const signature = req.headers.get("Stripe-Signature") as string;
   let event;
+
   try {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (error: unknown) {
-    return new Response(`Webhook Error:`, { status: 400 });
+  } catch (error: any) {
+    console.error("❌ Stripe signature error:", error.message);
+    return new Response(`Webhook Error: ${error.message}`, { status: 400 });
   }
+
+  console.log("📦 Event type:", event.type);
 
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
-      await prisma.order.create({
-        data: {
-          amount: session.amount_total as number,
-          userId: session.metadata?.userId as string,
-          status: session.status as string,
-        },
-      });
 
-      await redis.del(`cart-${session.metadata?.userId}`);
+      try {
+        const userId = session.metadata?.userId;
+        const redisKey = `cart-${userId}`;
+        console.log("🔍 Looking for cart under key:", redisKey);
+
+        const rawCart = await redis.get(redisKey);
+        console.log("🛒 Raw cart from Redis:", rawCart);
+
+        if (!rawCart) throw new Error("Cart not found in Redis");
+
+        const parsedCart =
+          typeof rawCart === "string" ? JSON.parse(rawCart) : rawCart;
+
+        const order = await prisma.order.create({
+          data: {
+            total: session.amount_total || 0,
+            userId,
+            status: session.status || "pending",
+            items: {
+              create: parsedCart.items.map((item: any) => ({
+                product: {
+                  connect: { id: item.id },
+                },
+                quantity: item.quantity,
+                unitPrice: item.price,
+              })),
+            },
+          },
+        });
+
+        console.log("✅ Order created:", order);
+
+        await redis.del(`cart-${userId}`);
+        console.log("🧹 Cart cleared from Redis");
+      } catch (err: any) {
+        console.error("❌ Error in checkout.session.completed:", err.message);
+        return new Response("Webhook Error: Order creation failed", {
+          status: 500,
+        });
+      }
+
       break;
     }
 
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      console.log(`⚠️ Unhandled event type ${event.type}`);
   }
 
   return new Response(null, { status: 200 });

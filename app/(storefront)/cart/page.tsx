@@ -1,8 +1,5 @@
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
-import { loginLink } from "@/utils/constants";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
 import CartContent from "@/app/components/storefront/CartContent";

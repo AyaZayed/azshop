@@ -5,7 +5,10 @@ import { Loader2, LoaderPinwheel } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useFormStatus } from "react-dom";
-import { decreaseItemQuantity, increaseItemQuantity } from "../actions";
+import {
+  decreaseItemQuantity,
+  increaseItemQuantity,
+} from "@/app/actions/cartActions";
 
 interface buttonProps {
   label: string;

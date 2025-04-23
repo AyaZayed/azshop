@@ -1,7 +1,7 @@
 import React from "react";
 import { Cart } from "@/app/lib/interfaces";
 import { currency } from "@/utils/constants";
-import { checkout, removeItemFromCart } from "@/app/actions";
+import { checkout, removeItemFromCart } from "@/app/actions/cartActions";
 import {
   CheckoutButton,
   DeleteItemButton,
@@ -20,14 +20,11 @@ export default async function CartContent({
     <div className="grid content-between gap-8 h-full font-bold">
       <div className="flex flex-col gap-6">
         {cart.items.map((item) => (
-          <div
-            className="grid grid-cols-2 grid-flow-row content-start"
-            key={item.id}>
-            <div className="w-[120px]">
+          <div className="grid grid-cols-2 grid-flow-row" key={item.id}>
+            <div className="w-[130px] h-[150px]">
               <HoverImage
                 image={item.imageString}
                 title={item.name}
-                height={160}
                 category="sunscreen"
                 hover={true}
               />

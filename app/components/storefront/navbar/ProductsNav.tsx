@@ -32,13 +32,11 @@ export default async function ProductsNav() {
           className="flex flex-col items-center justify-start gap-2 font-secondary">
           <Link
             href={`/product/${product.id}`}
-            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center w-[140px]">
+            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center w-[140px] h-[200px]">
             <HoverImage
               image={product.images[0]}
               title={product.name}
               category={product.category}
-              href={`/product/${product.id}`}
-              height={200}
             />
             <h4>{product.name}</h4>
           </Link>

@@ -23,13 +23,15 @@ const ReviewForm = dynamic(() => import("./ReviewForm"), {
 interface Props {
   reviews: Review[];
   productId: string;
-  sessionId: string;
+  userId: string | null;
+  guestId: string;
 }
 
 export default function ReviewsSection({
   reviews,
   productId,
-  sessionId,
+  userId,
+  guestId,
 }: Props) {
   const [shownReviews, setShownReviews] = React.useState(reviews.slice(0, 5));
   const [isOpen, setIsOpen] = React.useState(false);
@@ -59,7 +61,8 @@ export default function ReviewsSection({
             </DialogHeader>
             <ReviewForm
               productId={productId}
-              userId={sessionId}
+              userId={userId}
+              guestId={guestId}
               setShownReviews={setShownReviews}
               setIsOpen={setIsOpen}
             />

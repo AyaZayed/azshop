@@ -1,4 +1,4 @@
-import DashboardNav from "../components/DashboardNav";
+import DashboardNav from "./DashboardNav";
 import { CircleUser, MenuIcon } from "lucide-react";
 import {
   Sheet,

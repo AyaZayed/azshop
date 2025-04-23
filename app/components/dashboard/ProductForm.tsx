@@ -22,10 +22,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ImageUploadWidget from "@/app/components/ImageUploadWidget";
+import ImageUploadWidget from "@/app/components/dashboard/ImageUploadWidget";
 import { type $Enums } from "@prisma/client";
 import { currency } from "@/utils/constants";
-import { productTypes } from "../lib/productTypes";
+import { productTypes } from "../../lib/productTypes";
 
 type productFormProps = {
   images: string[];
@@ -47,6 +47,12 @@ type productFormProps = {
       key: string;
       name: string;
       initialValue: string | undefined;
+      errors: string[] | undefined;
+    };
+    inStock: {
+      key: string;
+      name: string;
+      initialValue: number | undefined;
       errors: string[] | undefined;
     };
     status: {
@@ -118,6 +124,7 @@ type productFormProps = {
     scent: string;
     size: number;
     type: "face" | "body" | "both" | "other";
+    inStock: number;
   };
   header: string;
 };
@@ -155,7 +162,7 @@ export default function ProductForm({
           <div className="flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="name">Name</Label>
+                <Label htmlFor="name">Name*</Label>
                 <Input
                   type="text"
                   id="name"
@@ -167,24 +174,41 @@ export default function ProductForm({
                 />
                 <p className="text-sm text-red-500">{fields.name.errors}</p>
               </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  type="number"
-                  id="price"
-                  placeholder={`${currency}55`}
-                  className="w-full"
-                  key={fields.price.key}
-                  name={fields.price.name}
-                  defaultValue={
-                    (data && data.price) || fields.price.initialValue
-                  }
-                />
-                <p className="text-sm text-red-500">{fields.price.errors}</p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="price">Price*</Label>
+                  <Input
+                    type="number"
+                    id="price"
+                    placeholder={`${currency}55`}
+                    className="w-full"
+                    key={fields.price.key}
+                    name={fields.price.name}
+                    defaultValue={
+                      (data && data.price) || fields.price.initialValue
+                    }
+                  />
+                  <p className="text-sm text-red-500">{fields.price.errors}</p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label htmlFor="inStock">Units in Stock*</Label>
+                  <Input
+                    type="number"
+                    id="inStock"
+                    placeholder={`40 units`}
+                    className="w-full"
+                    key={fields.inStock.key}
+                    name={fields.inStock.name}
+                    defaultValue={
+                      (data && data.inStock) || fields.inStock.initialValue
+                    }
+                  />
+                  <p className="text-sm text-red-500">{fields.price.errors}</p>
+                </div>
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="desc">Description</Label>
+              <Label htmlFor="desc">Description*</Label>
               <Textarea
                 id="desc"
                 placeholder="Product Description"
@@ -201,7 +225,7 @@ export default function ProductForm({
             </div>
 
             <div className="flex flex-col gap-3">
-              <Label htmlFor="isFeatured">Featured Product</Label>
+              <Label htmlFor="isFeatured">Featured Product*</Label>
               <Switch
                 id="isFeatured"
                 key={fields.isFeatured.key}
@@ -215,7 +239,7 @@ export default function ProductForm({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="size">Size (ml)</Label>
+                <Label htmlFor="size">Size (ml)*</Label>
                 <Input
                   type="number"
                   id="size"
@@ -245,7 +269,7 @@ export default function ProductForm({
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="ingredients">Ingredients</Label>
+                <Label htmlFor="ingredients">Ingredients*</Label>
                 <Textarea
                   id="ingredients"
                   placeholder="Product Ingredients"
@@ -262,7 +286,7 @@ export default function ProductForm({
                 </p>
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="how_to">How To Use</Label>
+                <Label htmlFor="how_to">How To Use*</Label>
                 <Textarea
                   id="how_to"
                   placeholder="Product How To Use"
@@ -279,7 +303,7 @@ export default function ProductForm({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex flex-col gap-3">
-                <Label htmlFor="type">Type</Label>
+                <Label htmlFor="type">Type*</Label>
                 <Select
                   key={fields.type.key}
                   name={fields.type.name}
@@ -300,7 +324,7 @@ export default function ProductForm({
                 <p className="text-sm text-red-500">{fields.type.errors}</p>
               </div>
               <div className="flex flex-col gap-3">
-                <Label htmlFor="category">Category</Label>
+                <Label htmlFor="category">Category*</Label>
                 <Select
                   key={fields.category.key}
                   name={fields.category.name}
@@ -325,7 +349,7 @@ export default function ProductForm({
               </div>
             </div>
             <div className="flex flex-col gap-3">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">Status*</Label>
               <Select
                 key={fields.status.key}
                 name={fields.status.name}

@@ -1,11 +1,11 @@
 "use client";
-import { editProduct } from "@/app/actions";
+import { editProduct } from "@/app/actions/productActions";
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
 import { useState } from "react";
-import ProductForm from "./ProductForm";
+import ProductForm from "@/app/components/dashboard/ProductForm";
 import { $Enums } from "@prisma/client";
 
 interface dataTypes {
@@ -18,6 +18,12 @@ interface dataTypes {
     isFeatured: boolean;
     images: string[];
     category: $Enums.Category;
+    ingredients: string;
+    how_to: string;
+    scent: string;
+    size: number;
+    type: $Enums.Type;
+    inStock: number;
   };
 }
 

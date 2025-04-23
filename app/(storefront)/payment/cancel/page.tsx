@@ -1,4 +1,4 @@
-import { checkout } from "@/app/actions";
+import { checkout } from "@/app/actions/cartActions";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { XCircle } from "lucide-react";

@@ -1,12 +1,12 @@
 "use client";
-import { createProduct } from "@/app/actions";
+import { createProduct } from "@/app/actions/productActions";
 
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { productSchema } from "@/app/lib/zodSchemas";
 import { useState } from "react";
-import ProductForm from "@/app/components/ProductForm";
+import ProductForm from "@/app/components/dashboard/ProductForm";
 
 export default function NewProduct() {
   const [images, setImages] = useState<string[]>([]);

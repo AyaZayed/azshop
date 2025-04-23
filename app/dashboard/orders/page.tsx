@@ -24,14 +24,14 @@ async function getData() {
     },
     select: {
       status: true,
-      amount: true,
+      total: true,
       createdAt: true,
       id: true,
-      User: {
+      user: {
         select: {
-          email: true,
           firstName: true,
           lastName: true,
+          email: true,
         },
       },
     },
@@ -67,10 +67,10 @@ export default async function OrdersPage() {
                   <TableCell className="truncate">{order.id}</TableCell>
                   <TableCell>
                     <p>
-                      {order.User?.firstName} {order.User?.lastName}
+                      {order.user?.firstName} {order.user?.lastName}
                     </p>
                     <p className="text-sm font-normal text-muted-foreground">
-                      {order.User?.email}
+                      {order.user?.email}
                     </p>
                   </TableCell>
                   <TableCell className="capitalize">{order.status}</TableCell>
@@ -82,7 +82,7 @@ export default async function OrdersPage() {
                     }).format(order.createdAt)}
                   </TableCell>
                   <TableCell className="text-end">
-                    ${new Intl.NumberFormat("en-US").format(order.amount / 100)}
+                    ${new Intl.NumberFormat("en-US").format(order.total / 100)}
                   </TableCell>
                 </TableRow>
               ))}

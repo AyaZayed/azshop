@@ -4,7 +4,7 @@ import React from "react";
 import ReviewsStars from "./ReviewsStars";
 import { currency } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
-import { addItemToCart } from "@/app/actions";
+import { addItemToCart } from "@/app/actions/cartActions";
 import { AddToCartButton } from "../SubmitButtons";
 import HoverImage from "./HoverImage";
 
@@ -37,13 +37,11 @@ export default function ProductCard({ product }: { product: Product }) {
       className="flex flex-col gap-1 items-center bg-transparent font-secondary"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <Link href={`/product/${product.id}`} className="w-full">
+      <Link href={`/product/${product.id}`} className="w-full h-[450px]">
         <HoverImage
           image={product.images[0]}
           category={product.category}
           title={product.name}
-          height={480}
-          href={`/product/${product.id}`}
         />
       </Link>
       <Link href={`/product/${product.id}`}>

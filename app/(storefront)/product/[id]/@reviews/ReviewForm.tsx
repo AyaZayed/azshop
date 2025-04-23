@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useFormState } from "react-dom";
-import { createReview } from "@/app/actions";
+import { createReview } from "@/app/actions/reviewActions";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -14,9 +14,11 @@ export default function ReviewForm({
   userId,
   setShownReviews,
   setIsOpen,
+  guestId,
 }: {
   productId: string;
-  userId: string;
+  userId: string | null;
+  guestId: string;
   setShownReviews: React.Dispatch<React.SetStateAction<Review[]>>;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -35,7 +37,8 @@ export default function ReviewForm({
   return (
     <form className="flex flex-col gap-4" action={formAction} noValidate>
       <input type="hidden" name="productId" value={productId} />
-      <input type="hidden" name="userId" value={userId} />
+      <input type="hidden" name="userId" value={userId || undefined} />
+      <input type="hidden" name="guestId" value={guestId} />
 
       <div className="flex gap-2 flex-col">
         <div className="flex gap-2">

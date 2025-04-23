@@ -59,14 +59,11 @@ export default async function NavUser() {
             <DropdownMenuContent align="end" className="font-secondary">
               <DropdownMenuLabel>Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/orders">Orders</Link>
-              </DropdownMenuItem>
-              {/* {hasOrders && (
+              {hasOrders && (
                 <DropdownMenuItem asChild>
                   <Link href="/orders">Orders</Link>
                 </DropdownMenuItem>
-              )} */}
+              )}
               <DropdownMenuItem asChild>
                 <LogoutLink postLogoutRedirectURL="/">Log Out</LogoutLink>
               </DropdownMenuItem>

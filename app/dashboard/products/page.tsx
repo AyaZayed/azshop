@@ -1,4 +1,4 @@
-import { deleteProduct } from "@/app/actions";
+import { deleteProduct } from "@/app/actions/productActions";
 import SubmitButton from "@/app/components/SubmitButtons";
 import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";

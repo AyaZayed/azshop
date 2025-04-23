@@ -20,6 +20,8 @@ const config: Config = {
         sf_background: "#f6f2ed",
         sf_primary: "hsl(20, 100%, 50%)",
         sf_sedcondary: "#A54547",
+        sf_primary_opaque: "#ff550025",
+        sf_sedcondary_opaque: "#a545471a",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

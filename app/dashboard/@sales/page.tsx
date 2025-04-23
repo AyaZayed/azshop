@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import prisma from "@/app/lib/db";
 import { unstable_noStore } from "next/cache";
 
@@ -11,8 +11,8 @@ export default async function Sales() {
     orderBy: { createdAt: "desc" },
     select: {
       id: true,
-      amount: true,
-      User: {
+      total: true,
+      user: {
         select: {
           firstName: true,
           lastName: true,
@@ -33,20 +33,20 @@ export default async function Sales() {
             <div key={order.id} className="flex items-center">
               <Avatar>
                 <AvatarFallback>
-                  {order.User?.firstName?.charAt(0)}
-                  {order.User?.lastName?.charAt(0)}
+                  {order.user?.firstName?.charAt(0)}
+                  {order.user?.lastName?.charAt(0)}
                 </AvatarFallback>
               </Avatar>
               <div className="ml-4 space-y-1">
                 <p className="text-sm font-medium leading-none">
-                  {order.User?.firstName} {order.User?.lastName}
+                  {order.user?.firstName} {order.user?.lastName}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {order.User?.email}
+                  {order.user?.email}
                 </p>
               </div>
               <p className="ml-auto font-medium">
-                ${new Intl.NumberFormat("en-US").format(order.amount / 100)}
+                ${new Intl.NumberFormat("en-US").format(order.total / 100)}
               </p>
             </div>
           ))}

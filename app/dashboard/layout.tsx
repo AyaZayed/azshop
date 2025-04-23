@@ -1,10 +1,8 @@
 import React from "react";
-import DashboardHeader from "../components/DashboardHeader";
-import { auth } from "../lib/auth";
-import { redirect } from "next/navigation";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import DashboardHome from "../components/dashboard/DashboardHome";
 import { unstable_noStore } from "next/cache";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
+import isAdmin from "../lib/isAdmin";
 
 export default async function DashboardLayout({
   stats,
@@ -18,11 +16,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
   unstable_noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  if (!user || user.email !== process.env.ADMIN_EMAIL) {
-    redirect("/");
-  }
+  isAdmin();
   return (
     <main
       className={`w-full flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-nunito`}>

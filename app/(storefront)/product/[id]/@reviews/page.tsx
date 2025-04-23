@@ -13,14 +13,16 @@ export default async function Reviews({ params }: { params: { id: string } }) {
       created_at: "desc",
     },
   });
-  const { sessionId } = await getSessionId();
+  const { user, guestId } = await getSessionId();
+  const userId = user ? user.id : null;
 
   return (
     <section id="reviews" className="p-10 md:px-24 text-base font-secondary">
       <ReviewsSection
         reviews={reviews}
         productId={productId}
-        sessionId={sessionId}
+        userId={userId}
+        guestId={guestId}
       />
     </section>
   );

@@ -7,7 +7,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import prisma from "@/app/lib/db";
-import Chart from "@/app/components/Chart";
+import Chart from "@/app/components/dashboard/Chart";
 import { unstable_noStore } from "next/cache";
 
 async function getData() {
@@ -18,7 +18,7 @@ async function getData() {
       },
     },
     select: {
-      amount: true,
+      total: true,
       createdAt: true,
     },
     orderBy: {
@@ -28,7 +28,7 @@ async function getData() {
 
   const transactions = orders.map((order) => ({
     date: new Intl.DateTimeFormat("en-UK").format(order.createdAt),
-    revenue: order.amount / 100,
+    revenue: order.total / 100,
   }));
 
   return transactions;
