@@ -4,12 +4,10 @@ export default function ReviewsStars({
   rating,
   starSize,
   starColor,
-  reviewsCount,
 }: {
   rating: number | null;
   starSize?: number;
   starColor?: "primary" | string;
-  reviewsCount?: number;
 }) {
   const color = starColor === "primary" ? "#FF662C" : "#a54547";
   const opaqueColor = starColor === "primary" ? "#ff642c0f" : "#a545471a";

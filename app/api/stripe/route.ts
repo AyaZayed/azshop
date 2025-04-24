@@ -59,6 +59,11 @@ export async function POST(req: Request) {
           },
         });
 
+        await prisma.product.updateMany({
+          where: { id: { in: parsedCart.items.map((item: any) => item.id) } },
+          data: { inStock: { decrement: parsedCart.items.length } },
+        });
+
         console.log("✅ Order created:", order);
 
         await redis.del(`cart-${userId}`);

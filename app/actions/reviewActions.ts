@@ -30,17 +30,24 @@ export async function createReview(prevState: unknown, formData: FormData) {
       },
     });
 
+    const product = await prisma.product.update({
+      where: { id: result.data.productId },
+      data: {
+        reviewsCount: { increment: 1 },
+        ratingSum: { increment: result.data.rating },
+      },
+      select: {
+        ratingSum: true,
+        reviewsCount: true,
+      },
+    });
+
     await prisma.product.update({
       where: {
         id: result.data.productId,
       },
       data: {
-        rating: {
-          increment: result.data.rating,
-        },
-        reviewsCount: {
-          increment: 1,
-        },
+        rating: product.ratingSum / product.reviewsCount,
       },
     });
 

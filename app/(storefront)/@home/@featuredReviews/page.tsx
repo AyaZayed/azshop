@@ -45,7 +45,7 @@ export default async function featuredReviews() {
                   <h3 className="font-semibold capitalize text-xl">
                     {review.headline}
                   </h3>
-                  <p className="line-clamp-5 font-secondary text-sm text-ellipsis">
+                  <p className="line-clamp-5 font-secondary text-sm text-ellipsis first-letter:capitalize">
                     {review.content}
                   </p>
                 </div>

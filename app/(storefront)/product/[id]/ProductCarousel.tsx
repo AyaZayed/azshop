@@ -47,7 +47,6 @@ export default function ProductCarousel({
                   image={image}
                   category={category}
                   title={`Thumbnail ${index + 1}`}
-                  height={45}
                   hover={true}
                 />
               )}
@@ -71,14 +70,13 @@ export default function ProductCarousel({
             images.map((image, index) => (
               <div
                 key={index}
-                className="relative w-full h-full min-h-screen flex-shrink-0">
+                className="relative w-full h-screen flex-shrink-0">
                 {index === 0 ? (
                   <>
                     <HoverImage
                       image={image}
                       category={category}
                       title={`Slide ${index + 1}`}
-                      height={700}
                       hover={true}
                     />
                   </>

@@ -2,12 +2,13 @@ import { z } from "zod";
 
 export const reviewSchema = z
   .object({
-    headline: z.string().min(1, "Headline is required"),
-    author: z.string().min(1, "Name is required"),
+    headline: z.string().min(1, "Headline is required").toLowerCase(),
+    author: z.string().min(1, "Name is required").toLowerCase(),
     content: z
       .string()
       .min(10, "Review content must be at least 10 characters long")
-      .max(1000, "Review content cannot exceed 1000 characters"),
+      .max(1000, "Review content cannot exceed 1000 characters")
+      .toLowerCase(),
     rating: z
       .number()
       .min(1, "Rating is required")
@@ -22,8 +23,8 @@ export const reviewSchema = z
   });
 
 export const productSchema = z.object({
-  name: z.string(),
-  description: z.string(),
+  name: z.string().toLowerCase().min(1, "Name is required"),
+  description: z.string().toLowerCase().min(1, "Description is required"),
   price: z.number().min(1, "Price must be greater than 0"),
   status: z.enum(["draft", "published", "archived"]),
   isFeatured: z.boolean().optional(),
@@ -33,8 +34,8 @@ export const productSchema = z.object({
   rating: z.number().min(1).max(5).optional(),
   reviews: z.array(reviewSchema).optional(),
   ingredients: z.string(),
-  how_to: z.string(),
-  scent: z.string().optional().default("Fragrance Free"),
+  how_to: z.string().toLowerCase(),
+  scent: z.string().toLowerCase().optional().default("Fragrance Free"),
   size: z.number().min(1, "Size must be greater than 0"),
   type: z.enum(["face", "body", "both", "other"]),
   inStock: z.number().int().nonnegative().default(0),

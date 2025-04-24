@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
+import { currency } from "@/utils/constants";
 import { unstable_noStore } from "next/cache";
 import React from "react";
 
@@ -82,7 +83,8 @@ export default async function OrdersPage() {
                     }).format(order.createdAt)}
                   </TableCell>
                   <TableCell className="text-end">
-                    ${new Intl.NumberFormat("en-US").format(order.total / 100)}
+                    {currency}
+                    {new Intl.NumberFormat("en-US").format(order.total / 100)}
                   </TableCell>
                 </TableRow>
               ))}

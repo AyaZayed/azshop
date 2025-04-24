@@ -34,6 +34,7 @@ model Product {
   reviews Review[]
   reviewsCount Int @default(0)
   rating Float? @default(0)
+  ratingSum Int @default(0)
 
   how_to String
   scent String @default("fragrance free")
