@@ -4,6 +4,7 @@ import { ArrowRight, Instagram, Facebook } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { LogoSVG, SunSVG } from "../SVGs";
 
 const links = [
   {
@@ -29,19 +30,15 @@ export default function Footer() {
     <footer className="w-full mt-10 px-4 md:px-6 lg:px-10 py-2 md:py-4 text-sf_sedcondary font-bold uppercase flex flex-col gap-4 md:gap-12">
       <div className="footer-content grid grid-rows-2 md:grid-rows-1 gap-8 md:gap-4 md:grid-cols-3 h-full">
         <div className="relative z-10 w-full md:col-span-2 flex flex-col">
-          <Image
-            src="/footer-logo.svg"
-            alt="logo"
+          <LogoSVG
             width={600}
-            height={58}
-            className="lg:translate-x-[35px]"
+            height={300}
+            className="lg:translate-x-[35px] fill-sf_sedcondary"
           />
-          <Image
-            src="/footer-sun.svg"
-            alt="sun animation"
+          <SunSVG
+            className="absolute right-0 lg:right-[50px] bottom-[10px] z-10 fill-sf_sedcondary"
             width={100}
             height={100}
-            className="absolute right-0 lg:right-[20px] bottom-[10px] z-10"
           />
           <ul className="z-30 flex flex-col gap-3 lg:absolute lg:left-0 lg:-bottom-[55px] lg:translate-x-[30px]">
             {links.map((link) => (

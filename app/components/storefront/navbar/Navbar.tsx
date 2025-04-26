@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import React from "react";
 import {
@@ -11,22 +10,17 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { shopName } from "@/utils/constants";
 import { MenuIcon } from "lucide-react";
 import NavLinks from "./NavLinks";
 import NavUser from "./NavUser";
+import { LogoSVG } from "../../SVGs";
 
 export default function Navbar() {
   return (
     <header className="font-secondary font-[500] fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-40 bg-transparent">
       <div className="logo order-2 md:order-1">
         <Link href="/">
-          <img
-            src="/logo.svg"
-            alt={`${shopName} logo`}
-            width={128.134}
-            height={58.436}
-          />
+          <LogoSVG width={150} height={70} className="fill-sf_primary" />
         </Link>
       </div>
       <nav className="hidden md:flex md:items-center md:gap-5 order-2">

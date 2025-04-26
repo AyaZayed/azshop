@@ -6,27 +6,27 @@ import {
   giftValue,
   orderDispatch,
 } from "@/utils/constants";
-import Image from "next/image";
 import React from "react";
+import { BoatSVG, SeahorsesSVG, SeaStarSVG, SpiralSVG } from "../SVGs";
 
 const encouragements = [
   {
-    image: "/spiral.avif",
+    image: SpiralSVG,
     title: "Free Beauty Pouch",
     description: "with every order",
   },
   {
-    image: "/star.png",
+    image: SeaStarSVG,
     title: "Free Shipping",
     description: `on orders over ${currency}${freeShipping}`,
   },
   {
-    image: "/boat.png",
+    image: BoatSVG,
     title: "Fast Delivery",
     description: "orders dispatched within " + orderDispatch + " business day",
   },
   {
-    image: "/seahorses.webp",
+    image: SeahorsesSVG,
     title: "Give " + currency + giftValue + ", Earn " + currency + giftEarnBack,
     description: "on your first order",
   },
@@ -39,14 +39,11 @@ export default function Encouragements() {
         <div
           key={encouragement.title}
           className="flex flex-col items-center font-secondary gap-1">
-          <div className="relative w-[50px] h-[50px]">
-            <Image
-              src={encouragement.image}
-              alt={encouragement.title}
-              fill
-              className="object-contain"
-            />
-          </div>
+          <encouragement.image
+            className="fill-sf_muted_primary"
+            width={50}
+            height={50}
+          />
           <h3 className="font-bold mt-6 capitalize">{encouragement.title}</h3>
           <p>{encouragement.description}</p>
         </div>

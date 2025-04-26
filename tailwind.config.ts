@@ -9,10 +9,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      cursor: {
-        rightArrow: "url(/right-arrow.svg), pointer",
-        leftArrow: "url(/left-arrow.svg), pointer",
-      },
       textColor: {
         DEFAULT: "#A54547",
       },
@@ -22,6 +18,8 @@ const config: Config = {
         sf_sedcondary: "#A54547",
         sf_primary_opaque: "#ff550025",
         sf_sedcondary_opaque: "#a545471a",
+        star_primary: "#ff642c0f",
+        sf_muted_primary: "#ec6635",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

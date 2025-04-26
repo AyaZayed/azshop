@@ -1,3 +1,10 @@
+import {
+  CirclesSVG,
+  FilledSunSVG,
+  GiftsSVG,
+  SunsetSVG,
+} from "../components/SVGs";
+
 export const categories = [
   {
     id: 0,
@@ -8,24 +15,24 @@ export const categories = [
     id: 1,
     title: "Sunscreen",
     name: "sunscreen",
-    icon: "/sun.svg",
+    icon: FilledSunSVG,
   },
   {
     id: 2,
     title: "Repair",
     name: "repair",
-    icon: "/repair.svg",
+    icon: SunsetSVG,
   },
   {
     id: 3,
     title: "Sets",
     name: "sets",
-    icon: "/sets.svg",
+    icon: CirclesSVG,
   },
   {
     id: 4,
     title: "Gifts",
     name: "gifts",
-    icon: "/gifts.svg",
+    icon: GiftsSVG,
   },
 ];

@@ -40,10 +40,7 @@ export default async function ProductHero({ product }: { product: Product }) {
           <Link
             href="#reviews"
             className="reviews flex gap-2 text-base items-center">
-            <ReviewsStars
-              rating={product.rating}
-              reviewsCount={product.reviewsCount}
-            />
+            <ReviewsStars rating={product.rating} starColor="secondary" />
             <span>
               {product.reviewsCount === 1
                 ? "1 review"

@@ -28,7 +28,7 @@ export default function ReviewsList({
                   <ReviewsStars
                     rating={review.rating}
                     starSize={16}
-                    starColor={"primary"}
+                    starColor="primary"
                   />
                 </div>
                 <h3 className="capitalize">

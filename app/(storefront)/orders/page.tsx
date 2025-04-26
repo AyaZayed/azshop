@@ -1,4 +1,5 @@
 import HoverImage from "@/app/components/storefront/HoverImage";
+import { MartiniSVG } from "@/app/components/SVGs";
 import { auth } from "@/app/lib/auth";
 import prisma from "@/app/lib/db";
 import { currency, loginLink } from "@/utils/constants";
@@ -27,12 +28,7 @@ export default async function OrdersPage() {
 
   return (
     <section className="flex flex-col gap-8 justify-center items-center pt-32 pb-20 p-4">
-      <Image
-        src="/martini.svg"
-        alt="smiling martini glass with straw"
-        width={100}
-        height={100}
-      />
+      <MartiniSVG className="fill-sf_sedcondary" width={100} height={100} />
       <h1>Your Orders</h1>
       <div
         className={`mt-6 grid grid-cols-1 ${

@@ -29,7 +29,7 @@ export default function ProductsLayout({
               } ${c.name === "all" && "p-2"}`}>
               {c.icon && (
                 <div className="w-7 h-7 md:w-6 md:h-6 flex flex-col items-center justify-center">
-                  <img src={c.icon} alt={c.title} width={20} height={20} />
+                  <c.icon className="fill-sf_sedcondary" ariaLabel={c.title} />
                 </div>
               )}
               <span

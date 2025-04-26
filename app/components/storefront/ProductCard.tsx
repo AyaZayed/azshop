@@ -78,7 +78,11 @@ export default function ProductCard({ product }: { product: Product }) {
         <Link
           href={`/product/${product.id}#reviews`}
           className="flex gap-2 items-center text-base">
-          <ReviewsStars rating={product.rating} starSize={16} />
+          <ReviewsStars
+            rating={product.rating}
+            starSize={16}
+            starColor="secondary"
+          />
           <span>
             {product.reviewsCount === 1
               ? "1 review"
