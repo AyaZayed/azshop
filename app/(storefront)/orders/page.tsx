@@ -1,11 +1,11 @@
+import Currency from "@/app/components/Currency";
 import HoverImage from "@/app/components/storefront/HoverImage";
 import { MartiniSVG } from "@/app/components/SVGs";
 import { auth } from "@/app/lib/auth";
 import prisma from "@/app/lib/db";
-import { currency, loginLink } from "@/utils/constants";
+import { loginLink } from "@/utils/constants";
 import { ArrowRight } from "lucide-react";
 import { unstable_noStore } from "next/cache";
-import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -66,7 +66,7 @@ export default async function OrdersPage() {
                   </p>
 
                   <p>
-                    Total: {currency}
+                    Total: <Currency />
                     {(order.total / 100).toFixed(2)}
                   </p>
                   <p>Quantity: {orderQuantity}</p>

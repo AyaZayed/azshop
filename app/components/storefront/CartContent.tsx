@@ -1,6 +1,5 @@
 import React from "react";
 import { Cart } from "@/app/lib/interfaces";
-import { currency } from "@/utils/constants";
 import { checkout, removeItemFromCart } from "@/app/actions/cartActions";
 import {
   CheckoutButton,
@@ -8,6 +7,8 @@ import {
   QuantityButtons,
 } from "../SubmitButtons";
 import HoverImage from "./HoverImage";
+import Currency from "../Currency";
+import getSettings from "@/app/lib/getSettings";
 
 export default async function CartContent({
   cart,
@@ -16,6 +17,8 @@ export default async function CartContent({
   cart: Cart;
   totalPrice: number;
 }) {
+  const currency = (await getSettings()).currencySymbol;
+
   return (
     <div className="grid content-between gap-8 h-full font-bold">
       <div className="flex flex-col gap-6">
@@ -33,7 +36,7 @@ export default async function CartContent({
               <div className="">
                 <h3 className="uppercase leading-6 mb-2">{item.name}</h3>
                 <h4 className="font-normal">
-                  {currency}
+                  <Currency />
                   {item.price}
                 </h4>
               </div>
@@ -54,7 +57,12 @@ export default async function CartContent({
         ))}
       </div>
       <form action={checkout}>
-        <CheckoutButton label="Checkout" total={totalPrice} style=" w-full" />
+        <CheckoutButton
+          label="Checkout"
+          total={totalPrice}
+          currency={currency}
+          style=" w-full"
+        />
         <p className="font-primary mt-4 text-center font-light leading-6">
           Tax incl. Shipping calculated at checkout.
         </p>

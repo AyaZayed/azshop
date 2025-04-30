@@ -13,7 +13,13 @@ type Data = {
   rating: number | null;
 }[];
 
-export default function ProductsGrid({ data }: { data: Data }) {
+export default function ProductsGrid({
+  data,
+  currency,
+}: {
+  data: Data;
+  currency: string;
+}) {
   const [products, setProducts] = useState<Data>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -33,7 +39,11 @@ export default function ProductsGrid({ data }: { data: Data }) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
         {products.length > 0 &&
           products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              currency={currency}
+            />
           ))}
       </div>
     </>

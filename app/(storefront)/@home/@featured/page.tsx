@@ -1,5 +1,6 @@
 import ProductsGrid from "@/app/components/storefront/ProductsGrid";
 import prisma from "@/app/lib/db";
+import getSettings from "@/app/lib/getSettings";
 import { unstable_noStore } from "next/cache";
 import React from "react";
 
@@ -28,9 +29,11 @@ async function getData() {
 export default async function featuredProducts() {
   unstable_noStore();
   const data = await getData();
+  const currency = (await getSettings()).currencySymbol;
+
   return (
     <div className="p-6 pt-0 md:p-16 ">
-      <ProductsGrid data={data} />
+      <ProductsGrid data={data} currency={currency} />
     </div>
   );
 }

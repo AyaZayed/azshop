@@ -18,6 +18,10 @@ const links = [
     href: "/dashboard/products",
   },
   {
+    label: "Settings",
+    href: "/dashboard/settings",
+  },
+  {
     label: "Storefront",
     href: "/",
   },

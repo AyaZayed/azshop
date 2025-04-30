@@ -19,7 +19,7 @@ export default async function DashboardLayout({
   isAdmin();
   return (
     <main
-      className={`w-full flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-nunito`}>
+      className={`w-full flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-nunito text-foreground`}>
       <DashboardHeader />
       <div className="py-8">
         <DashboardHome

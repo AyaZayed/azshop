@@ -1,6 +1,5 @@
 export const dynamic = "force-static";
 import {
-  currency,
   freeShipping,
   giftEarnBack,
   giftValue,
@@ -8,31 +7,38 @@ import {
 } from "@/utils/constants";
 import React from "react";
 import { BoatSVG, SeahorsesSVG, SeaStarSVG, SpiralSVG } from "../SVGs";
+import getSettings from "@/app/lib/getSettings";
 
-const encouragements = [
-  {
-    image: SpiralSVG,
-    title: "Free Beauty Pouch",
-    description: "with every order",
-  },
-  {
-    image: SeaStarSVG,
-    title: "Free Shipping",
-    description: `on orders over ${currency}${freeShipping}`,
-  },
-  {
-    image: BoatSVG,
-    title: "Fast Delivery",
-    description: "orders dispatched within " + orderDispatch + " business day",
-  },
-  {
-    image: SeahorsesSVG,
-    title: "Give " + currency + giftValue + ", Earn " + currency + giftEarnBack,
-    description: "on your first order",
-  },
-];
+export async function getEncouragements() {
+  const currency = (await getSettings()).currencySymbol;
 
-export default function Encouragements() {
+  return [
+    {
+      image: SpiralSVG,
+      title: "Free Beauty Pouch",
+      description: "with every order",
+    },
+    {
+      image: SeaStarSVG,
+      title: "Free Shipping",
+      description: `on orders over ${currency}${freeShipping}`,
+    },
+    {
+      image: BoatSVG,
+      title: "Fast Delivery",
+      description: `orders dispatched within ${orderDispatch} business day`,
+    },
+    {
+      image: SeahorsesSVG,
+      title: `Give ${currency}${giftValue}, Earn ${currency}${giftEarnBack}`,
+      description: "on your first order",
+    },
+  ];
+}
+
+export default async function Encouragements() {
+  const encouragements = await getEncouragements();
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-center p-4 py-20 gap-10">
       {encouragements.map((encouragement) => (

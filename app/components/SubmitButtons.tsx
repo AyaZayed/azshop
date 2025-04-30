@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { currency } from "@/utils/constants";
 import { Loader2, LoaderPinwheel } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -24,7 +23,9 @@ interface buttonProps {
   href?: string;
   style?: string;
   total?: number;
+  currency?: string;
 }
+
 export default function SubmitButton({ label, variant }: buttonProps) {
   const { pending } = useFormStatus();
   return (
@@ -171,7 +172,7 @@ export function QuantityButtons({
   );
 }
 
-export function CheckoutButton({ label, href, style, total }: buttonProps) {
+export function CheckoutButton({ label, currency, style, total }: buttonProps) {
   const { pending } = useFormStatus();
 
   return (

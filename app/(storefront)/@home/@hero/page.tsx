@@ -1,10 +1,11 @@
 import { SecondaryButton, PrimaryButton } from "@/app/components/SubmitButtons";
 import { SunSVG } from "@/app/components/SVGs";
-import { shopName } from "@/utils/constants";
+import getSettings from "@/app/lib/getSettings";
 import Image from "next/image";
 import React from "react";
 
-export default function Hero() {
+export default async function Hero() {
+  const storeName = (await getSettings()).storeName;
   return (
     <>
       <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">
@@ -27,7 +28,7 @@ export default function Hero() {
           <div className="content w-full p-10 z-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-sf_background flex flex-col gap-3 items-end text-end">
             <h1 className="text-4xl md:text-6xl font-bold">Unlock Your Glow</h1>
             <p className="mb-6">
-              At {shopName}, we protect your skin while you enjoy the sun.
+              At {storeName}, we protect your skin while you enjoy the sun.
               Whether at the beach or on the go, trust us to keep your glow safe
               and radiant.
             </p>

@@ -81,6 +81,22 @@ model Review{
   user User? @relation(fields: [userId], references: [id])
 }
 
+model Settings{
+  id String @id @default("1")
+  storeName String
+  storeEmail String 
+  storeInstagram String
+  storeFacebook String
+  storeDescription String
+  storePhone String
+  storeAddress String
+  currency String @default("USD")
+  currencySymbol String @default("$")
+  primaryColor String @default("#ff5500")
+  secondaryColor String @default("#a54547")
+  backgroundColor String @default("#f6f2ed")
+}
+
 enum ProductStatus {
   draft
   published

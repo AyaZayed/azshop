@@ -1,5 +1,6 @@
 import ProductsGrid from "@/app/components/storefront/ProductsGrid";
 import prisma from "@/app/lib/db";
+import getSettings from "@/app/lib/getSettings";
 import { unstable_noStore } from "next/cache";
 import React, { Suspense } from "react";
 
@@ -28,9 +29,11 @@ export default async function ProductCategory({
 }) {
   unstable_noStore();
   const data = await getProducts(params.category);
+  const currency = (await getSettings()).currencySymbol;
+
   return (
     <Suspense fallback={<h1 className="text-center">Loading Products ...</h1>}>
-      <ProductsGrid data={data} />
+      <ProductsGrid data={data} currency={currency} />
     </Suspense>
   );
 }

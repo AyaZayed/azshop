@@ -1,9 +1,8 @@
+import Currency from "@/app/components/Currency";
 import HoverImage from "@/app/components/storefront/HoverImage";
 import prisma from "@/app/lib/db";
-import { currency } from "@/utils/constants";
 import { ArrowLeft } from "lucide-react";
 import { unstable_noStore } from "next/cache";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -15,6 +14,7 @@ export default async function page({ params }: { params: { id: string } }) {
     include: { items: { include: { product: true } } },
   });
   if (!order) return notFound();
+
   return (
     <section className="flex flex-col gap-8 justify-center items-center pt-28 pb-20 p-4 font-secondary">
       <Link
@@ -58,7 +58,7 @@ export default async function page({ params }: { params: { id: string } }) {
             <div className="order-details flex flex-col items-end gap-3">
               <p className="text-nowrap">Qty: {item.quantity}</p>
               <p>
-                {currency}
+                <Currency />
                 {item.product.price.toFixed(2)}
               </p>
             </div>
@@ -68,7 +68,7 @@ export default async function page({ params }: { params: { id: string } }) {
       <div className="total flex justify-between w-full md:w-1/3">
         <h3>Total:</h3>
         <p>
-          {currency}
+          <Currency />
           {(order.total / 100).toFixed(2)}
         </p>
       </div>

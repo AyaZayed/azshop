@@ -2,11 +2,11 @@
 import Link from "next/link";
 import React from "react";
 import ReviewsStars from "./ReviewsStars";
-import { currency } from "@/utils/constants";
 import { Skeleton } from "@/components/ui/skeleton";
 import { addItemToCart } from "@/app/actions/cartActions";
 import { AddToCartButton } from "../SubmitButtons";
 import HoverImage from "./HoverImage";
+import Currency from "../Currency";
 
 type Product = {
   id: string;
@@ -19,7 +19,13 @@ type Product = {
   rating: number | null;
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  currency,
+}: {
+  product: Product;
+  currency: string;
+}) {
   const [isHovered, setIsHovered] = React.useState(false);
 
   const handleMouseEnter = () => {

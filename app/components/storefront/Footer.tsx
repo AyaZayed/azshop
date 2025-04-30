@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import { shopFacebook, shopInstagram, shopName } from "@/utils/constants";
 import { ArrowRight, Instagram, Facebook } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { LogoSVG, SunSVG } from "../SVGs";
+import getSettings from "@/app/lib/getSettings";
 
 const links = [
   {
@@ -25,16 +24,16 @@ const links = [
   },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const storeName = (await getSettings()).storeName;
+  const shopInstagram = (await getSettings()).storeInstagram;
+  const shopFacebook = (await getSettings()).storeFacebook;
+
   return (
     <footer className="w-full mt-10 px-4 md:px-6 lg:px-10 py-2 md:py-4 text-sf_sedcondary font-bold uppercase flex flex-col gap-4 md:gap-12">
       <div className="footer-content grid grid-rows-2 md:grid-rows-1 gap-8 md:gap-4 md:grid-cols-3 h-full">
         <div className="relative z-10 w-full md:col-span-2 flex flex-col">
-          <LogoSVG
-            width={600}
-            height={300}
-            className="lg:translate-x-[35px] fill-sf_sedcondary"
-          />
+          <LogoSVG className="lg:w-[80%] lg:translate-x-[35px] fill-sf_sedcondary" />
           <SunSVG
             className="absolute right-0 lg:right-[50px] bottom-[10px] z-10 fill-sf_sedcondary"
             width={100}
@@ -52,10 +51,16 @@ export default function Footer() {
               </li>
             ))}
             <li className="socials flex items-center gap-1">
-              <Link href={shopInstagram} className="hover:text-sf_primary">
+              <Link
+                href={shopInstagram}
+                className="hover:text-sf_primary"
+                aria-label="instagram">
                 <Instagram />
               </Link>
-              <Link href={shopFacebook} className="hover:text-sf_primary">
+              <Link
+                href={shopFacebook}
+                className="hover:text-sf_primary"
+                aria-label="facebook">
                 <Facebook />
               </Link>
             </li>
@@ -66,7 +71,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="mt-6 copyright capitalize font-normal py-2 font-secondary md:translate-x-[30px]">
-        <p>{shopName} &copy; 2025 - All rights reserved</p>
+        <p>{storeName} &copy; 2025 - All rights reserved</p>
       </div>
     </footer>
   );

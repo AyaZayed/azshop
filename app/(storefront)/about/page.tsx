@@ -1,11 +1,11 @@
 import { SunSVG, UmbrellaSVG } from "@/app/components/SVGs";
-import { shopName } from "@/utils/constants";
-import { unstable_noStore } from "next/cache";
+import getSettings from "@/app/lib/getSettings";
 import Image from "next/image";
 import React from "react";
 
 export default async function AboutPage() {
-  unstable_noStore();
+  const storeName = (await getSettings()).storeName;
+
   return (
     <>
       <section className="flex justify-center items-center pt-36 pb-20 p-4 text-center">
@@ -14,7 +14,7 @@ export default async function AboutPage() {
       items-center gap-8">
           <SunSVG className="fill-sf_sedcondary" width={100} height={100} />
           <p>
-            <span className="uppercase">{shopName}</span> is a new range of
+            <span className="uppercase">{storeName}</span> is a new range of
             luxury sunscreen and after sun, created to answer the simple
             question: why can’t suncare feel amazing and be kind to the planet?
           </p>
@@ -22,7 +22,7 @@ export default async function AboutPage() {
           <p>
             By combining the Mediterranean’s finest natural ingredients with
             modern clean beauty techniques,{" "}
-            <span className="uppercase">{shopName}</span> delivers
+            <span className="uppercase">{storeName}</span> delivers
             next-generation luxury suncare that feels incredible and doesn’t
             harm the environment.
           </p>
@@ -32,7 +32,7 @@ export default async function AboutPage() {
         <div className="relative w-full h-screen">
           <Image
             src="/ABOUT-beach.webp"
-            alt={`${shopName} sunscreen`}
+            alt={`${storeName} sunscreen`}
             fill
             className="object-cover"
           />
@@ -40,7 +40,7 @@ export default async function AboutPage() {
         <div className="relative w-full h-screen hidden md:block">
           <Image
             src="/ABOUT-sunscreen.webp"
-            alt={`${shopName} sunscreen`}
+            alt={`${storeName} sunscreen`}
             fill
             className="object-cover "
           />
@@ -50,7 +50,7 @@ export default async function AboutPage() {
         <div className="p-4 py-16 md:py-20 w-full md:w-3/4 flex flex-col items-center gap-10 text-center">
           <p>
             We were inspired to create
-            <span className="uppercase">{shopName}</span> because we trying
+            <span className="uppercase">{storeName}</span> because we trying
             every other sunscreen on the market and weren’t satisfied with the
             options available, which often came down to a choice between sticky
             textures that leave a white cast on skin, or luxury options which

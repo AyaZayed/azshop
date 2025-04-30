@@ -31,7 +31,8 @@ export default function Navbar() {
           <Button
             className="shrink-0 md:hidden rounded-none"
             variant="outline"
-            size="icon">
+            size="icon"
+            aria-label="Navigation Menu">
             <MenuIcon className="h-5 w-5" />
           </Button>
         </SheetTrigger>

@@ -1,4 +1,5 @@
 import { deleteProduct } from "@/app/actions/productActions";
+import Currency from "@/app/components/Currency";
 import SubmitButton from "@/app/components/SubmitButtons";
 import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,6 @@ import {
   TableCell,
   TableBody,
 } from "@/components/ui/table";
-import { currency } from "@/utils/constants";
 import { MoreHorizontal, PlusCircle } from "lucide-react";
 import { unstable_noStore } from "next/cache";
 import Image from "next/image";
@@ -93,7 +93,7 @@ export default async function ProductsPage() {
                     <TableCell>{product.name}</TableCell>
                     <TableCell>{product.status}</TableCell>
                     <TableCell>
-                      {currency}
+                      <Currency />
                       {product.price}
                     </TableCell>
                     <TableCell>{product.category}</TableCell>

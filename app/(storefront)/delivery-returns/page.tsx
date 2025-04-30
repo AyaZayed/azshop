@@ -1,16 +1,14 @@
-import {
-  orderDispatch,
-  refundDays,
-  returnDays,
-  shopEmail,
-  shopInstagram,
-  shopLocation,
-  shopPhone,
-} from "@/utils/constants";
+import getSettings from "@/app/lib/getSettings";
+import { orderDispatch, refundDays, returnDays } from "@/utils/constants";
 import Link from "next/link";
 import React from "react";
 
-export default function DeliveryReturns() {
+export default async function DeliveryReturns() {
+  const shopLocation = (await getSettings()).storeAddress;
+  const shopEmail = (await getSettings()).storeEmail;
+  const shopPhone = (await getSettings()).storePhone;
+  const shopInstagram = (await getSettings()).storeInstagram;
+
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
       <h1>Delivery & Returns Policy</h1>

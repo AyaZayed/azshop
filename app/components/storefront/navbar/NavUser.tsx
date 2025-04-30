@@ -37,7 +37,7 @@ export default async function NavUser() {
 
   return (
     <div className="flex items-center gap-4 order-3">
-      <Link href="/cart" className="relative">
+      <Link href="/cart" className="relative" aria-label="Cart">
         <ShoppingBag className="w-6 h-6" />
         <span
           className="absolute top-[-5px] right-[-5px] bg-sf_primary text-sf_background rounded-full 
@@ -52,7 +52,8 @@ export default async function NavUser() {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full focus:outline-none">
+                className="rounded-full focus:outline-none"
+                aria-label="User">
                 <CircleUser />
               </Button>
             </DropdownMenuTrigger>

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { supportedCurrencies } from "./currencies";
 
 export const reviewSchema = z
   .object({
@@ -39,4 +40,32 @@ export const productSchema = z.object({
   size: z.number().min(1, "Size must be greater than 0"),
   type: z.enum(["face", "body", "both", "other"]),
   inStock: z.number().int().nonnegative().default(0),
+});
+
+const validCurrencyCodes = supportedCurrencies.map((c) => c.code);
+
+export const settingsSchema = z.object({
+  storeName: z.string().toLowerCase().min(1, "Store name is required"),
+  storeDescription: z
+    .string()
+    .toLowerCase()
+    .min(1, "Store description is required"),
+  storeAddress: z.string().toLowerCase().min(1, "Store address is required"),
+  storePhone: z.string().min(1, "Store phone is required"),
+  storeEmail: z
+    .string()
+    .email()
+    .toLowerCase()
+    .min(1, "Store email is required"),
+  storeInstagram: z
+    .string()
+    .toLowerCase()
+    .min(1, "Store instagram is required"),
+  storeFacebook: z.string().toLowerCase().min(1, "Store facebook is required"),
+  currency: z.string().refine((val) => validCurrencyCodes.includes(val), {
+    message: "Invalid currency code",
+  }),
+  primaryColor: z.string().toLowerCase().optional(),
+  secondaryColor: z.string().toLowerCase().optional(),
+  backgroundColor: z.string().toLowerCase().optional(),
 });

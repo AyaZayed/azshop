@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import "./globals.css";
-import { shopName, shopDescription } from "@/utils/constants";
 import { fontBogart, fontNunito, fontRubik } from "./fonts";
 import { getOrCreateUser } from "./lib/getOrCreateUser";
-import { randomUUID } from "crypto";
+import getSettings from "./lib/getSettings";
 
-export const metadata: Metadata = {
-  title: shopName,
-  description: shopDescription,
-};
+export async function generateMetadata() {
+  const storeName = (await getSettings()).storeName;
+  const shopDescription = (await getSettings()).storeDescription;
+  return {
+    title: storeName.toLocaleUpperCase(),
+    description: shopDescription,
+  };
+}
 
 export default async function RootLayout({
   children,

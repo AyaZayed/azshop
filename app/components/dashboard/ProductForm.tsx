@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/tooltip";
 import ImageUploadWidget from "@/app/components/dashboard/ImageUploadWidget";
 import { type $Enums } from "@prisma/client";
-import { currency } from "@/utils/constants";
 import { productTypes } from "../../lib/productTypes";
+import Currency from "../Currency";
 
 type productFormProps = {
   images: string[];
@@ -129,7 +129,7 @@ type productFormProps = {
   header: string;
 };
 
-export default function ProductForm({
+export default async function ProductForm({
   images,
   setImages,
   fields,
@@ -180,7 +180,7 @@ export default function ProductForm({
                   <Input
                     type="number"
                     id="price"
-                    placeholder={`${currency}55`}
+                    placeholder={`${(<Currency />)}55`}
                     className="w-full"
                     key={fields.price.key}
                     name={fields.price.name}

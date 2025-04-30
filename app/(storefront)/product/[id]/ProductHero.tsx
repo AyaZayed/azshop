@@ -8,11 +8,11 @@ import {
 import { getSessionId } from "@/app/lib/getSessionId";
 import { Cart } from "@/app/lib/interfaces";
 import { redis } from "@/app/lib/redis";
-import { currency } from "@/utils/constants";
 import { Product } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import ProductCarousel from "./ProductCarousel";
+import Currency from "@/app/components/Currency";
 
 export default async function ProductHero({ product }: { product: Product }) {
   const addItem = addItemToCart.bind(null, product.id);
@@ -33,7 +33,7 @@ export default async function ProductHero({ product }: { product: Product }) {
         </h1>
         <p className="font-primary">{product.description}</p>
         <h3>
-          {currency}
+          <Currency />
           {product.price}
         </h3>
         {product.reviewsCount > 0 && (

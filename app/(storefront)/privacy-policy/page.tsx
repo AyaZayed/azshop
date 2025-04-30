@@ -1,8 +1,10 @@
-import { shopEmail } from "@/utils/constants";
+import getSettings from "@/app/lib/getSettings";
 import Link from "next/link";
 import React from "react";
 
-export default function PrivacyPolicy() {
+export default async function PrivacyPolicy() {
+  const shopEmail = (await getSettings()).storeEmail;
+
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
       <h1>Privacy Policy</h1>
