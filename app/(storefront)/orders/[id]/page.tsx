@@ -7,6 +7,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export const metadata = {
+  title: "Order Details",
+};
+
 export default async function page({ params }: { params: { id: string } }) {
   unstable_noStore();
   const order = await prisma.order.findUnique({

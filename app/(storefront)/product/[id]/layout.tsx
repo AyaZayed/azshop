@@ -5,6 +5,20 @@ import Encouragements from "@/app/components/storefront/Encouragements";
 import { unstable_noStore } from "next/cache";
 import ProductHero from "./ProductHero";
 import ProductAccordions from "./ProductAccordions";
+import toTitleCase from "@/app/lib/capitalize";
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const product = await prisma.product.findUnique({
+    where: { id: params.id },
+    select: { name: true },
+  });
+
+  if (!product) return { title: "Product Not Found" };
+
+  return {
+    title: toTitleCase(product.name),
+  };
+}
 
 export default async function ProductPageLayout({
   params,

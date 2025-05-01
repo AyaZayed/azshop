@@ -3,6 +3,10 @@ import { orderDispatch, refundDays, returnDays } from "@/utils/constants";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Delivery & Returns Policy",
+};
+
 export default async function DeliveryReturns() {
   const shopLocation = (await getSettings()).storeAddress;
   const shopEmail = (await getSettings()).storeEmail;

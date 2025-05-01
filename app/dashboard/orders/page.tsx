@@ -18,6 +18,10 @@ import {
 import { unstable_noStore } from "next/cache";
 import React from "react";
 
+export const metadata = {
+  title: "Orders",
+};
+
 async function getData() {
   const data = await prisma.order.findMany({
     orderBy: {

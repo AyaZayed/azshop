@@ -4,6 +4,10 @@ import { unstable_noStore } from "next/cache";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import isAdmin from "../lib/isAdmin";
 
+export const metadata = {
+  title: "Dashboard",
+};
+
 export default async function DashboardLayout({
   stats,
   sales,

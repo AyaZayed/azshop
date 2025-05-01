@@ -21,9 +21,9 @@ export default function ReviewsStars({
             height={starSize || 20}
             className={`${
               starColor === "primary"
-                ? "fill-star_primary stroke-sf_primary"
+                ? "fill-muted_primary stroke-sf_primary"
                 : starColor === "secondary"
-                ? "fill-sf_sedcondary_opaque stroke-sf_sedcondary"
+                ? "fill-muted_secondary stroke-sf_sedcondary"
                 : `fill-${starColor} stroke-${starColor}`
             }`}
           />

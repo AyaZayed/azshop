@@ -7,6 +7,10 @@ import { unstable_noStore } from "next/cache";
 import { getSessionId } from "@/app/lib/getSessionId";
 import { FanSVG } from "@/app/components/SVGs";
 
+export const metadata = {
+  title: "Cart",
+};
+
 export default async function page() {
   unstable_noStore();
   const { sessionId } = await getSessionId();

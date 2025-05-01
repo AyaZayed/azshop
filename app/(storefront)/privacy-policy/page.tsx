@@ -2,6 +2,10 @@ import getSettings from "@/app/lib/getSettings";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Privacy Policy",
+};
+
 export default async function PrivacyPolicy() {
   const shopEmail = (await getSettings()).storeEmail;
 

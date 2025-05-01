@@ -46,7 +46,7 @@ export default async function Encouragements() {
           key={encouragement.title}
           className="flex flex-col items-center font-secondary gap-1">
           <encouragement.image
-            className="fill-sf_muted_primary"
+            className="fill-sf_primary opacity-85"
             width={50}
             height={50}
           />

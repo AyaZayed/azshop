@@ -4,13 +4,11 @@
 
 @layer base {
   :root {
-    --star_color: #ff662c;
-    --star_color_opaque: #ff642c0f;
-    --sf_background: #f6f2ed;
-    --sf_primary: #ff5500;
-    --sf_sedcondary: #a54547;
-    --sf_primary_opaque: #ff550025;
-    --sf_sedcondary_opaque: #a545471a;
+    --sf_primary: rgb(255, 85, 0);
+    --sf_sedcondary: rgb(165, 69, 71);
+    --sf_background: rgb(246, 242, 237);
+    --muted_primary: rgb(from var(--sf_primary) r g b / 0.1);
+    --muted_secondary: rgb(from var(--sf_sedcondary) r g b / 0.15);
     --font-primary: "fontBogart", sans-serif;
     --font-secondary: "fontRubik", sans-serif;
     --font-nunito: "fontNunito", sans-serif;

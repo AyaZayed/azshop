@@ -42,6 +42,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Settings",
+};
+
 export default async function ProductsPage() {
   unstable_noStore();
   const products = await prisma.product.findMany({

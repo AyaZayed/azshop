@@ -13,13 +13,11 @@ const config: Config = {
         DEFAULT: "#A54547",
       },
       colors: {
-        sf_background: "#f6f2ed",
-        sf_primary: "hsl(20, 100%, 50%)",
-        sf_sedcondary: "#A54547",
-        sf_primary_opaque: "#ff550025",
-        sf_sedcondary_opaque: "#a545471a",
-        star_primary: "#ff642c0f",
-        sf_muted_primary: "#ec6635",
+        sf_background: "var(--sf_background)",
+        sf_primary: "var(--sf_primary)",
+        sf_sedcondary: "var(--sf_sedcondary)",
+        muted_primary: "var(--muted_primary)",
+        muted_secondary: "var(--muted_secondary)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

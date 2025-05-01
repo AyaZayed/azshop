@@ -2,6 +2,10 @@ import getSettings from "@/app/lib/getSettings";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Contact Us",
+};
+
 export default async function Contact() {
   const shopEmail = (await getSettings()).storeEmail;
   const shopPhone = (await getSettings()).storePhone;

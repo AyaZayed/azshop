@@ -1,10 +1,22 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { categories } from "@/app/lib/categories";
 import { revalidatePath, unstable_noStore } from "next/cache";
 import ProductsHeader from "@/app/(storefront)/products/[category]/ProductsHeader";
+import toTitleCase from "@/app/lib/capitalize";
+import getSettings from "@/app/lib/getSettings";
 
 type Category = "all" | "sunscreen" | "repair" | "sets" | "gifts";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const storeName = (await getSettings()).storeName;
+  return {
+    title: `${storeName.toUpperCase()} - ${toTitleCase(params.category)}`,
+  };
+}
 
 export default function ProductsLayout({
   children,

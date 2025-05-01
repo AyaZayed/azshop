@@ -3,9 +3,12 @@ import getSettings from "@/app/lib/getSettings";
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "About",
+};
+
 export default async function AboutPage() {
   const storeName = (await getSettings()).storeName;
-
   return (
     <>
       <section className="flex justify-center items-center pt-36 pb-20 p-4 text-center">

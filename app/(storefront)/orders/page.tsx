@@ -10,6 +10,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
+export const metadata = {
+  title: "Orders",
+};
+
 export default async function OrdersPage() {
   unstable_noStore();
   const { userId } = await auth();
@@ -51,7 +55,7 @@ export default async function OrdersPage() {
               <div className="order-text flex flex-col gap-2">
                 <h2 className="font-semibold flex gap-2">
                   Order #{order.id.split("-")[0]}
-                  <p className="font-normal bg-sf_primary_opaque w-fit px-2 pb-[1px] text-sf_primary rounded-[8px]">
+                  <p className="font-normal bg-muted_primary w-fit px-2 pb-[1px] text-sf_primary rounded-[8px]">
                     {order.status}
                   </p>
                 </h2>

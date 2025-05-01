@@ -8,6 +8,10 @@ import { productSchema } from "@/app/lib/zodSchemas";
 import { useState } from "react";
 import ProductForm from "@/app/components/dashboard/ProductForm";
 
+export const metadata = {
+  title: "New Product",
+};
+
 export default function NewProduct() {
   const [images, setImages] = useState<string[]>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);

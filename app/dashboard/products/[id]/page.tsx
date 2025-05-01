@@ -3,6 +3,11 @@ import prisma from "@/app/lib/db";
 import { unstable_noStore } from "next/cache";
 import { notFound } from "next/navigation";
 import React from "react";
+
+export const metadata = {
+  title: "Edit Product",
+};
+
 export default async function EditProduct({
   params,
 }: {
