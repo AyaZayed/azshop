@@ -1,5 +1,7 @@
-import getSettings from "@/app/lib/getSettings";
-import { orderDispatch, refundDays, returnDays } from "@/utils/constants";
+export const dynamic = "force-static";
+
+import getSettings from "@/utils/db/settings";
+import { orderDispatch, refundDays, returnDays } from "@/lib/constants";
 import Link from "next/link";
 import React from "react";
 
@@ -8,20 +10,18 @@ export const metadata = {
 };
 
 export default async function DeliveryReturns() {
-  const shopLocation = (await getSettings()).storeAddress;
-  const shopEmail = (await getSettings()).storeEmail;
-  const shopPhone = (await getSettings()).storePhone;
-  const shopInstagram = (await getSettings()).storeInstagram;
+  const { storeAddress, storePhone, storeEmail, storeInstagram } =
+    await getSettings();
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
       <h1>Delivery & Returns Policy</h1>
       <div className="flex flex-col gap-4 leading-7 md:w-3/4">
         <p>
-          We offer delivery services throughout {shopLocation} for all orders
-          placed on our website. We use reputable courier companies to ensure
-          your order arrives in a timely and secure manner. Here are some
-          important points to note:
+          We offer delivery services throughout {storeAddress} storePhone,
+          storeEmail, storeInstagram for all orders placed on our website. We
+          use reputable courier companies to ensure your order arrives in a
+          timely and secure manner. Here are some important points to note:
         </p>
         <ol className="list-disc pl-10">
           <li>
@@ -118,25 +118,25 @@ export default async function DeliveryReturns() {
         <p>
           Call us:{" "}
           <Link
-            href={`tel:${shopPhone}`}
+            href={`tel:${storePhone}`}
             className="text-base font-secondary font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            {shopPhone}
+            {storePhone}`
           </Link>
         </p>
         <p>
           Instagram:{" "}
           <Link
-            href={shopInstagram}
+            href={storeInstagram}
             className="font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            @{shopInstagram}
+            @{storeInstagram}
           </Link>
         </p>
         <p>
           Email:{" "}
           <Link
-            href={`mailto:${shopEmail}`}
+            href={`mailto:${storeEmail}`}
             className="font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            {shopEmail}
+            {storeEmail}`
           </Link>
         </p>
         <p>

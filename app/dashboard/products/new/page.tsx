@@ -1,4 +1,4 @@
-import ProductFormWrapper from "@/app/components/dashboard/ProductFormWrapper";
+import ProductFormWrapper from "@/app/dashboard/products/new/ProductFormWrapper";
 import React from "react";
 
 export const metadata = {

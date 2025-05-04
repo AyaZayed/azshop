@@ -28,7 +28,11 @@ export default function DashboardHeader() {
       </nav>
       <Sheet>
         <SheetTrigger asChild>
-          <Button className="shrink-0 md:hidden" variant="outline" size="icon">
+          <Button
+            className="shrink-0 md:hidden"
+            variant="outline"
+            size="icon"
+            aria-label="Navigation Menu">
             <MenuIcon className="h-5 w-5" />
           </Button>
         </SheetTrigger>
@@ -48,7 +52,11 @@ export default function DashboardHeader() {
       </Sheet>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="icon" className="rounded-full">
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full"
+            aria-label="profile">
             <CircleUser className="h-6 w-6 text-primary" />
           </Button>
         </DropdownMenuTrigger>

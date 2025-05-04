@@ -1,25 +1,8 @@
-import SettingsForm from "@/app/components/dashboard/SettingsForm";
-import prisma from "@/app/lib/db";
+import SettingsForm from "@/app/dashboard/settings/SettingsForm";
+import { getAllSettings } from "@/utils/db/settings";
 import React from "react";
 
 export default async function SettingsPage() {
-  let settings = await prisma.settings.findFirst();
-  if (!settings) {
-    settings = {
-      id: "1",
-      storeName: "",
-      storeDescription: "",
-      storeEmail: "",
-      storePhone: "",
-      storeAddress: "",
-      storeInstagram: "",
-      storeFacebook: "",
-      currency: "USD",
-      currencySymbol: "$",
-      primaryColor: "#000000",
-      secondaryColor: "#000000",
-      backgroundColor: "#000000",
-    };
-  }
+  const settings = await getAllSettings();
   return <SettingsForm settings={settings} />;
 }

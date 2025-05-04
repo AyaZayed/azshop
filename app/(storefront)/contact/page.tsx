@@ -1,4 +1,6 @@
-import getSettings from "@/app/lib/getSettings";
+export const dynamic = "force-static";
+
+import getSettings from "@/utils/db/settings";
 import Link from "next/link";
 import React from "react";
 
@@ -7,9 +9,7 @@ export const metadata = {
 };
 
 export default async function Contact() {
-  const shopEmail = (await getSettings()).storeEmail;
-  const shopPhone = (await getSettings()).storePhone;
-  const shopInstagram = (await getSettings()).storeInstagram;
+  const { storePhone, storeEmail, storeInstagram } = await getSettings();
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
@@ -22,25 +22,25 @@ export default async function Contact() {
         <p className="mt-6">
           Call us:{" "}
           <Link
-            href={`tel:${shopPhone}`}
+            href={`tel:${storePhone}`}
             className="text-base font-secondary font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            {shopPhone}
+            {storePhone}`
           </Link>
         </p>
         <p>
           Instagram:{" "}
           <Link
-            href={shopInstagram}
+            href={storeInstagram}
             className="font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            @{shopInstagram}
+            @{storeInstagram}
           </Link>
         </p>
         <p>
           Email:{" "}
           <Link
-            href={`mailto:${shopEmail}`}
+            href={`mailto:${storeEmail}`}
             className="font-semibold hover:text-sf_primary transition-all ease-in-out duration-300">
-            {shopEmail}
+            {storeEmail}`
           </Link>
         </p>
         <p className="mt-10">

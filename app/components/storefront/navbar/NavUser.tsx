@@ -1,13 +1,7 @@
-import {
-  getKindeServerSession,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/server";
+import { LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import React from "react";
 import Link from "next/link";
 import { CircleUser, ShoppingBag } from "lucide-react";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -17,23 +11,14 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { getSessionId } from "@/app/lib/getSessionId";
-import prisma from "@/app/lib/db";
-import { unstable_noStore } from "next/cache";
+import { getCartTotal } from "@/utils/cart";
+import { userHasOrders } from "@/utils/db/orders";
+import { getSessionId } from "@/utils/auth/getSessionId";
 
 export default async function NavUser() {
-  unstable_noStore();
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  const { sessionId } = await getSessionId();
-
-  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
-
-  const total = cart?.items.reduce((acc, item) => acc + item.quantity, 0);
-
-  const hasOrders = await prisma.order.findFirst({
-    where: { userId: user?.id },
-  });
+  const total = getCartTotal();
+  const { user } = await getSessionId();
+  const hasOrders = await userHasOrders();
 
   return (
     <div className="flex items-center gap-4 order-3">

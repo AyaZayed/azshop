@@ -1,4 +1,4 @@
-import { loginLink } from "@/utils/constants";
+import { loginLink } from "@/lib/constants";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 

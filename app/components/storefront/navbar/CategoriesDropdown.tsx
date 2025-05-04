@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { categories } from "@/app/lib/categories";
 import {
   NavigationMenuTrigger,
   NavigationMenuItem,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { SecondaryButton } from "../../SubmitButtons";
 import ProductsNav from "./ProductsNav";
+import { categories } from "@/lib/categories";
 
 export default function CategoriesDropdown() {
   return (

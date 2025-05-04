@@ -1,28 +1,11 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  DollarSign,
-  PackageOpen,
-  ShoppingBag,
-  Tags,
-  User2,
-} from "lucide-react";
-import prisma from "@/app/lib/db";
-import { unstable_noStore } from "next/cache";
+import { DollarSign, PackageOpen, ShoppingBag, User2 } from "lucide-react";
+import { getStats } from "@/utils/db/orders";
 
 export default async function Stats() {
-  unstable_noStore();
-  const [ordersCount, productsCount, customersCount, revenue] =
-    await Promise.all([
-      prisma.order.count(),
-      prisma.product.count(),
-      prisma.user.count(),
-      prisma.order.aggregate({
-        _sum: {
-          total: true,
-        },
-      }),
-    ]);
+  const { ordersCount, productsCount, customersCount, revenue } =
+    await getStats();
 
   return (
     <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
@@ -32,9 +15,7 @@ export default async function Stats() {
           <DollarSign className="w-5 h-5 text-green-500" />
         </CardHeader>
         <CardContent>
-          <p className="text-2xl font-bold">
-            ${(revenue._sum.total || 0) / 100}
-          </p>
+          <p className="text-2xl font-bold">${revenue / 100}</p>
           <p className="text-sm text-muted-foreground">Based on 100 charges</p>
         </CardContent>
       </Card>

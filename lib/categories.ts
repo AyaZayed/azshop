@@ -1,9 +1,4 @@
-import {
-  CirclesSVG,
-  FilledSunSVG,
-  GiftsSVG,
-  SunsetSVG,
-} from "../components/SVGs";
+import { CirclesSVG, FilledSunSVG, SunsetSVG } from "@/app/components/SVGs";
 
 export const categories = [
   {
@@ -28,11 +23,5 @@ export const categories = [
     title: "Sets",
     name: "sets",
     icon: CirclesSVG,
-  },
-  {
-    id: 4,
-    title: "Gifts",
-    name: "gifts",
-    icon: GiftsSVG,
   },
 ];

@@ -1,20 +1,22 @@
-import prisma from "@/app/lib/db";
 import { notFound } from "next/navigation";
 import React from "react";
-import Encouragements from "@/app/components/storefront/Encouragements";
-import { unstable_noStore } from "next/cache";
-import ProductHero from "./ProductHero";
-import ProductAccordions from "./ProductAccordions";
-import toTitleCase from "@/app/lib/capitalize";
+import { getSingleProduct } from "@/utils/db/products";
+import toTitleCase from "@/utils/capitalize";
+import dynamic from "next/dynamic";
+const ProductHero = dynamic(() => import("./ProductHero"), { ssr: false });
+const ProductAccordions = dynamic(() => import("./ProductAccordions"), {
+  ssr: false,
+});
+const Encouragements = dynamic(
+  () => import("@/app/components/storefront/Encouragements"),
+  {
+    ssr: false,
+  }
+);
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const product = await prisma.product.findUnique({
-    where: { id: params.id },
-    select: { name: true },
-  });
-
+  const product = await getSingleProduct(params.id);
   if (!product) return { title: "Product Not Found" };
-
   return {
     title: toTitleCase(product.name),
   };
@@ -27,13 +29,7 @@ export default async function ProductPageLayout({
   params: { id: string };
   reviews: React.ReactNode;
 }) {
-  unstable_noStore();
-  const product = await prisma.product.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
-
+  const product = await getSingleProduct(params.id);
   if (!product) return notFound();
 
   return (

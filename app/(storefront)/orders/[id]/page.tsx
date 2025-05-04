@@ -1,8 +1,8 @@
+export const dynamic = "force-static";
 import Currency from "@/app/components/Currency";
 import HoverImage from "@/app/components/storefront/HoverImage";
-import prisma from "@/app/lib/db";
+import { getOrderDetails } from "@/utils/db/orders";
 import { ArrowLeft } from "lucide-react";
-import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -12,11 +12,7 @@ export const metadata = {
 };
 
 export default async function page({ params }: { params: { id: string } }) {
-  unstable_noStore();
-  const order = await prisma.order.findUnique({
-    where: { id: params.id },
-    include: { items: { include: { product: true } } },
-  });
+  const order = await getOrderDetails(params.id);
   if (!order) return notFound();
 
   return (

@@ -1,11 +1,10 @@
 "use server";
-
 import { parseWithZod } from "@conform-to/zod";
-import isAdmin from "../lib/isAdmin";
-import { settingsSchema } from "../lib/zodSchemas";
-import prisma from "../lib/db";
 import { revalidatePath } from "next/cache";
 import getSymbolFromCurrency from "currency-symbol-map";
+import isAdmin from "@/utils/auth/isAdmin";
+import { settingsSchema } from "@/lib/zodSchemas";
+import prisma from "@/lib/db";
 
 export async function editSettings(prevState: unknown, formData: FormData) {
   isAdmin();

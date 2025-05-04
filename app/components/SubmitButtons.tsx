@@ -147,7 +147,8 @@ export function QuantityButtons({
         <Button
           disabled={quantity <= 1}
           size={"icon"}
-          className="bg-transparent text-[20px] font-bold text-sf_sedcondary border-2 border-sf_sedcondary rounded-full w-7 h-7 hover:bg-sf_sedcondary hover:text-sf_background">
+          className="bg-transparent text-[20px] font-bold text-sf_sedcondary border-2 border-sf_sedcondary rounded-full w-7 h-7 hover:bg-sf_sedcondary hover:text-sf_background"
+          aria-label="minus">
           -
         </Button>
       </form>
@@ -164,7 +165,8 @@ export function QuantityButtons({
         <input type="hidden" name="productId" value={itemId} />
         <Button
           size={"icon"}
-          className="bg-transparent text-[20px] font-bold text-sf_sedcondary border-2 border-sf_sedcondary rounded-full w-7 h-7 hover:bg-sf_sedcondary hover:text-sf_background">
+          className="bg-transparent text-[20px] font-bold text-sf_sedcondary border-2 border-sf_sedcondary rounded-full w-7 h-7 hover:bg-sf_sedcondary hover:text-sf_background"
+          aria-label="plus">
           +
         </Button>
       </form>

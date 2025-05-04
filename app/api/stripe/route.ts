@@ -1,6 +1,7 @@
-import prisma from "@/app/lib/db";
-import { redis } from "@/app/lib/redis";
-import { stripe } from "@/app/lib/stripe";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import prisma from "@/lib/db";
+import { redis } from "@/lib/redis";
+import { stripe } from "@/lib/stripe";
 import { unstable_noStore } from "next/cache";
 import Stripe from "stripe";
 

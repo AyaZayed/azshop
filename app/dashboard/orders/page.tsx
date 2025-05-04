@@ -1,5 +1,4 @@
 import Currency from "@/app/components/Currency";
-import prisma from "@/app/lib/db";
 import {
   Card,
   CardContent,
@@ -15,39 +14,15 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table";
-import { unstable_noStore } from "next/cache";
 import React from "react";
+import { selectOrders } from "@/utils/db/orders";
 
 export const metadata = {
   title: "Orders",
 };
 
-async function getData() {
-  const data = await prisma.order.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    select: {
-      status: true,
-      total: true,
-      createdAt: true,
-      id: true,
-      user: {
-        select: {
-          firstName: true,
-          lastName: true,
-          email: true,
-        },
-      },
-    },
-  });
-
-  return data;
-}
-
 export default async function OrdersPage() {
-  unstable_noStore();
-  const orders = await getData();
+  const orders = await selectOrders();
   return (
     <Card>
       <CardHeader>

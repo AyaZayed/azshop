@@ -1,8 +1,8 @@
 "use client";
 import { editSettings } from "@/app/actions/settingsActions";
 import SubmitButton from "@/app/components/SubmitButtons";
-import { supportedCurrencies } from "@/app/lib/currencies";
-import { settingsSchema } from "@/app/lib/zodSchemas";
+import { supportedCurrencies } from "@/utils/currencies";
+import { settingsSchema } from "@/lib/zodSchemas";
 import { Alert } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

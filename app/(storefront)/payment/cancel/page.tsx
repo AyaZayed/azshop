@@ -22,7 +22,8 @@ export default function CancelPayment() {
             <div className="mt-6 grid grid-cols-2 gap-2">
               <Button
                 asChild
-                className="w-full text-sf_sedcondary bg-transparentborder-sf_sedcondary border-[1px] hover:bg-stone-200/50">
+                className="w-full text-sf_sedcondary bg-transparentborder-sf_sedcondary border-[1px] hover:bg-stone-200/50"
+                aria-label="Back to Homepage">
                 <Link href="/">Back to Homepage</Link>
               </Button>
               <form action={checkout}>

@@ -6,18 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { addItemToCart } from "@/app/actions/cartActions";
 import { AddToCartButton } from "../SubmitButtons";
 import HoverImage from "./HoverImage";
-import Currency from "../Currency";
-
-type Product = {
-  id: string;
-  name: string;
-  price: number;
-  images: string[];
-  type: string;
-  category: string;
-  reviewsCount: number;
-  rating: number | null;
-};
+import { Product } from "@prisma/client";
 
 export default function ProductCard({
   product,
@@ -43,14 +32,17 @@ export default function ProductCard({
       className="flex flex-col gap-1 items-center bg-transparent font-secondary"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
-      <Link href={`/product/${product.id}`} className="w-full h-[450px]">
+      <Link
+        href={`/product/${product.id}`}
+        className="w-full h-[450px]"
+        aria-label={product.name}>
         <HoverImage
           image={product.images[0]}
           category={product.category}
           title={product.name}
         />
       </Link>
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/product/${product.id}`} aria-label={product.name}>
         <h3 className="mt-6 font-bold uppercase transition-all ease-in-out duration-300 hover:text-sf_primary">
           <span className={`block ${!isHovered && "md:hidden"}`}>
             {product.name}
@@ -60,7 +52,7 @@ export default function ProductCard({
           </span>
         </h3>
       </Link>
-      <p className=" transition-all ease-in-out duration-300 flex items-center gap-2 text-[20px]">
+      <div className=" transition-all ease-in-out duration-300 flex items-center gap-2 text-[20px]">
         <span
           className={`font-primary capitalize font-[500] hidden md:block ${
             isHovered && "md:hidden"
@@ -79,9 +71,10 @@ export default function ProductCard({
             />
           </form>
         </span>
-      </p>
+      </div>
       {product.reviewsCount > 0 && (
         <Link
+          aria-label="Product Reviews"
           href={`/product/${product.id}#reviews`}
           className="flex gap-2 items-center text-base">
           <ReviewsStars

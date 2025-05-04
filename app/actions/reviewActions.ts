@@ -1,8 +1,7 @@
 "use server";
-
+import prisma from "@/lib/db";
+import { reviewSchema } from "@/lib/zodSchemas";
 import { revalidatePath } from "next/cache";
-import { reviewSchema } from "../lib/zodSchemas";
-import prisma from "../lib/db";
 
 export async function createReview(prevState: unknown, formData: FormData) {
   const raw = {

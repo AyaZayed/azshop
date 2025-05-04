@@ -1,11 +1,10 @@
 "use server";
-
 import { parseWithZod } from "@conform-to/zod";
-import isAdmin from "../lib/isAdmin";
-import { productSchema } from "../lib/zodSchemas";
-import prisma from "../lib/db";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import isAdmin from "@/utils/auth/isAdmin";
+import { productSchema } from "@/lib/zodSchemas";
+import prisma from "@/lib/db";
 
 export async function createProduct(prevState: unknown, formData: FormData) {
   isAdmin();

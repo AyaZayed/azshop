@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { LogoSVG, SunSVG } from "../SVGs";
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
 
 const links = [
   {
@@ -25,9 +25,7 @@ const links = [
 ];
 
 export default async function Footer() {
-  const storeName = (await getSettings()).storeName;
-  const shopInstagram = (await getSettings()).storeInstagram;
-  const shopFacebook = (await getSettings()).storeFacebook;
+  const { storeName, storeInstagram, storeFacebook } = await getSettings();
 
   return (
     <footer className="w-full mt-10 px-4 md:px-6 lg:px-10 py-2 md:py-4 text-sf_sedcondary font-bold uppercase flex flex-col gap-4 md:gap-12">
@@ -52,13 +50,15 @@ export default async function Footer() {
             ))}
             <li className="socials flex items-center gap-1">
               <Link
-                href={shopInstagram}
+                href={storeInstagram}
+                aria-labelledby="instagram"
                 className="hover:text-sf_primary"
                 aria-label="instagram">
                 <Instagram />
               </Link>
               <Link
-                href={shopFacebook}
+                href={storeFacebook}
+                aria-labelledby="facebook"
                 className="hover:text-sf_primary"
                 aria-label="facebook">
                 <Facebook />

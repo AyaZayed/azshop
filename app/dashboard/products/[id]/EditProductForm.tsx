@@ -3,10 +3,10 @@ import { editProduct } from "@/app/actions/productActions";
 import { useFormState } from "react-dom";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { productSchema } from "@/app/lib/zodSchemas";
+import { productSchema } from "@/lib/zodSchemas";
 import { useState } from "react";
-import ProductForm from "@/app/components/dashboard/ProductForm";
 import { $Enums } from "@prisma/client";
+import ProductForm from "../ProductForm";
 
 interface dataTypes {
   data: {

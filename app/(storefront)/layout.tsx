@@ -22,7 +22,7 @@ export default function StorefrontLayout({
         {children}
       </div>
       <Footer />
-      <Link href="/cart" prefetch className="invisible">
+      <Link href="/cart" prefetch className="invisible inline">
         open cart
       </Link>
     </main>

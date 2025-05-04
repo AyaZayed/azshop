@@ -5,22 +5,16 @@ import {
   AddToCartButton,
   QuantityButtons,
 } from "@/app/components/SubmitButtons";
-import { getSessionId } from "@/app/lib/getSessionId";
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
 import { Product } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import ProductCarousel from "./ProductCarousel";
 import Currency from "@/app/components/Currency";
+import { getCartQuantity } from "@/utils/cart";
 
 export default async function ProductHero({ product }: { product: Product }) {
   const addItem = addItemToCart.bind(null, product.id);
-  const { sessionId } = await getSessionId();
-
-  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
-
-  const quantity = cart?.items.find((item) => item.id === product.id)?.quantity;
+  const quantity = await getCartQuantity(product);
 
   return (
     <section className="z-1 w-full h-full grid grid-cols-1 md:grid-cols-2">
@@ -40,7 +34,11 @@ export default async function ProductHero({ product }: { product: Product }) {
           <Link
             href="#reviews"
             className="reviews flex gap-2 text-base items-center">
-            <ReviewsStars rating={product.rating} starColor="secondary" />
+            <ReviewsStars
+              rating={product.rating}
+              starColor="secondary"
+              aria-label="Product Reviews"
+            />
             <span>
               {product.reviewsCount === 1
                 ? "1 review"

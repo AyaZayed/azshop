@@ -1,7 +1,6 @@
 import { deleteProduct } from "@/app/actions/productActions";
 import Currency from "@/app/components/Currency";
 import SubmitButton from "@/app/components/SubmitButtons";
-import prisma from "@/app/lib/db";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -37,22 +36,17 @@ import {
   TableBody,
 } from "@/components/ui/table";
 import { MoreHorizontal, PlusCircle } from "lucide-react";
-import { unstable_noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { getAllProducts } from "@/utils/db/products";
 
 export const metadata = {
   title: "Settings",
 };
 
 export default async function ProductsPage() {
-  unstable_noStore();
-  const products = await prisma.product.findMany({
-    orderBy: {
-      created_at: "desc",
-    },
-  });
+  const products = await getAllProducts();
   return (
     <>
       <div className="flex flex-row items-center justify-end">
@@ -110,7 +104,10 @@ export default async function ProductsPage() {
                       <Dialog modal={true}>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button size="icon" variant="ghost">
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              aria-label="Actions">
                               <MoreHorizontal className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>

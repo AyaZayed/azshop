@@ -1,4 +1,4 @@
-import prisma from "./db";
+import prisma from "@/lib/db";
 
 export default async function getSettings() {
   const settings = await prisma.settings.findFirst();
@@ -32,4 +32,26 @@ export default async function getSettings() {
     secondaryColor: settings.secondaryColor,
     backgroundColor: settings.backgroundColor,
   };
+}
+
+export async function getAllSettings() {
+  let settings = await prisma.settings.findFirst();
+  if (!settings) {
+    settings = {
+      id: "1",
+      storeName: "",
+      storeDescription: "",
+      storeEmail: "",
+      storePhone: "",
+      storeAddress: "",
+      storeInstagram: "",
+      storeFacebook: "",
+      currency: "USD",
+      currencySymbol: "$",
+      primaryColor: "#000000",
+      secondaryColor: "#000000",
+      backgroundColor: "#000000",
+    };
+  }
+  return settings;
 }

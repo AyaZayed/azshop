@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <header className="font-secondary font-[500] fixed top-0 w-full flex items-center justify-between px-4 md:px-6 lg:px-10 py-4 text-sf_primary uppercase tracking-wider text-[14px] z-40 bg-transparent">
       <div className="logo order-2 md:order-1">
-        <Link href="/">
+        <Link href="/" aria-label="Home">
           <LogoSVG width={150} height={70} className="fill-sf_primary" />
         </Link>
       </div>

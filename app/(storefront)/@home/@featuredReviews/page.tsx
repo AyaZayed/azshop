@@ -1,32 +1,11 @@
+export const dynamic = "force-static";
+
 import ReviewsStars from "@/app/components/storefront/ReviewsStars";
-import prisma from "@/app/lib/db";
-import { unstable_noStore } from "next/cache";
+import { getFeaturedReviews } from "@/utils/db/reviews";
 import React from "react";
 
-async function getData() {
-  const reviews = await prisma.review.findMany({
-    where: {
-      rating: { gt: 4 },
-    },
-    orderBy: {
-      created_at: "desc",
-    },
-    select: {
-      id: true,
-      rating: true,
-      content: true,
-      headline: true,
-      author: true,
-    },
-    take: 3,
-  });
-
-  return reviews;
-}
-
 export default async function featuredReviews() {
-  unstable_noStore();
-  const reviews = await getData();
+  const reviews = await getFeaturedReviews(3);
   return (
     <>
       {reviews.length > 0 && (

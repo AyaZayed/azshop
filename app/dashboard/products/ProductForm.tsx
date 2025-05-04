@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { categories } from "@/app/lib/categories";
+import { categories } from "@/lib/categories";
 import SubmitButton from "@/app/components/SubmitButtons";
 import {
   Tooltip,
@@ -24,8 +24,8 @@ import {
 } from "@/components/ui/tooltip";
 import ImageUploadWidget from "@/app/components/dashboard/ImageUploadWidget";
 import { type $Enums } from "@prisma/client";
-import { productTypes } from "../../lib/productTypes";
-import Currency from "../Currency";
+import { productTypes } from "@/lib/productTypes";
+import Currency from "@/app/components/Currency";
 
 type productFormProps = {
   images: string[];
@@ -141,8 +141,8 @@ export default async function ProductForm({
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant={"outline"} size={"icon"} asChild>
-              <Link href="/dashboard/products">
+            <Button variant={"outline"} size={"icon"} asChild aria-label="Back">
+              <Link href="/dashboard/products" aria-label="Back">
                 <ChevronLeft className="w-4 h-4" />
               </Link>
             </Button>

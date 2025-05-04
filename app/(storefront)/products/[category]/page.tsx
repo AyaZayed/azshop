@@ -1,34 +1,17 @@
+export const dynamic = "force-static";
 import ProductsGrid from "@/app/components/storefront/ProductsGrid";
-import prisma from "@/app/lib/db";
-import getSettings from "@/app/lib/getSettings";
-import { unstable_noStore } from "next/cache";
+import { getProductsByCategory } from "@/utils/db/products";
+import getSettings from "@/utils/db/settings";
 import React, { Suspense } from "react";
 
-type Category = "all" | "sunscreen" | "repair" | "sets" | "gifts";
-
-async function getProducts(category: Category) {
-  if (category === "all") {
-    return await prisma.product.findMany({
-      where: {
-        status: "published",
-      },
-    });
-  }
-  return await prisma.product.findMany({
-    where: {
-      category: category,
-      status: "published",
-    },
-  });
-}
+type Category = "all" | "sunscreen" | "repair" | "sets";
 
 export default async function ProductCategory({
   params,
 }: {
   params: { category: Category };
 }) {
-  unstable_noStore();
-  const data = await getProducts(params.category);
+  const data = await getProductsByCategory(params.category);
   const currency = (await getSettings()).currencySymbol;
 
   return (

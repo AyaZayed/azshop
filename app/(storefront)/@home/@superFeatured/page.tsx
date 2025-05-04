@@ -1,29 +1,11 @@
+export const dynamic = "force-static";
 import HoveredProduct from "@/app/components/storefront/HoveredProduct";
-import prisma from "@/app/lib/db";
-import { unstable_noStore } from "next/cache";
+import { getSuperFeatured } from "@/utils/db/products";
 import Image from "next/image";
 import React from "react";
 
-async function getData() {
-  const product = await prisma.product.findFirst({
-    where: {
-      status: "published",
-      isFeatured: true,
-    },
-    select: {
-      id: true,
-      name: true,
-      images: true,
-      description: true,
-    },
-  });
-
-  return product;
-}
-
 export default async function SuperFeatured() {
-  unstable_noStore();
-  const product = await getData();
+  const product = await getSuperFeatured();
   return (
     <>
       {product && (

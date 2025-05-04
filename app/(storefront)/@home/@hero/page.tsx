@@ -1,6 +1,8 @@
+export const dynamic = "force-static";
+
 import { SecondaryButton, PrimaryButton } from "@/app/components/SubmitButtons";
 import { SunSVG } from "@/app/components/SVGs";
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
 import Image from "next/image";
 import React from "react";
 
@@ -15,6 +17,7 @@ export default async function Hero() {
             alt={`${"hero"}`}
             fill
             className="object-cover"
+            priority
             unoptimized
           />
         </div>
@@ -24,6 +27,7 @@ export default async function Hero() {
             alt="ocean"
             fill
             className="object-cover z-1"
+            priority
           />
           <div className="content w-full p-10 z-2 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-sf_background flex flex-col gap-3 items-end text-end">
             <h1 className="text-4xl md:text-6xl font-bold">Unlock Your Glow</h1>

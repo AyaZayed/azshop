@@ -1,26 +1,10 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import prisma from "@/app/lib/db";
-import { unstable_noStore } from "next/cache";
+import { getRecentSales } from "@/utils/db/orders";
 
 export default async function Sales() {
-  unstable_noStore();
-  const recentSales = await prisma.order.findMany({
-    take: 5,
-    orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      total: true,
-      user: {
-        select: {
-          firstName: true,
-          lastName: true,
-          email: true,
-        },
-      },
-    },
-  });
+  const recentSales = await getRecentSales();
 
   return (
     <Card>

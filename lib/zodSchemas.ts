@@ -1,5 +1,5 @@
+import { supportedCurrencies } from "@/utils/currencies";
 import { z } from "zod";
-import { supportedCurrencies } from "./currencies";
 
 export const reviewSchema = z
   .object({
@@ -30,7 +30,7 @@ export const productSchema = z.object({
   status: z.enum(["draft", "published", "archived"]),
   isFeatured: z.boolean().optional(),
   images: z.array(z.string()).min(1, "Image is required"),
-  category: z.enum(["sunscreen", "repair", "gifts", "sets"]),
+  category: z.enum(["sunscreen", "repair", "sets"]),
   reviewsCount: z.number().int().nonnegative().optional(),
   rating: z.number().min(1).max(5).optional(),
   reviews: z.array(reviewSchema).optional(),

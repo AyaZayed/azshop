@@ -1,4 +1,3 @@
-// lib/getSessionId.ts
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { headers } from "next/headers";
 
@@ -11,11 +10,12 @@ export async function getSessionId() {
     cookieHeader.split("; ").map((c) => c.split("="))
   );
   const guestId = cookies["guest_id"] ?? null;
+  const userId = user ? user.id : null;
 
   return {
     sessionId: user?.id ?? guestId!,
     user,
     guestId,
-    isGuest: !user,
+    userId,
   };
 }

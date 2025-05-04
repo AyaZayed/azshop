@@ -4,10 +4,10 @@ import {
   giftEarnBack,
   giftValue,
   orderDispatch,
-} from "@/utils/constants";
+} from "@/lib/constants";
 import React from "react";
 import { BoatSVG, SeahorsesSVG, SeaStarSVG, SpiralSVG } from "../SVGs";
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
 
 export async function getEncouragements() {
   const currency = (await getSettings()).currencySymbol;

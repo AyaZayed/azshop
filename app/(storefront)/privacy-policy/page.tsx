@@ -1,4 +1,4 @@
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
 import Link from "next/link";
 import React from "react";
 
@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default async function PrivacyPolicy() {
-  const shopEmail = (await getSettings()).storeEmail;
+  const storeEmail = (await getSettings()).storeEmail;
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
@@ -115,10 +115,10 @@ export default async function PrivacyPolicy() {
           {`If you have any questions or concerns about our privacy policy, please
                   don't hesitate to contact us at `}
           <Link
-            href={`mailto:${shopEmail}`}
+            href={`mailto:${storeEmail}`}
             className="font-semibold hover:text-sf_primary 
             transition-all ease-in-out duration-300 ">
-            {shopEmail}
+            {storeEmail}
           </Link>
         </p>
       </div>

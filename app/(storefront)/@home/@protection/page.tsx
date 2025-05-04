@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 import Image from "next/image";
 import React from "react";
 import Encouragements from "@/app/components/storefront/Encouragements";

@@ -1,11 +1,12 @@
+export const dynamic = "force-static";
 import Link from "next/link";
-import { categories } from "@/app/lib/categories";
 import { revalidatePath, unstable_noStore } from "next/cache";
 import ProductsHeader from "@/app/(storefront)/products/[category]/ProductsHeader";
-import toTitleCase from "@/app/lib/capitalize";
-import getSettings from "@/app/lib/getSettings";
+import toTitleCase from "@/utils/capitalize";
+import getSettings from "@/utils/db/settings";
+import { categories } from "@/lib/categories";
 
-type Category = "all" | "sunscreen" | "repair" | "sets" | "gifts";
+type Category = "all" | "sunscreen" | "repair" | "sets";
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,7 @@ export default function ProductsLayout({
           <li key={c.id}>
             <Link
               href={`/products/${c.name}`}
+              aria-label={c.title}
               className={`font-secondary tracking-wider uppercase font-bold text-[13px] flex md:p-2 md:px-4 hover:border-[1px] border-sf_sedcondary align-middle ${
                 category === c.name && "border-[1px]"
               } ${c.name === "all" && "p-2"}`}>

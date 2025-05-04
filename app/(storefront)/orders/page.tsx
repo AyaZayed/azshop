@@ -1,13 +1,10 @@
+export const dynamic = "force-static";
 import Currency from "@/app/components/Currency";
 import HoverImage from "@/app/components/storefront/HoverImage";
 import { MartiniSVG } from "@/app/components/SVGs";
-import { auth } from "@/app/lib/auth";
-import prisma from "@/app/lib/db";
-import { loginLink } from "@/utils/constants";
+import { getOrders } from "@/utils/db/orders";
 import { ArrowRight } from "lucide-react";
-import { unstable_noStore } from "next/cache";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
 
 export const metadata = {
@@ -15,20 +12,7 @@ export const metadata = {
 };
 
 export default async function OrdersPage() {
-  unstable_noStore();
-  const { userId } = await auth();
-  if (!userId) return redirect(loginLink);
-
-  const orders = await prisma.order.findMany({
-    where: { userId: userId },
-    orderBy: { createdAt: "desc" },
-    include: { items: { include: { product: true } } },
-  });
-
-  const orderQuantity = orders.reduce(
-    (acc, order, idx) => acc + order.items[idx].quantity,
-    0
-  );
+  const { orders, orderQuantity } = await getOrders();
 
   return (
     <section className="flex flex-col gap-8 justify-center items-center pt-32 pb-20 p-4">

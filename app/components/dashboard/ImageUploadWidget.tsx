@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-/* eslint-disable @next/next/no-img-element */
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { XIcon } from "lucide-react";
@@ -126,6 +125,7 @@ export default function ImageUploadWidget({
               <Button
                 className="absolute w-fit h-fit top-[-5px] right-[-5px] bg-red-500 rounded-full p-1"
                 size={"icon"}
+                aria-label="Remove image"
                 onClick={() => handleRemoveImage(index)}>
                 <XIcon className="h-3 w-3 text-white" />
               </Button>

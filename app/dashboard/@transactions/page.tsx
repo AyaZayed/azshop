@@ -6,37 +6,11 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import prisma from "@/app/lib/db";
-import Chart from "@/app/components/dashboard/Chart";
-import { unstable_noStore } from "next/cache";
-
-async function getData() {
-  const orders = await prisma.order.findMany({
-    where: {
-      createdAt: {
-        gte: new Date(new Date().setDate(new Date().getDate() - 30)),
-      },
-    },
-    select: {
-      total: true,
-      createdAt: true,
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-  });
-
-  const transactions = orders.map((order) => ({
-    date: new Intl.DateTimeFormat("en-UK").format(order.createdAt),
-    revenue: order.total / 100,
-  }));
-
-  return transactions;
-}
+import Chart from "@/app/dashboard/@transactions/Chart";
+import { getTransactions } from "@/utils/db/orders";
 
 export default async function Transactions() {
-  unstable_noStore();
-  const data = await getData();
+  const data = await getTransactions();
   return (
     <Card className="lg:col-span-2">
       <CardHeader>

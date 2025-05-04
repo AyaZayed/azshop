@@ -1,28 +1,18 @@
-import { Cart } from "@/app/lib/interfaces";
-import { redis } from "@/app/lib/redis";
+export const dynamic = "force-static";
+
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
 import CartContent from "@/app/components/storefront/CartContent";
-import { unstable_noStore } from "next/cache";
-import { getSessionId } from "@/app/lib/getSessionId";
 import { FanSVG } from "@/app/components/SVGs";
+import { getCart, getTotalPrice } from "@/utils/cart";
 
 export const metadata = {
   title: "Cart",
 };
 
 export default async function page() {
-  unstable_noStore();
-  const { sessionId } = await getSessionId();
-  const cart: Cart | null = await redis.get(`cart-${sessionId}`);
-  let totalPrice = 0;
-
-  if (cart && cart.items.length > 0) {
-    totalPrice = cart.items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
-  }
+  const cart = await getCart();
+  const totalPrice = await getTotalPrice();
 
   return (
     <div className="p-6 md:px-10 pt-32 flex flex-col items-center h-screen font-secondary">

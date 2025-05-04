@@ -1,19 +1,18 @@
 "use server";
-
 import { redirect } from "next/navigation";
-import { stripe } from "../lib/stripe";
-import { auth } from "../lib/auth";
-import { redis } from "../lib/redis";
-import { Cart } from "../lib/interfaces";
 import Stripe from "stripe";
 import { revalidatePath } from "next/cache";
-import { getSessionId } from "../lib/getSessionId";
-import prisma from "../lib/db";
+import { getSessionId } from "@/utils/auth/getSessionId";
+import { Cart } from "@/lib/interfaces";
+import { redis } from "@/lib/redis";
+import prisma from "@/lib/db";
+import { stripe } from "@/lib/stripe";
+import { getCart } from "@/utils/cart";
 
 export async function addItemToCart(productId: string) {
   const { sessionId } = await getSessionId();
   const userId = sessionId;
-  const cart: Cart | null = await redis.get(`cart-${userId}`);
+  const cart = await getCart();
 
   const selectedProduct = await prisma.product.findUnique({
     select: {
@@ -80,7 +79,7 @@ export async function addItemToCart(productId: string) {
 export async function removeItemFromCart(formData: FormData) {
   const { sessionId } = await getSessionId();
   const userId = sessionId;
-  const cart: Cart | null = await redis.get(`cart-${userId}`);
+  const cart = await getCart();
 
   if (!cart || !cart.items) {
     return;
@@ -101,7 +100,7 @@ export async function removeItemFromCart(formData: FormData) {
 export async function increaseItemQuantity(formData: FormData) {
   const { sessionId } = await getSessionId();
   const userId = sessionId;
-  const cart: Cart | null = await redis.get(`cart-${userId}`);
+  const cart = await getCart();
 
   if (!cart || !cart.items) {
     return;
@@ -130,7 +129,7 @@ export async function increaseItemQuantity(formData: FormData) {
 export async function decreaseItemQuantity(formData: FormData) {
   const { sessionId } = await getSessionId();
   const userId = sessionId;
-  const cart: Cart | null = await redis.get(`cart-${userId}`);
+  const cart = await getCart();
 
   if (!cart || !cart.items) {
     return;
@@ -160,7 +159,7 @@ export async function checkout() {
   const { sessionId } = await getSessionId();
   const userId = sessionId;
   console.log("userId:", userId);
-  const cart = (await redis.get(`cart-${userId}`)) as Cart | null;
+  const cart = await getCart();
   if (!cart || !cart.items) {
     return;
   }
@@ -187,9 +186,6 @@ export async function checkout() {
       userId: userId,
     },
   });
-
-  console.log("✅ Saving cart under key:", `cart-${userId}`);
-  // await redis.del(`cart-${userId}`);
 
   return redirect(session.url as string);
 }

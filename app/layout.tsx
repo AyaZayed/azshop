@@ -1,15 +1,14 @@
 import "./globals.css";
 import { fontBogart, fontNunito, fontRubik } from "./fonts";
-import { getOrCreateUser } from "./lib/getOrCreateUser";
-import getSettings from "./lib/getSettings";
 import React from "react";
+import { getOrCreateUser } from "@/utils/auth/getOrCreateUser";
+import getSettings from "@/utils/db/settings";
 
 export async function generateMetadata() {
-  const storeName = (await getSettings()).storeName;
-  const shopDescription = (await getSettings()).storeDescription;
+  const { storeName, storeDescription } = await getSettings();
   return {
     title: storeName.toLocaleUpperCase(),
-    description: shopDescription,
+    description: storeDescription,
   };
 }
 
@@ -19,9 +18,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await getOrCreateUser();
-  const primaryColor = (await getSettings()).primaryColor;
-  const secondaryColor = (await getSettings()).secondaryColor;
-  const backgroundColor = (await getSettings()).backgroundColor;
+  const { primaryColor, secondaryColor, backgroundColor } = await getSettings();
 
   return (
     <html

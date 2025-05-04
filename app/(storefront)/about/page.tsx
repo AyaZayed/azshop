@@ -1,5 +1,6 @@
+export const dynamic = "force-static";
 import { SunSVG, UmbrellaSVG } from "@/app/components/SVGs";
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
 import Image from "next/image";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { revalidatePath, unstable_noStore } from "next/cache";
+import { revalidatePath } from "next/cache";
 import React from "react";
 
 const data = [
@@ -37,19 +37,9 @@ const data = [
             Whether you&apos;re outdoors or indoors.`,
     category: "sets",
   },
-  {
-    title: "Gifts",
-    description: `Revitalize your skin with our moisturizing and nourishing
-            serum, designed to repair and rejuvenate your skin. Infused with
-            nourishing Mediterranean ingredients, it hydrates while providing a
-            broad-spectrum protection, keeping your skin healthy and glowing.
-            Whether you&apos;re outdoors or indoors.`,
-    category: "gifts",
-  },
 ];
 
 export default function ProductsHeader({ category }: { category: string }) {
-  unstable_noStore();
   revalidatePath(`/products/${category}`);
 
   return (

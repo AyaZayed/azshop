@@ -107,7 +107,6 @@ enum Category {
   sunscreen
   repair 
   sets
-  gifts
 }
 
 enum Type {

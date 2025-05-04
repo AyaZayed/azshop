@@ -1,4 +1,4 @@
-// lib/auth.ts
+import { loginLink } from "@/lib/constants";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -8,7 +8,7 @@ export async function auth() {
   const loggedIn = await isAuthenticated();
   const userId = user ? user.id : null;
 
-  if (!user) redirect("/api/auth/login");
+  if (!user) redirect(loginLink);
 
   return { user, loggedIn, userId };
 }

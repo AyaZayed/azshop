@@ -1,5 +1,4 @@
 import React from "react";
-import { Cart } from "@/app/lib/interfaces";
 import { checkout, removeItemFromCart } from "@/app/actions/cartActions";
 import {
   CheckoutButton,
@@ -8,7 +7,8 @@ import {
 } from "../SubmitButtons";
 import HoverImage from "./HoverImage";
 import Currency from "../Currency";
-import getSettings from "@/app/lib/getSettings";
+import getSettings from "@/utils/db/settings";
+import { Cart } from "@/lib/interfaces";
 
 export default async function CartContent({
   cart,

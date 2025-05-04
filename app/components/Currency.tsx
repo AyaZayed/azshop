@@ -1,5 +1,5 @@
+import getSettings from "@/utils/db/settings";
 import React from "react";
-import getSettings from "../lib/getSettings";
 
 export default async function Currency() {
   const currency = (await getSettings()).currencySymbol;
