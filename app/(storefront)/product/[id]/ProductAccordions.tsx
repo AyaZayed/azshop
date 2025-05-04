@@ -1,4 +1,3 @@
-export const dynamic = "force-static";
 import { WavesSVG } from "@/app/components/SVGs";
 import {
   Accordion,

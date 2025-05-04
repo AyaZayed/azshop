@@ -1,7 +1,8 @@
-export const dynamic = "force-static";
-
-import ReviewsStars from "@/app/components/storefront/ReviewsStars";
+const ReviewsStars = dynamic(
+  () => import("@/app/components/storefront/ReviewsStars")
+);
 import { getFeaturedReviews } from "@/utils/db/reviews";
+import dynamic from "next/dynamic";
 import React from "react";
 
 export default async function featuredReviews() {

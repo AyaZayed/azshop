@@ -2,7 +2,7 @@ import getSettings from "@/utils/db/settings";
 import React from "react";
 
 export default async function Currency() {
-  const currency = (await getSettings()).currencySymbol;
+  const { currencySymbol } = await getSettings();
 
-  return <span>{currency}</span>;
+  return <span>{currencySymbol}</span>;
 }

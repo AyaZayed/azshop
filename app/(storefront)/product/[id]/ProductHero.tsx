@@ -1,4 +1,3 @@
-export const dynamic = "force-static";
 import { addItemToCart } from "@/app/actions/cartActions";
 import ReviewsStars from "@/app/components/storefront/ReviewsStars";
 import {

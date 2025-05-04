@@ -1,8 +1,11 @@
-export const dynamic = "force-static";
-import HoveredProduct from "@/app/components/storefront/HoveredProduct";
 import { getSuperFeatured } from "@/utils/db/products";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import React from "react";
+const HoveredProduct = dynamic(
+  () => import("@/app/components/storefront/HoveredProduct"),
+  { ssr: false }
+);
 
 export default async function SuperFeatured() {
   const product = await getSuperFeatured();

@@ -22,10 +22,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import ImageUploadWidget from "@/app/components/dashboard/ImageUploadWidget";
 import { type $Enums } from "@prisma/client";
 import { productTypes } from "@/lib/productTypes";
 import Currency from "@/app/components/Currency";
+import dynamic from "next/dynamic";
+const ImageUploadWidget = dynamic(
+  () => import("@/app/components/dashboard/ImageUploadWidget"),
+  { ssr: false }
+);
 
 type productFormProps = {
   images: string[];

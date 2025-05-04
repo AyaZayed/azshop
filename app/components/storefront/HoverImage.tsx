@@ -27,6 +27,7 @@ export default function HoverImage({ image, category, title, hover }: Props) {
     <div className="relative w-full h-full">
       <Image
         unoptimized
+        loading="lazy"
         src={background}
         alt={title}
         fill

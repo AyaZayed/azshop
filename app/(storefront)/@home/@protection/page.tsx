@@ -1,8 +1,10 @@
-export const dynamic = "force-static";
-
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import React from "react";
-import Encouragements from "@/app/components/storefront/Encouragements";
+const Encouragements = dynamic(
+  () => import("@/app/components/storefront/Encouragements"),
+  { ssr: false }
+);
 
 export default function Protection() {
   return (

@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import { SecondaryButton, PrimaryButton } from "@/app/components/SubmitButtons";
 import { SunSVG } from "@/app/components/SVGs";
 import getSettings from "@/utils/db/settings";
@@ -7,7 +5,7 @@ import Image from "next/image";
 import React from "react";
 
 export default async function Hero() {
-  const storeName = (await getSettings()).storeName;
+  const { storeName } = await getSettings();
   return (
     <>
       <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">

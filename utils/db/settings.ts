@@ -19,11 +19,9 @@ const initialSettings = {
 
 const getSettings = memoize(
   async () => {
-    let settings = await prisma.settings.findFirst();
+    const settings = await prisma.settings.findFirst();
     if (!settings) {
-      settings = {
-        ...initialSettings,
-      };
+      return initialSettings;
     }
     return settings;
   },

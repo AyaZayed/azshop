@@ -1,4 +1,3 @@
-export const dynamic = "force-static";
 import {
   freeShipping,
   giftEarnBack,
@@ -10,7 +9,7 @@ import { BoatSVG, SeahorsesSVG, SeaStarSVG, SpiralSVG } from "../SVGs";
 import getSettings from "@/utils/db/settings";
 
 export async function getEncouragements() {
-  const currency = (await getSettings()).currencySymbol;
+  const { currencySymbol } = await getSettings();
 
   return [
     {
@@ -21,7 +20,7 @@ export async function getEncouragements() {
     {
       image: SeaStarSVG,
       title: "Free Shipping",
-      description: `on orders over ${currency}${freeShipping}`,
+      description: `on orders over ${currencySymbol}${freeShipping}`,
     },
     {
       image: BoatSVG,
@@ -30,7 +29,7 @@ export async function getEncouragements() {
     },
     {
       image: SeahorsesSVG,
-      title: `Give ${currency}${giftValue}, Earn ${currency}${giftEarnBack}`,
+      title: `Give ${currencySymbol}${giftValue}, Earn ${currencySymbol}${giftEarnBack}`,
       description: "on your first order",
     },
   ];

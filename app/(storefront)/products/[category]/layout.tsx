@@ -1,4 +1,3 @@
-export const dynamic = "force-static";
 import Link from "next/link";
 import { revalidatePath, unstable_noStore } from "next/cache";
 import ProductsHeader from "@/app/(storefront)/products/[category]/ProductsHeader";
@@ -13,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: { category: string };
 }) {
-  const storeName = (await getSettings()).storeName;
+  const { storeName } = await getSettings();
   return {
     title: `${storeName.toUpperCase()} - ${toTitleCase(params.category)}`,
   };

@@ -17,7 +17,7 @@ export default async function CartContent({
   cart: Cart;
   totalPrice: number;
 }) {
-  const currency = (await getSettings()).currencySymbol;
+  const { currencySymbol } = await getSettings();
 
   return (
     <div className="grid content-between gap-8 h-full font-bold">
@@ -60,7 +60,7 @@ export default async function CartContent({
         <CheckoutButton
           label="Checkout"
           total={totalPrice}
-          currency={currency}
+          currency={currencySymbol}
           style=" w-full"
         />
         <p className="font-primary mt-4 text-center font-light leading-6">

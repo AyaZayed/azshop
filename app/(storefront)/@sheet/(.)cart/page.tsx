@@ -1,9 +1,12 @@
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
-import CartContent from "@/app/components/storefront/CartContent";
 import CartSheet from "@/app/components/storefront/CartSheet";
 import { FanSVG } from "@/app/components/SVGs";
 import { getCart, getTotalPrice } from "@/utils/cart";
+import dynamic from "next/dynamic";
+const CartContent = dynamic(
+  () => import("@/app/components/storefront/CartContent")
+);
 
 export default async function page() {
   const cart = await getCart();

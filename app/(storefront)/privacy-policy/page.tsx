@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default async function PrivacyPolicy() {
-  const storeEmail = (await getSettings()).storeEmail;
+  const { storeEmail } = await getSettings();
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">

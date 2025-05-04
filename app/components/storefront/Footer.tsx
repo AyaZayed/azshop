@@ -67,7 +67,13 @@ export default async function Footer() {
           </ul>
         </div>
         <div className="relative w-full h-full">
-          <Image src={"/video2webp.webp"} alt="logo" fill unoptimized />
+          <Image
+            src={"/video2webp.webp"}
+            alt="logo"
+            fill
+            unoptimized
+            loading="lazy"
+          />
         </div>
       </div>
       <div className="mt-6 copyright capitalize font-normal py-2 font-secondary md:translate-x-[30px]">

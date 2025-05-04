@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import getSettings from "@/utils/db/settings";
 import Link from "next/link";
 import React from "react";

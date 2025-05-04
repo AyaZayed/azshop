@@ -1,10 +1,11 @@
-export const dynamic = "force-static";
-
 import React from "react";
 import { SecondaryButton } from "@/app/components/SubmitButtons";
-import CartContent from "@/app/components/storefront/CartContent";
 import { FanSVG } from "@/app/components/SVGs";
 import { getCart, getTotalPrice } from "@/utils/cart";
+import dynamic from "next/dynamic";
+const CartContent = dynamic(
+  () => import("@/app/components/storefront/CartContent")
+);
 
 export const metadata = {
   title: "Cart",

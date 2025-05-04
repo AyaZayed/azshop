@@ -1,5 +1,3 @@
-export const dynamic = "force-static";
-
 import getSettings from "@/utils/db/settings";
 import { orderDispatch, refundDays, returnDays } from "@/lib/constants";
 import Link from "next/link";

@@ -1,11 +1,13 @@
-export const dynamic = "force-static";
 import Currency from "@/app/components/Currency";
-import HoverImage from "@/app/components/storefront/HoverImage";
 import { MartiniSVG } from "@/app/components/SVGs";
 import { getOrders } from "@/utils/db/orders";
 import { ArrowRight } from "lucide-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React from "react";
+const HoverImage = dynamic(
+  () => import("@/app/components/storefront/HoverImage")
+);
 
 export const metadata = {
   title: "Orders",

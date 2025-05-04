@@ -1,4 +1,3 @@
-export const dynamic = "force-static";
 import { SunSVG, UmbrellaSVG } from "@/app/components/SVGs";
 import getSettings from "@/utils/db/settings";
 import Image from "next/image";
@@ -9,7 +8,7 @@ export const metadata = {
 };
 
 export default async function AboutPage() {
-  const storeName = (await getSettings()).storeName;
+  const { storeName } = await getSettings();
   return (
     <>
       <section className="flex justify-center items-center pt-36 pb-20 p-4 text-center">
