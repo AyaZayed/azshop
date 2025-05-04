@@ -1,78 +1,113 @@
 import prisma from "@/lib/db";
+import { memoize } from "nextjs-better-unstable-cache";
 
-export async function getAllProducts() {
-  const products = await prisma.product.findMany({
-    orderBy: {
-      created_at: "desc",
-    },
-  });
-
-  return products;
-}
+export const getAllProducts = memoize(
+  async () => {
+    const products = await prisma.product.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+    return products;
+  },
+  {
+    revalidateTags: ["product"],
+    persist: true,
+    suppressWarnings: true,
+  }
+);
 
 type Category = "all" | "sunscreen" | "repair" | "sets";
 
-export async function getProductsByCategory(category: Category) {
-  if (category === "all") {
+export const getProductsByCategory = memoize(
+  async (category: Category) => {
+    if (category === "all") {
+      return await prisma.product.findMany({
+        where: {
+          status: "published",
+        },
+      });
+    }
     return await prisma.product.findMany({
       where: {
+        category: category,
         status: "published",
       },
     });
+  },
+  {
+    revalidateTags: (category) => ["product", category],
+    persist: true,
+    suppressWarnings: true,
   }
-  return await prisma.product.findMany({
-    where: {
-      category: category,
-      status: "published",
-    },
-  });
-}
+);
 
-export async function getSingleProduct(id: string) {
-  const product = await prisma.product.findUnique({
-    where: {
-      id: id,
-    },
-  });
+export const getSingleProduct = memoize(
+  async (id: string) => {
+    const product = await prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+    });
 
-  return product;
-}
+    return product;
+  },
+  {
+    revalidateTags: (id) => ["product", id],
+    persist: true,
+    suppressWarnings: true,
+  }
+);
 
-export async function getFeaturedProducts(num: number) {
-  const featuredProducts = await prisma.product.findMany({
-    where: {
-      status: "published",
-      isFeatured: true,
-    },
-    take: num,
-    select: {
-      id: true,
-      name: true,
-      images: true,
-      price: true,
-      category: true,
-      type: true,
-      reviewsCount: true,
-      rating: true,
-    },
-  });
+export const getFeaturedProducts = memoize(
+  async (num: number) => {
+    const featuredProducts = await prisma.product.findMany({
+      where: {
+        status: "published",
+        isFeatured: true,
+      },
+      take: num,
+      select: {
+        id: true,
+        name: true,
+        images: true,
+        price: true,
+        category: true,
+        type: true,
+        reviewsCount: true,
+        rating: true,
+      },
+    });
 
-  return featuredProducts;
-}
+    return featuredProducts;
+  },
+  {
+    revalidateTags: ["product"],
+    persist: true,
+    suppressWarnings: true,
+  }
+);
 
-export async function getSuperFeatured() {
-  const product = await prisma.product.findFirst({
-    where: {
-      status: "published",
-      isFeatured: true,
-    },
-    select: {
-      id: true,
-      name: true,
-      images: true,
-      description: true,
-    },
-  });
+export const getSuperFeatured = memoize(
+  async () => {
+    const product = await prisma.product.findFirst({
+      where: {
+        status: "published",
+        isFeatured: true,
+      },
+      select: {
+        id: true,
+        name: true,
+        images: true,
+        description: true,
+      },
+    });
 
-  return product;
-}
+    return product;
+  },
+  {
+    revalidateTags: ["product"],
+    persist: true,
+    suppressWarnings: true,
+  }
+);

@@ -6,27 +6,17 @@ import { v4 as uuid } from "uuid";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
-
-  const guestId = req.cookies.get("guest_id");
-
-  if (!guestId) {
-    const newGuestId = uuid();
-    res.cookies.set("guest_id", newGuestId, {
-      maxAge: 60 * 60 * 24 * 30, // 1 month
+  if (!req.cookies.get("guest_id")) {
+    res.cookies.set("guest_id", uuid(), {
+      maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
     });
   }
 
-  const { isAuthenticated } = getKindeServerSession();
-  const authed = await isAuthenticated();
-
-  const url = req.nextUrl.clone();
-  const path = req.nextUrl.pathname;
-
-  if (path.startsWith("/dashboard")) {
-    if (!authed) {
-      url.pathname = "/api/auth/login"; // redirect to login
-      return NextResponse.redirect(url);
+  if (req.nextUrl.pathname.startsWith("/dashboard")) {
+    const { isAuthenticated } = getKindeServerSession();
+    if (!(await isAuthenticated())) {
+      return NextResponse.redirect(new URL("/api/auth/login", req.url));
     }
   }
 

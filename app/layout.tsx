@@ -4,8 +4,12 @@ import React from "react";
 import { getOrCreateUser } from "@/utils/auth/getOrCreateUser";
 import getSettings from "@/utils/db/settings";
 
+async function settings() {
+  return await getSettings();
+}
+
 export async function generateMetadata() {
-  const { storeName, storeDescription } = await getSettings();
+  const { storeName, storeDescription } = await settings();
   return {
     title: storeName.toLocaleUpperCase(),
     description: storeDescription,
@@ -18,7 +22,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   await getOrCreateUser();
-  const { primaryColor, secondaryColor, backgroundColor } = await getSettings();
+  const { primaryColor, secondaryColor, backgroundColor } = await settings();
 
   return (
     <html

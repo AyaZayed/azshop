@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import ReviewsStars from "./ReviewsStars";
+const ReviewsStars = dynamic(() => import("./ReviewsStars"), { ssr: false });
 import { Skeleton } from "@/components/ui/skeleton";
 import { addItemToCart } from "@/app/actions/cartActions";
 import { AddToCartButton } from "../SubmitButtons";
-import HoverImage from "./HoverImage";
+const HoverImage = dynamic(() => import("./HoverImage"), { ssr: false });
 import { Product } from "@prisma/client";
+import dynamic from "next/dynamic";
 
 export default function ProductCard({
   product,

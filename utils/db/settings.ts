@@ -1,57 +1,37 @@
 import prisma from "@/lib/db";
+import { memoize } from "nextjs-better-unstable-cache";
 
-export default async function getSettings() {
-  const settings = await prisma.settings.findFirst();
-  if (!settings) {
-    return {
-      storeName: "",
-      storeDescription: "",
-      storeEmail: "",
-      storePhone: "",
-      storeAddress: "",
-      storeInstagram: "",
-      storeFacebook: "",
-      currency: "USD",
-      currencySymbol: "$",
-      primaryColor: "#000000",
-      secondaryColor: "#000000",
-      backgroundColor: "#000000",
-    };
-  }
-  return {
-    storeName: settings.storeName,
-    storeDescription: settings.storeDescription,
-    storeEmail: settings.storeEmail,
-    storePhone: settings.storePhone,
-    storeAddress: settings.storeAddress,
-    storeInstagram: settings.storeInstagram,
-    storeFacebook: settings.storeFacebook,
-    currency: settings.currency,
-    currencySymbol: settings.currencySymbol,
-    primaryColor: settings.primaryColor,
-    secondaryColor: settings.secondaryColor,
-    backgroundColor: settings.backgroundColor,
-  };
-}
+const initialSettings = {
+  id: "1",
+  storeName: "",
+  storeDescription: "",
+  storeEmail: "",
+  storePhone: "",
+  storeAddress: "",
+  storeInstagram: "",
+  storeFacebook: "",
+  currency: "USD",
+  currencySymbol: "$",
+  primaryColor: "#000000",
+  secondaryColor: "#000000",
+  backgroundColor: "#000000",
+};
 
-export async function getAllSettings() {
-  let settings = await prisma.settings.findFirst();
-  if (!settings) {
-    settings = {
-      id: "1",
-      storeName: "",
-      storeDescription: "",
-      storeEmail: "",
-      storePhone: "",
-      storeAddress: "",
-      storeInstagram: "",
-      storeFacebook: "",
-      currency: "USD",
-      currencySymbol: "$",
-      primaryColor: "#000000",
-      secondaryColor: "#000000",
-      backgroundColor: "#000000",
-    };
+const getSettings = memoize(
+  async () => {
+    let settings = await prisma.settings.findFirst();
+    if (!settings) {
+      settings = {
+        ...initialSettings,
+      };
+    }
+    return settings;
+  },
+  {
+    revalidateTags: ["settings"],
+    persist: true,
+    suppressWarnings: true,
   }
-  return settings;
-}
+);
+
+export default getSettings;

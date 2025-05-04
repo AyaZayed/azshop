@@ -1,8 +1,8 @@
 import SettingsForm from "@/app/dashboard/settings/SettingsForm";
-import { getAllSettings } from "@/utils/db/settings";
+import getSettings from "@/utils/db/settings";
 import React from "react";
 
 export default async function SettingsPage() {
-  const settings = await getAllSettings();
+  const settings = await getSettings();
   return <SettingsForm settings={settings} />;
 }

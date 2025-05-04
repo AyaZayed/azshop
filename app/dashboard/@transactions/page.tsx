@@ -6,8 +6,13 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import Chart from "@/app/dashboard/@transactions/Chart";
+const Chart = dynamic(() => import("./Chart"), {
+  ssr: false,
+  loading: () => <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />,
+});
 import { getTransactions } from "@/utils/db/orders";
+import dynamic from "next/dynamic";
+import { LoaderCircle } from "lucide-react";
 
 export default async function Transactions() {
   const data = await getTransactions();

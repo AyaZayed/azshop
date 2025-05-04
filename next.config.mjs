@@ -8,7 +8,7 @@ const nextConfig = {
         ignoreBuildErrors: true,
         ignoreDuringBuilds: true
     },
-
+    swcMinify: true,
     // image source
     images: {
         remotePatterns: [
@@ -20,21 +20,6 @@ const nextConfig = {
             {
                 protocol: "https",
                 hostname: "res.cloudinary.com",
-                port: "",
-            },
-            {
-                protocol: "https",
-                hostname: "images.unsplash.com",
-                port: "",
-            },
-            {
-                protocol: "https",
-                hostname: "lh3.googleusercontent.com",
-                port: "",
-            },
-            {
-                protocol: "https",
-                hostname: "lerub.com",
                 port: "",
             },
         ],

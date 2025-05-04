@@ -6,6 +6,7 @@ export const fontNunito = Nunito({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-nunito",
+  display: "swap",
 });
 
 export const fontBogart = localFont({
@@ -23,4 +24,5 @@ export const fontRubik = Rubik({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   variable: "--font-secondary",
+  display: "swap",
 });
