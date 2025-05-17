@@ -3,6 +3,7 @@ import { fontBogart, fontNunito, fontRubik } from "./fonts";
 import React from "react";
 import { getOrCreateUser } from "@/utils/auth/getOrCreateUser";
 import getSettings from "@/utils/db/settings";
+import toTitleCase from "@/utils/capitalize";
 
 async function settings() {
   return await getSettings();
@@ -11,7 +12,7 @@ async function settings() {
 export async function generateMetadata() {
   const { storeName, storeDescription } = await settings();
   return {
-    title: storeName.toLocaleUpperCase(),
+    title: toTitleCase(storeName),
     description: storeDescription,
   };
 }

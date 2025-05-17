@@ -19,6 +19,7 @@ export default async function SuperFeatured() {
               alt="person in water"
               fill
               className="object-cover z-0"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <HoveredProduct product={product} />
           </div>

@@ -20,25 +20,33 @@ export default function ProductAccordions({ product }: { product: Product }) {
           <AccordionTrigger className="uppercase text-base">
             Ingredients
           </AccordionTrigger>
-          <AccordionContent>{product.ingredients}</AccordionContent>
+          <AccordionContent className="capitalize whitespace-pre-wrap">
+            {product.ingredients}
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
           <AccordionTrigger className="uppercase text-base">
             How To Use
           </AccordionTrigger>
-          <AccordionContent>{product.how_to}</AccordionContent>
+          <AccordionContent className="capitalize whitespace-pre-wrap">
+            {product.how_to}
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
           <AccordionTrigger className="uppercase text-base">
             Scent
           </AccordionTrigger>
-          <AccordionContent>{product.scent}</AccordionContent>
+          <AccordionContent className="capitalize whitespace-pre-wrap">
+            {product.scent}
+          </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
           <AccordionTrigger className="uppercase text-base">
             Size
           </AccordionTrigger>
-          <AccordionContent>{product.size}ml</AccordionContent>
+          <AccordionContent className="capitalize whitespace-pre-wrap">
+            {product.size}
+          </AccordionContent>
         </AccordionItem>
       </Accordion>
     </section>

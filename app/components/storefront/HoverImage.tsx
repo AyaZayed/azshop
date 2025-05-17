@@ -39,6 +39,7 @@ export default function HoverImage({ image, category, title, hover }: Props) {
         src={image}
         alt={title}
         fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="object-cover transition-all duration-500 ease-in z-10 absolute top-0 right-0"

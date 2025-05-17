@@ -1,27 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ProductCard, { LoadingProductCard } from "./ProductCard";
-
-type Data = {
-  id: string;
-  name: string;
-  price: number;
-  images: string[];
-  type: string;
-  category: string;
-  reviewsCount: number;
-  rating: number | null;
-}[];
+import { Product } from "@prisma/client";
 
 export default function ProductsGrid({
   data,
   currency,
 }: {
-  data: Data;
+  data: Product[];
   currency: string;
 }) {
-  const [products, setProducts] = useState<Data>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setProducts(data);
     setLoading(false);
@@ -37,13 +28,16 @@ export default function ProductsGrid({
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 w-full">
-        {products.length > 0 &&
+        {products &&
+          products.length > 0 &&
           products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              currency={currency}
-            />
+            <>
+              <ProductCard
+                key={product.id}
+                product={product}
+                currency={currency}
+              />
+            </>
           ))}
       </div>
     </>

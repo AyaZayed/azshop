@@ -55,11 +55,11 @@ export default async function OrdersPage() {
                   </TableCell>
                   <TableCell className="capitalize">{order.status}</TableCell>
                   <TableCell>
-                    {new Intl.DateTimeFormat("en-US", {
-                      day: "numeric",
-                      month: "long",
+                    {new Date(order.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
-                    }).format(order.createdAt)}
+                      month: "long",
+                      day: "numeric",
+                    })}
                   </TableCell>
                   <TableCell className="text-end">
                     <Currency />

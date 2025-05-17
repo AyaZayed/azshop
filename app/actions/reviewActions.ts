@@ -9,7 +9,7 @@ export async function createReview(prevState: unknown, formData: FormData) {
     headline: formData.get("headline"),
     content: formData.get("content"),
     rating: Number(formData.get("rating")),
-    productId: formData.get("productId"),
+    productId: formData.get("productId") || undefined,
     userId: formData.get("userId") || undefined,
     guestId: formData.get("guestId") || undefined,
   };
@@ -22,9 +22,18 @@ export async function createReview(prevState: unknown, formData: FormData) {
     };
   }
 
+  if (!result.data.productId) {
+    return {
+      errors: {
+        userId: ["Product not found"],
+      },
+    };
+  }
+
   try {
     const review = await prisma.review.create({
       data: {
+        productId: result.data.productId,
         ...result.data,
       },
     });
@@ -49,8 +58,7 @@ export async function createReview(prevState: unknown, formData: FormData) {
         rating: product.ratingSum / product.reviewsCount,
       },
     });
-
-    revalidatePath(`/product/${result.data.productId}`);
+    revalidatePath(`/products/${result.data.productId}`);
 
     return {
       success: true,

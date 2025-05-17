@@ -14,18 +14,22 @@ export const reviewSchema = z
       .number()
       .min(1, "Rating is required")
       .max(5, "Rating must be between 1 and 5"),
-    productId: z.string(),
+    productId: z.string().optional(),
     userId: z.string().optional(),
     guestId: z.string().optional(),
   })
-  .refine((data) => data.userId || data.guestId, {
+  .refine((d) => Boolean(d.userId) || Boolean(d.guestId), {
     message: "Either userId or guestId must be provided",
-    path: ["userId"], // shows up near userId in UI error
+    path: ["userId", "guestId"],
   });
 
 export const productSchema = z.object({
   name: z.string().toLowerCase().min(1, "Name is required"),
-  description: z.string().toLowerCase().min(1, "Description is required"),
+  description: z
+    .string()
+    .toLowerCase()
+    .min(1, "Description is required")
+    .max(240),
   price: z.number().min(1, "Price must be greater than 0"),
   status: z.enum(["draft", "published", "archived"]),
   isFeatured: z.boolean().optional(),
@@ -34,12 +38,14 @@ export const productSchema = z.object({
   reviewsCount: z.number().int().nonnegative().optional(),
   rating: z.number().min(1).max(5).optional(),
   reviews: z.array(reviewSchema).optional(),
-  ingredients: z.string(),
-  how_to: z.string().toLowerCase(),
+  ingredients: z.string().optional(),
+  how_to: z.string().toLowerCase().optional(),
   scent: z.string().toLowerCase().optional().default("Fragrance Free"),
-  size: z.number().min(1, "Size must be greater than 0"),
+  size: z.string().toLowerCase().optional().default("30ml"),
   type: z.enum(["face", "body", "both", "other"]),
   inStock: z.number().int().nonnegative().default(0),
+  isSet: z.boolean().default(false),
+  productsId: z.array(z.string()).optional(),
 });
 
 const validCurrencyCodes = supportedCurrencies.map((c) => c.code);

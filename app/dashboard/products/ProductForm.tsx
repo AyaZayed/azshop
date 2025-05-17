@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+import React, { Dispatch, SetStateAction } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,123 +24,29 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { type $Enums } from "@prisma/client";
+import { Product } from "@prisma/client";
 import { productTypes } from "@/lib/productTypes";
-import Currency from "@/app/components/Currency";
 import dynamic from "next/dynamic";
-const ImageUploadWidget = dynamic(
-  () => import("@/app/components/dashboard/ImageUploadWidget"),
-  { ssr: false }
-);
+const ImageUploadWidget = dynamic(() => import("./ImageUploadWidget"), {
+  ssr: false,
+});
 
 type productFormProps = {
-  images: string[];
-  setImages: (images: string[]) => void;
-  fields: {
-    name: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    description: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    price: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    inStock: {
-      key: string;
-      name: string;
-      initialValue: number | undefined;
-      errors: string[] | undefined;
-    };
-    status: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    isFeatured: {
-      key: string;
-      name: string;
-      initialValue: boolean | undefined;
-      errors: string[] | undefined;
-    };
-    category: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    images: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    ingredients: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    how_to: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    scent: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-    size: {
-      key: number;
-      name: string;
-      initialValue: number | undefined;
-      errors: string[] | undefined;
-    };
-    type: {
-      key: string;
-      name: string;
-      initialValue: string | undefined;
-      errors: string[] | undefined;
-    };
-  };
-  data?: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    status: $Enums.ProductStatus;
-    isFeatured: boolean;
-    images: string[];
-    category: $Enums.Category;
-    ingredients: string;
-    how_to: string;
-    scent: string;
-    size: number;
-    type: "face" | "body" | "both" | "other";
-    inStock: number;
-  };
+  images: string[] | string;
+  setImages: Dispatch<SetStateAction<string[] | string>>;
+  fields: any;
+  data?: Product;
   header: string;
+  currency: string;
 };
 
-export default async function ProductForm({
+export default function ProductForm({
   images,
   setImages,
   fields,
   data,
   header,
+  currency,
 }: productFormProps) {
   return (
     <>
@@ -184,7 +92,7 @@ export default async function ProductForm({
                   <Input
                     type="number"
                     id="price"
-                    placeholder={`${(<Currency />)}55`}
+                    placeholder={`${currency}55`}
                     className="w-full"
                     key={fields.price.key}
                     name={fields.price.name}

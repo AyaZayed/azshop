@@ -1,17 +1,21 @@
 "use server";
-import { parseWithZod } from "@conform-to/zod";
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
-import isAdmin from "@/utils/auth/isAdmin";
-import { productSchema } from "@/lib/zodSchemas";
-import prisma from "@/lib/db";
 
-export async function createProduct(prevState: unknown, formData: FormData) {
+import prisma from "@/lib/db";
+import { productSchema } from "@/lib/zodSchemas";
+import isAdmin from "@/utils/auth/isAdmin";
+import { parseWithZod } from "@conform-to/zod";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+export async function createProductSet(prevState: unknown, formData: FormData) {
+  console.log(formData);
   isAdmin();
 
   const submission = parseWithZod(formData, {
     schema: productSchema,
   });
+
+  console.log("submission:", submission);
 
   if (submission.status !== "success") {
     return submission.reply();
@@ -20,6 +24,33 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   const flatUrls = submission.value.images.flatMap((urlString) =>
     urlString.split(",").map((url) => url.trim())
   );
+
+  const productIds = formData.getAll("productIds") as string[];
+  console.log("productIds:", productIds);
+
+  const products = await prisma.product.findMany({
+    where: {
+      id: {
+        in: productIds,
+      },
+    },
+  });
+
+  const combinedIngredients = products
+    .map((product) => product.name + ": \n" + product.ingredients + "\n")
+    .join("\n\n");
+
+  const combinedHowTo = products
+    .map((product) => product.name + ": \n" + product.how_to)
+    .join("\n\n");
+
+  const combinedScent = products
+    .map((product) => product.name + ": \n" + product.scent)
+    .join("\n\n");
+
+  const combinedSize = products
+    .map((product) => product.name + ": \n" + product.size)
+    .join("\n\n");
 
   await prisma.product.create({
     data: {
@@ -30,12 +61,14 @@ export async function createProduct(prevState: unknown, formData: FormData) {
       isFeatured: submission.value.isFeatured === true ? true : false,
       images: flatUrls,
       category: submission.value.category,
-      ingredients: submission.value.ingredients,
-      how_to: submission.value.how_to,
-      scent: submission.value.scent,
-      size: submission.value.size,
       type: submission.value.type,
       inStock: submission.value.inStock,
+      isSet: true,
+      productsIds: productIds,
+      ingredients: combinedIngredients,
+      how_to: combinedHowTo,
+      scent: combinedScent,
+      size: combinedSize,
     },
   });
 
@@ -43,7 +76,7 @@ export async function createProduct(prevState: unknown, formData: FormData) {
   redirect("/dashboard/products");
 }
 
-export async function editProduct(prevState: unknown, formData: FormData) {
+export async function editProductSet(prevState: unknown, formData: FormData) {
   isAdmin();
 
   const submission = parseWithZod(formData, {
@@ -53,15 +86,16 @@ export async function editProduct(prevState: unknown, formData: FormData) {
   if (submission.status !== "success") {
     return submission.reply();
   }
+
   const flatUrls = submission.value.images.flatMap((urlString) =>
     urlString.split(",").map((url) => url.trim())
   );
 
-  const productId = formData.get("productId") as string;
+  const setId = formData.get("setId") as string;
 
   await prisma.product.update({
     where: {
-      id: productId,
+      id: setId,
     },
     data: {
       name: submission.value.name,
@@ -82,22 +116,4 @@ export async function editProduct(prevState: unknown, formData: FormData) {
 
   revalidatePath("/dashboard/products");
   redirect("/dashboard/products");
-}
-
-export async function deleteProduct(formData: FormData) {
-  isAdmin();
-
-  const productId = formData.get("productId") as string;
-
-  if (!productId || typeof productId !== "string") {
-    throw new Error("Product ID is missing");
-  }
-
-  await prisma.product.delete({
-    where: {
-      id: productId,
-    },
-  });
-
-  revalidatePath("/dashboard/products");
 }

@@ -39,6 +39,7 @@ export default function ProductCarousel({
                 fill
                 className="object-cover"
                 quality={30}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </button>
           ))}
@@ -69,6 +70,8 @@ export default function ProductCarousel({
                     alt={`Slide ${index + 1}`}
                     fill
                     className="object-cover"
+                    quality={30}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 )}
               </div>

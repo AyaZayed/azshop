@@ -24,6 +24,7 @@ export default function HoveredProduct({ product }: { product: Product }) {
             src={product.images[0]}
             alt={product.name}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={`object-contain lg:transform ${
               isHovered ? "lg:-translate-x-1/4" : "lg:translate-x-0"
             } transition-transform duration-500 ease-in-out`}

@@ -52,7 +52,7 @@ export const getTransactions = memoize(
     });
 
     const transactions = orders.map((order) => ({
-      date: new Intl.DateTimeFormat("en-UK").format(order.createdAt),
+      date: new Date(order.createdAt).toLocaleDateString("en-GB"),
       revenue: order.total / 100,
     }));
 

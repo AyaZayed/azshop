@@ -17,5 +17,9 @@ export default async function EditProduct({
   if (!data) {
     return notFound();
   }
-  return <EditProductForm data={data} />;
+  return (
+    <>
+      <EditProductForm data={data} />
+    </>
+  );
 }

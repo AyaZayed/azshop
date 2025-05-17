@@ -38,6 +38,7 @@ export default async function AboutPage() {
             alt={`${storeName} sunscreen`}
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="relative w-full h-screen hidden md:block">
@@ -45,7 +46,8 @@ export default async function AboutPage() {
             src="/ABOUT-sunscreen.webp"
             alt={`${storeName} sunscreen`}
             fill
-            className="object-cover "
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
       </section>
@@ -79,6 +81,7 @@ export default async function AboutPage() {
             alt="window over blue ocean"
             fill
             className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <h1 className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-sf_background text-2xl md:text-4xl w-3/4 text-center">
             Our goal is to give everyone the chance to experience The Good Life

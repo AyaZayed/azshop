@@ -14,6 +14,7 @@ export default async function Hero() {
             src="/hero-gif.webp"
             alt={`${"hero"}`}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
             priority
             unoptimized

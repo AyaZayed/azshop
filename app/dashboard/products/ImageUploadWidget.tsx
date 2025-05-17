@@ -4,11 +4,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { XIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type ImageUploadWidgetProps = {
   images: string[] | string; // Can be a single string or an array
-  setImages: (images: string[] | string) => void;
+  setImages: Dispatch<SetStateAction<string[] | string>>;
   fieldsImages: {
     key: string;
     name: string;
@@ -120,7 +120,9 @@ export default function ImageUploadWidget({
                 src={url}
                 alt="Uploaded image"
                 className="rounded-md object-cover"
-                layout="fill"
+                fill
+                quality={40}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <Button
                 className="absolute w-fit h-fit top-[-5px] right-[-5px] bg-red-500 rounded-full p-1"

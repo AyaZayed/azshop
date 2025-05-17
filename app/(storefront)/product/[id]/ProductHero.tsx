@@ -24,7 +24,9 @@ export default async function ProductHero({ product }: { product: Product }) {
         <h1 className="text-4xl md:text-6xl uppercase font-bold mb-5">
           {product.name}
         </h1>
-        <p className="font-primary">{product.description}</p>
+        <p className="font-primary line-clamp-6 whitespace-pre-wrap capitalize">
+          {product.description}
+        </p>
         <h3>
           <Currency />
           {product.price}

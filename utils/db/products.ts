@@ -27,13 +27,21 @@ export const getProductsByCategory = memoize(
           status: "published",
         },
       });
+    } else if (category === "sets") {
+      return await prisma.product.findMany({
+        where: {
+          status: "published",
+          isSet: true,
+        },
+      });
+    } else {
+      return await prisma.product.findMany({
+        where: {
+          status: "published",
+          category: category,
+        },
+      });
     }
-    return await prisma.product.findMany({
-      where: {
-        category: category,
-        status: "published",
-      },
-    });
   },
   {
     revalidateTags: (category) => ["product", category],
@@ -104,6 +112,44 @@ export const getSuperFeatured = memoize(
     });
 
     return product;
+  },
+  {
+    revalidateTags: ["product"],
+    persist: true,
+    suppressWarnings: true,
+  }
+);
+
+export const getProductsForSets = memoize(
+  async () => {
+    return await prisma.product.findMany({
+      where: {
+        status: "published",
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+  },
+  {
+    revalidateTags: ["product"],
+    persist: true,
+    suppressWarnings: true,
+  }
+);
+
+export const getSingleSetProducts = memoize(
+  async (id: string) => {
+    const products = await prisma.product.findMany({
+      where: {
+        id: id,
+      },
+      select: {
+        productsIds: true,
+      },
+    });
+    return products.map((product) => product.productsIds).flat();
   },
   {
     revalidateTags: ["product"],

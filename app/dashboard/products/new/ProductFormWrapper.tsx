@@ -7,8 +7,8 @@ import { productSchema } from "@/lib/zodSchemas";
 import { useState } from "react";
 import ProductForm from "../ProductForm";
 
-export default function ProductFormWrapper() {
-  const [images, setImages] = useState<string[]>([]);
+export default function ProductFormWrapper({ currency }: { currency: string }) {
+  const [images, setImages] = useState<string[] | string>([]);
   const [lastResult, action] = useFormState(createProduct, undefined);
 
   const [form, fields] = useForm({
@@ -29,6 +29,7 @@ export default function ProductFormWrapper() {
         setImages={setImages}
         fields={fields}
         header="New Product"
+        currency={currency}
       />
     </form>
   );

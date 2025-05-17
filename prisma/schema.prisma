@@ -25,22 +25,30 @@ model Product {
   price Float
   status ProductStatus
   inStock Int
-  orderItems OrderItem[]
   isFeatured Boolean @default(false)
   images String[]
   created_at DateTime @default(now())
   category Category
+  isSet Boolean @default(false)
+  productsIds String[] @default([])
+  how_to String
+  scent String @default("fragrance free")
+  size String 
+  type Type
+  ingredients String
 
   reviews Review[]
   reviewsCount Int @default(0)
   rating Float? @default(0)
   ratingSum Int @default(0)
 
-  how_to String
-  scent String @default("fragrance free")
-  size Int 
-  type Type
-  ingredients String
+  orderItems OrderItem[]
+}
+
+enum Category {
+  sunscreen
+  repair 
+  sets
 }
 
 model Order {
@@ -60,8 +68,8 @@ model OrderItem{
   id String @id @default(uuid())
   order Order @relation(fields: [orderId],references: [id])
   orderId String
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String
+  product   Product?  @relation(fields: [productId], references: [id])
+  productId String?
   quantity  Int
   unitPrice Float
 }
@@ -74,10 +82,10 @@ model Review{
   author String
   created_at DateTime @default(now())
 
-  productId String
   userId String?
   guestId String?
-  product Product @relation(fields: [productId], references: [id])
+  productId String?
+  product Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   user User? @relation(fields: [userId], references: [id])
 }
 
@@ -101,12 +109,6 @@ enum ProductStatus {
   draft
   published
   archived
-}
-
-enum Category {
-  sunscreen
-  repair 
-  sets
 }
 
 enum Type {
