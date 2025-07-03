@@ -37,7 +37,7 @@ export default async function Footer() {
             width={100}
             height={100}
           />
-          <ul className="z-30 flex flex-col gap-3 lg:absolute lg:left-0 lg:-bottom-[55px] lg:translate-x-[30px]">
+          <ul className="z-30 flex flex-col gap-3 lg:absolute lg:left-0 lg:-bottom-[70px] lg:translate-x-[30px]">
             {links.map((link) => (
               <li key={link.label}>
                 <Link
@@ -76,7 +76,7 @@ export default async function Footer() {
           />
         </div>
       </div>
-      <div className="mt-6 copyright capitalize font-normal py-2 font-secondary md:translate-x-[30px]">
+      <div className="mt-8 copyright capitalize font-normal py-2 font-secondary md:translate-x-[30px]">
         <p>{storeName} &copy; 2025 - All rights reserved</p>
       </div>
     </footer>
