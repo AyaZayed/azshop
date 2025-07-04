@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function Loading() {
+export default function HeroLoading() {
   return (
     <>
       <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">

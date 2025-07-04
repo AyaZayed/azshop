@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function Loading() {
+export default function ProtectionLoading() {
   return (
     <>
       <section className="w-full h-screen relative">

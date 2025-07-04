@@ -73,6 +73,7 @@ export default async function Footer() {
             fill
             unoptimized
             loading="lazy"
+            className="object-cover"
           />
         </div>
       </div>

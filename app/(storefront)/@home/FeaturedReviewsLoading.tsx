@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function Loading() {
+export default function FeaturedReviewsLoading() {
   return (
     <section className="p-6 py-16 flex flex-col items-center justify-center">
       <Skeleton className="w-1/2 h-10" />

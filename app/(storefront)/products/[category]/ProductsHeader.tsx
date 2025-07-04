@@ -50,7 +50,7 @@ export default function ProductsHeader({ category }: { category: string }) {
           className="w-full md:w-[85%] flex flex-col gap-10">
           {d.category === category && (
             <>
-              <h1>{d.title}</h1>
+              <h1 className="text-3xl">{d.title}</h1>
               <p>{d.description}</p>
             </>
           )}

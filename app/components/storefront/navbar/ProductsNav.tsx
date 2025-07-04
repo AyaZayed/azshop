@@ -15,12 +15,14 @@ export default async function ProductsNav() {
           <Link
             aria-label={product.name}
             href={`/product/${product.id}`}
-            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center w-[140px] h-[200px]">
-            <HoverImage
-              image={product.images[0]}
-              title={product.name}
-              category={product.category}
-            />
+            className="text-[13px] align-middle text-center leading-4 hover:text-sf_primary flex flex-col gap-3 items-center">
+            <div className="w-[140px] h-[180px]">
+              <HoverImage
+                image={product.images[0]}
+                title={product.name}
+                category={product.category}
+              />
+            </div>
             <h4>{product.name}</h4>
           </Link>
         </li>

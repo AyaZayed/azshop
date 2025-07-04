@@ -11,7 +11,7 @@ export default async function PrivacyPolicy() {
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
-      <h1>Privacy Policy</h1>
+      <h1 className=" text-[34px] md:text-[60px]">Privacy Policy</h1>
       <div className="flex flex-col gap-4 leading-7 md:w-3/4">
         <p>
           We take your privacy seriously and are committed to protecting your

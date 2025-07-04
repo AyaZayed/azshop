@@ -13,7 +13,12 @@ export default async function ProductCategory({
   const data = await getProductsByCategory(params.category);
   const { currencySymbol } = await getSettings();
   return (
-    <Suspense fallback={<h1 className="text-center">Loading Products ...</h1>}>
+    <Suspense
+      fallback={
+        <h1 className="text-center text-[34px] md:text-[60px]">
+          Loading Products ...
+        </h1>
+      }>
       <ProductsGrid data={data} currency={currencySymbol} />
     </Suspense>
   );

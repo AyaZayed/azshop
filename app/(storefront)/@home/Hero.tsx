@@ -9,6 +9,8 @@ export default async function Hero() {
   return (
     <>
       <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">
+        <link rel="preload" as="image" href="/hero-gif.webp" />
+
         <div className="hidden md:block md:order-1 w-full h-screen relative">
           <Image
             src="/hero-gif.webp"

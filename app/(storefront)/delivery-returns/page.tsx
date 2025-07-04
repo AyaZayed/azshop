@@ -13,7 +13,7 @@ export default async function DeliveryReturns() {
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
-      <h1>Delivery & Returns Policy</h1>
+      <h1 className=" text-[34px] md:text-[60px]">Delivery & Returns Policy</h1>
       <div className="flex flex-col gap-4 leading-7 md:w-3/4">
         <p>
           We offer delivery services throughout {storeAddress} storePhone,

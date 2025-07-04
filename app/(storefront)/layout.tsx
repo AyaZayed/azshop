@@ -7,7 +7,6 @@ import Navbar from "../components/storefront/navbar/Navbar";
 export default function StorefrontLayout({
   children,
   sheet,
-  home,
 }: {
   children: React.ReactNode;
   sheet: React.ReactNode;
@@ -17,7 +16,6 @@ export default function StorefrontLayout({
     <main className="bg-sf_background">
       <Navbar />
       <div className="min-h-screen">
-        <HomeWrapper home={home} />
         {sheet}
         {children}
       </div>

@@ -19,7 +19,7 @@ export default async function OrdersPage() {
   return (
     <section className="flex flex-col gap-8 justify-center items-center pt-32 pb-20 p-4">
       <MartiniSVG className="fill-sf_sedcondary" width={100} height={100} />
-      <h1>Your Orders</h1>
+      <h1 className=" text-[34px] md:text-[60px]">Your Orders</h1>
       <div
         className={`mt-6 grid grid-cols-1 ${
           orders.length > 1 ? "md:grid-cols-2" : ""
@@ -30,13 +30,15 @@ export default async function OrdersPage() {
               key={order.id}
               className="order flex gap-6 p-6 font-secondary border-[1px] border-sf_sedcondary">
               <div className="order-img w-[130px] h-full">
-                <HoverImage
-                  key={order.items[0].id}
-                  image={order.items[0].product.images[0]}
-                  category={order.items[0].product.category}
-                  title={order.items[0].product.name}
-                  hover={true}
-                />
+                {order.items[0].product && (
+                  <HoverImage
+                    key={order.items[0].id}
+                    image={order.items[0].product.images[0]}
+                    category={order.items[0].product.category}
+                    title={order.items[0].product.name}
+                    hover={true}
+                  />
+                )}
               </div>
               <div className="order-text flex flex-col gap-2">
                 <h2 className="font-semibold flex gap-2">

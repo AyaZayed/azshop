@@ -5,13 +5,13 @@ import { getFeaturedReviews } from "@/utils/db/reviews";
 import dynamic from "next/dynamic";
 import React from "react";
 
-export default async function featuredReviews() {
+export default async function FeaturedReviews() {
   const reviews = await getFeaturedReviews(3);
   return (
     <>
       {reviews.length > 0 && (
         <section className="p-6 py-16 flex flex-col items-center justify-center">
-          <h1 className="capitalize mb-16 text-center">
+          <h1 className="capitalize mb-16 text-center text-[34px] md:text-[60px]">
             What our customers say
           </h1>
           <div

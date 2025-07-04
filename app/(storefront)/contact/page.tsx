@@ -11,7 +11,7 @@ export default async function Contact() {
 
   return (
     <section className="pt-32 pb-20 p-8 flex flex-col gap-16 items-center">
-      <h1>Contact Us</h1>
+      <h1 className="text-[34px] md:text-[60px]">Contact Us</h1>
       <div className="flex flex-col gap-4 leading-7 md:w-3/4">
         <p>
           {`Thank you for your interest in our skin care products. If you have any questions or concerns, please don't hesitate to contact us. We are always happy to help and will do our best to respond to your inquiry as soon as possible.`}

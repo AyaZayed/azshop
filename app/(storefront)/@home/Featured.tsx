@@ -3,7 +3,7 @@ import { getFeaturedProducts } from "@/utils/db/products";
 import getSettings from "@/utils/db/settings";
 import React from "react";
 
-export default async function featuredProducts() {
+export default async function FeaturedProducts() {
   const data = await getFeaturedProducts(3);
   const { currencySymbol } = await getSettings();
 

@@ -35,7 +35,7 @@ export default function HoveredProduct({ product }: { product: Product }) {
           className={`lg:absolute lg:top-0 lg:right-0 w-full lg:w-1/2 h-full bg-sf_background transition-all duration-500 ease-in-out flex flex-col items-center justify-center text-center text-sf_primary gap-4 p-10 md:gap-16 lg:gap-10 opacity-100 ${
             isHovered ? "lg:opacity-100" : "lg:opacity-0"
           }`}>
-          <h1 className="uppercase font-secondary leading-[1.1] font-[500]">
+          <h1 className="uppercase font-secondary leading-[1.1] font-[500] text-[34px] md:text-[60px]">
             {product.name}
           </h1>
           <p>{product.description}</p>

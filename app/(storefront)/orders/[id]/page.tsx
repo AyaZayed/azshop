@@ -26,7 +26,7 @@ export default async function page({ params }: { params: { id: string } }) {
         <ArrowLeft />
         Back to orders
       </Link>
-      <h1 className="font-primary">Order Details</h1>
+      <h1 className="font-primary text-[34px] md:text-[60px]">Order Details</h1>
       <div className="flex flex-col gap-2 items-center">
         <p>Order #{order.id.split("-")[0]}</p>
         <p>
