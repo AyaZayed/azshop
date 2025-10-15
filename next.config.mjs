@@ -1,5 +1,4 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
@@ -35,13 +34,15 @@ const nextConfig = {
             },
         ];
     },
-
     async headers() {
         return [
             {
                 source: '/(.*)',
                 headers: [
-                    { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self'; object-src 'none'" },
+                    { 
+                        key: 'Content-Security-Policy', 
+                        value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https:; object-src 'none'" 
+                    },
                     { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
                     { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
                     { key: 'X-Frame-Options', value: 'DENY' },
@@ -49,11 +50,8 @@ const nextConfig = {
             },
         ];
     }
-
 };
-
 const withAnalyzer = withBundleAnalyzer({
     enabled: process.env.ANALYZE === "true",
 });
-
 export default withAnalyzer(nextConfig);
