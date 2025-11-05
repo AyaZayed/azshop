@@ -4,10 +4,21 @@ import getSettings from "@/utils/db/settings";
 import Image from "next/image";
 import React from "react";
 
+/**
+ * The main hero component for the homepage.
+ * It displays a background video and a call-to-action button.
+ * The component is responsive and works well on different screen sizes.
+ */
 export default async function Hero() {
   const { storeName } = await getSettings();
   return (
     <>
+      {/**
+       * The first section is the background video.
+       * We use the `link` tag to preload the video.
+       * We use the `Image` component from `next/image` to display the video.
+       * The video is set to be full-bleed and to take up the full height of the viewport.
+       */}
       <section className="z-1 w-full h-screen grid grid-cols-1 md:grid-cols-2">
         <link rel="preload" as="image" href="/hero-gif.webp" />
 
@@ -22,6 +33,11 @@ export default async function Hero() {
             unoptimized
           />
         </div>
+
+        {/**
+         * The second section is the content section.
+         * We use the `PrimaryButton` component to create a call-to-action button.
+         */}
         <div className="md:order-2 relative w-full h-screen text-sf_background">
           <Image
             src="/hero-sea.webp"
@@ -46,6 +62,7 @@ export default async function Hero() {
           </div>
         </div>
       </section>
+
       <section className="text-sf_sedcondary p-16 flex items-center flex-col justify-center">
         <div className="content w-full md:w-1/2 text-center flex items-center flex-col gap-6 md:gap-10">
           <SunSVG className="fill-sf_sedcondary" width={100} height={100} />
