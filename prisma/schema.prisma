@@ -45,12 +45,6 @@ model Product {
   orderItems OrderItem[]
 }
 
-enum Category {
-  sunscreen
-  repair 
-  sets
-}
-
 model Order {
   id String @id @default(uuid())
   status String @default("pending")
@@ -103,6 +97,12 @@ model Settings{
   primaryColor String @default("#ff5500")
   secondaryColor String @default("#a54547")
   backgroundColor String @default("#f6f2ed")
+}
+
+enum Category {
+  sunscreen
+  repair 
+  sets
 }
 
 enum ProductStatus {
